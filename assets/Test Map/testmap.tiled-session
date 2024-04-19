@@ -1,0 +1,55 @@
+{
+    "Map/SizeTest": {
+        "height": 4300,
+        "width": 2
+    },
+    "activeFile": "testmap.tmx",
+    "expandedProjectPaths": [
+    ],
+    "fileStates": {
+        "Tilesets/TX Plant.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "Tilesets/TX Props.tsx": {
+            "scaleInDock": 1
+        },
+        "Tilesets/TX Tileset Grass.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 2
+        },
+        "Tilesets/TX Tileset Stone Ground.tsx": {
+            "scaleInDock": 1
+        },
+        "testmap.tmx": {
+            "scale": 0.75,
+            "selectedLayer": 2,
+            "viewCenter": {
+                "x": 425.33333333333337,
+                "y": 420.6666666666667
+            }
+        }
+    },
+    "last.imagePath": "C:/Users/samha/Documents/Game-Project-Group-16-/assets/Test Map/Textures",
+    "map.height": 50,
+    "map.lastUsedFormat": "tmx",
+    "map.tileHeight": 16,
+    "map.tileWidth": 16,
+    "map.width": 50,
+    "openFiles": [
+        "testmap.tmx",
+        "Tilesets/TX Tileset Grass.tsx",
+        "Tilesets/TX Plant.tsx"
+    ],
+    "project": "testmap.tiled-project",
+    "recentFiles": [
+        "Tilesets/TX Plant.tsx",
+        "Tilesets/TX Tileset Grass.tsx",
+        "testmap.tmx"
+    ],
+    "tileset.lastUsedFormat": "tsx",
+    "tileset.tileSize": {
+        "height": 16,
+        "width": 16
+    }
+}
