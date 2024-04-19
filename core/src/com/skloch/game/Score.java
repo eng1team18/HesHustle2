@@ -1,8 +1,7 @@
 package com.skloch.game;
 
 /**
- * Counter to track the number of time you perform various activities within the game.
- * This includes the number of time you eat, sleep, study, and doing activities.
+ * Counter to track your score when you perform various activities within the game.
  */
 public class Score {
     private int totalScore;

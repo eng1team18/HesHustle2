@@ -55,7 +55,9 @@ public class GameScreen implements Screen {
     public DialogueBox dialogueBox;
     public final Image blackScreen;
     private boolean sleeping = false;
-    Score score = Score.getInstance();
+    private Leaderboard leaderboard;
+    private final Score score;
+    String playerName;
 
 
     /**
@@ -64,11 +66,13 @@ public class GameScreen implements Screen {
      *             initialised once.
      * @param avatarChoice Which avatar the player has picked, 0 for the more masculine avatar, 1 for the more feminine
      */
-    public GameScreen(final HustleGame game, int avatarChoice) {
+    public GameScreen(final HustleGame game, int avatarChoice, String userInput) {
         // Important game variables
         this.game = game;
         this.game.gameScreen = this;
+        this.score = Score.getInstance();
         eventManager = new EventManager(this);
+        this.playerName = userInput;
 
         // Scores
         hoursStudied = hoursRecreational = hoursSlept = 0;
@@ -80,7 +84,7 @@ public class GameScreen implements Screen {
         camera.setToOrtho(false, game.WIDTH, game.HEIGHT);
         game.shapeRenderer.setProjectionMatrix(camera.combined);
 
-
+        leaderboard = new Leaderboard();
 
         // Create a stage for the user interface to be on
         uiStage = new Stage(new FitViewport(game.WIDTH, game.HEIGHT));
@@ -290,6 +294,10 @@ public class GameScreen implements Screen {
 
         if (Gdx.input.isKeyPressed(Input.Keys.B)) {
             GameOver();
+        }
+
+        if (Gdx.input.isKeyPressed(Input.Keys.G)) {
+            score.incrementTotalScore(5);
         }
 
         // Update the map's render position
@@ -742,5 +750,7 @@ public class GameScreen implements Screen {
      */
     public void GameOver() {
         game.setScreen(new GameOverScreen(game));
+        int totalScore = score.getTotalScore();
+        leaderboard.saveScore(playerName, totalScore);
     }
 }

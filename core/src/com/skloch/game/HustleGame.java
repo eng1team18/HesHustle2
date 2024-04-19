@@ -22,6 +22,7 @@ public class HustleGame extends Game {
 	public int WIDTH;
 	public int HEIGHT;
 	public Skin skin;
+	public Skin skin2;
 	public TiledMap map;
 	public String credits, tutorialText;
 	public GameScreen gameScreen;
@@ -63,6 +64,7 @@ public class HustleGame extends Game {
 	public void create () {
 		batch = new SpriteBatch();
 		skin = new Skin(Gdx.files.internal("Interface/BlockyInterface.json"));
+		skin2 = new Skin(Gdx.files.internal("TextField/TextField.json"));
 		// Map
 		map = new TmxMapLoader().load("East Campus/east_campus.tmx");
 		mapProperties = map.getProperties();

@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.FitViewport;
@@ -23,6 +24,7 @@ public class MenuScreen implements Screen {
     OrthographicCamera camera;
     private Viewport viewport;
     private Image titleImage;
+    String playerName;
 
     /**
      * A class to display a menu screen, initially gives the player 4 options, Start, Settings, Credits, Quit
@@ -63,12 +65,15 @@ public class MenuScreen implements Screen {
         menuStage.addActor(avatarSelectTable);
         avatarSelectTable.setVisible(false);
 
+        // Make name input window
+        Table nameInputTable = makeNameInputTable(avatarSelectTable);
+        menuStage.addActor(nameInputTable);
+        nameInputTable.setVisible(false);
 
         // Make tutorial window
-        Window tutorialWindow = makeTutorialWindow(avatarSelectTable);
+        Window tutorialWindow = makeTutorialWindow(nameInputTable);
         menuStage.addActor(tutorialWindow);
         tutorialWindow.setVisible(false);
-
 
         // Make table to draw buttons and title
         Table buttonTable = new Table();
@@ -130,6 +135,14 @@ public class MenuScreen implements Screen {
             public void changed(ChangeEvent event, Actor actor) {
                 game.soundManager.playButton();
                 game.setScreen(new CreditScreen(game, thisScreen));
+            }
+        });
+
+        leaderboardButton.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                game.soundManager.playButton();
+                game.setScreen(new LeaderboardScreen(game));
             }
         });
 
@@ -300,7 +313,7 @@ public class MenuScreen implements Screen {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 game.soundManager.playButton();
-                game.setScreen(new GameScreen(game, 1));
+                game.setScreen(new GameScreen(game, 1, playerName));
                 game.soundManager.stopMenuMusic();
                 dispose();
             }
@@ -310,7 +323,7 @@ public class MenuScreen implements Screen {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 game.soundManager.playButton();
-                game.setScreen(new GameScreen(game, 2));
+                game.setScreen(new GameScreen(game, 2, playerName));
                 game.soundManager.stopMenuMusic();
                 dispose();
             }
@@ -319,4 +332,48 @@ public class MenuScreen implements Screen {
         return table;
     }
 
+    public Window makeNameInputTable(Table nextTable) {
+        Window nameWindow = new Window("", game.skin);
+        Table tutTable = new Table();
+        nameWindow.add(tutTable).prefHeight(600).prefWidth(800-20);
+
+        // Title
+        Label title = new Label("Enter Name", game.skin, "button");
+        tutTable.add(title).padTop(10);
+        tutTable.row();
+
+        TextField nameField = new TextField("", game.skin2);
+        nameField.setMessageText("Enter your name here");  // Placeholder text
+        nameField.setAlignment(Align.center);
+        tutTable.add(nameField).padTop(20).fillX().expandX();
+        tutTable.row();
+
+        // Exit button
+        TextButton continueButton = new TextButton("Continue", game.skin);
+        tutTable.add(continueButton).bottom().width(300).padTop(10);
+
+        nameWindow.pack();
+
+        nameWindow.setSize(900, 600);
+
+        // Centre the window
+        nameWindow.setX((viewport.getWorldWidth() / 2) - (nameWindow.getWidth() / 2));
+        nameWindow.setY((viewport.getWorldHeight() / 2) - (nameWindow.getHeight() / 2));
+
+
+
+        continueButton.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                game.soundManager.playButton();
+                nameWindow.setVisible(false);
+                nextTable.setVisible(true);
+                playerName = nameField.getText();
+            }
+        });
+
+
+
+        return nameWindow;
+    }
 }

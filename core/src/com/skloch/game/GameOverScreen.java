@@ -91,6 +91,18 @@ public class GameOverScreen implements Screen {
             }
         });
 
+        leaderboardButton.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                game.soundManager.playButton();
+                game.soundManager.overworldMusic.stop();
+                dispose();
+                game.setScreen(new LeaderboardScreen(game));
+                score.setTotalScore(0);
+                Achievement.getInstance().resetAllAchievements();
+            }
+        });
+
         Screen thisScreen = this;
         achievementsButton.addListener(new ChangeListener() {
             @Override
