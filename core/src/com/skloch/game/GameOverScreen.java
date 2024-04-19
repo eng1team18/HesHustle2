@@ -25,6 +25,7 @@ public class GameOverScreen implements Screen {
     Stage gameOverStage;
     Viewport viewport;
     OrthographicCamera camera;
+    private final Score score;
 
     /**
      * A screen to display a 'Game Over' screen when the player finishes their exams
@@ -32,11 +33,8 @@ public class GameOverScreen implements Screen {
      * Tracking them now will make win conditions easier to implement for assessment 2
      *
      * @param game An instance of HustleGame
-     * @param hoursStudied The hours studied in the playthrough
-     * @param hoursRecreational The hours of fun had in the playthrough
-     * @param hoursSlept The hours slept in the playthrough
      */
-    public GameOverScreen (final HustleGame game, int hoursStudied, int hoursRecreational, int hoursSlept) {
+    public GameOverScreen (final HustleGame game) {
         this.game = game;
         gameOverStage = new Stage(new FitViewport(game.WIDTH, game.HEIGHT));
         Gdx.input.setInputProcessor(gameOverStage);
@@ -59,24 +57,25 @@ public class GameOverScreen implements Screen {
         gameOverTable.row();
 
         Table scoresTable = new Table();
-        gameOverTable.add(scoresTable).prefHeight(380).prefWidth(450);
+        gameOverTable.add(scoresTable).prefHeight(160).prefWidth(450);
         gameOverTable.row();
 
+        this.score = Score.getInstance();
+        int totalScore = score.getTotalScore();
+
         // Display scores
-        scoresTable.add(new Label("Hours Studied", game.skin, "interaction")).padBottom(5);
+        scoresTable.add(new Label("Score", game.skin, "interaction")).padBottom(5);
         scoresTable.row();
-        scoresTable.add(new Label(String.valueOf(hoursStudied), game.skin, "button")).padBottom(20);
+        scoresTable.add(new Label(String.valueOf(totalScore), game.skin, "button")).padBottom(20);
         scoresTable.row();
-        scoresTable.add(new Label("Recreational hours", game.skin, "interaction")).padBottom(5);
-        scoresTable.row();
-        scoresTable.add(new Label(String.valueOf(hoursRecreational), game.skin, "button")).padBottom(20);
-        scoresTable.row();
-        scoresTable.add(new Label("Hours Slept", game.skin, "interaction")).padBottom(5);
-        scoresTable.row();
-        scoresTable.add(new Label(String.valueOf(hoursSlept), game.skin, "button"));
-
-
-        // Exit button
+        // Added new buttons (originally just Exit) now with Achievements and Leaderboard
+        gameOverTable.row();
+        TextButton achievementsButton = new TextButton("Achievements", game.skin);
+        gameOverTable.add(achievementsButton).bottom().width(300).padTop(10);
+        gameOverTable.row();
+        TextButton leaderboardButton = new TextButton("Leaderboard", game.skin);
+        gameOverTable.add(leaderboardButton).bottom().width(300).padTop(10);
+        gameOverTable.row();
         TextButton exitButton = new TextButton("Main Menu", game.skin);
         gameOverTable.add(exitButton).bottom().width(300).padTop(10);
 
@@ -87,11 +86,19 @@ public class GameOverScreen implements Screen {
                 game.soundManager.overworldMusic.stop();
                 dispose();
                 game.setScreen(new MenuScreen(game));
+                score.setTotalScore(0);
+                Achievement.getInstance().resetAllAchievements();
             }
         });
 
-
-
+        Screen thisScreen = this;
+        achievementsButton.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                game.soundManager.playButton();
+                game.setScreen(new AchievementScreen(game));
+            }
+        });
 
         gameOverWindow.pack();
 

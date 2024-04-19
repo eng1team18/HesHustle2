@@ -55,6 +55,7 @@ public class GameScreen implements Screen {
     public DialogueBox dialogueBox;
     public final Image blackScreen;
     private boolean sleeping = false;
+    Score score = Score.getInstance();
 
 
     /**
@@ -231,7 +232,6 @@ public class GameScreen implements Screen {
         // Display a little good morning message
         dialogueBox.show();
         dialogueBox.setText(getWakeUpMessage());
-
     }
 
     @Override
@@ -266,11 +266,6 @@ public class GameScreen implements Screen {
         //ProgressBar timeBar = new ProgressBar(0, 200, 1, false, blueSkin);
         //timeBar.act(delta);
 
-
-        // Increment the time and possibly day
-        if (!escapeMenu.isVisible() && !sleeping) {
-            passTime(Gdx.graphics.getDeltaTime());
-        }
         timeLabel.setText(formatTime((int) daySeconds));
 
         // Freeze the player's movement for this frame if any menus are visible
@@ -293,6 +288,9 @@ public class GameScreen implements Screen {
             game.soundManager.footstepBool = false;
         }
 
+        if (Gdx.input.isKeyPressed(Input.Keys.B)) {
+            GameOver();
+        }
 
         // Update the map's render position
         mapRenderer.setView(camera);
@@ -353,7 +351,7 @@ public class GameScreen implements Screen {
 
 
         // Debug - Draw player hitboxes
-        // drawHitboxes();
+//         drawHitboxes();
 
         // Debug - print the event value of the closest object to the player if there is one
 //        if (player.getClosestObject() != null) {
@@ -502,7 +500,7 @@ public class GameScreen implements Screen {
         game.shapeRenderer.setColor(0, 0, 1, 1);
         game.shapeRenderer.rect(player.feet.x, player.feet.y, player.feet.width, player.feet.height);
         // Event hitbox
-        game.shapeRenderer.setColor(0, 1, 1, 1);
+        game.shapeRenderer.setColor(0, 1, 0, 1);
         game.shapeRenderer.rect(player.eventHitbox.x, player.eventHitbox.y, player.eventHitbox.width, player.eventHitbox.height);
         game.shapeRenderer.end();
     }
@@ -743,6 +741,6 @@ public class GameScreen implements Screen {
      * Ends the game, called at the end of the 7th day, switches to a screen that displays a score
      */
     public void GameOver() {
-        game.setScreen(new GameOverScreen(game, hoursStudied, hoursRecreational, hoursSlept));
+        game.setScreen(new GameOverScreen(game));
     }
 }
