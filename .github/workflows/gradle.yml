@@ -33,13 +33,13 @@ jobs:
     - name: Upload game JAR
       uses: actions/upload-artifact@v4
       with:
-          name: HesHustle-$(echo ${{ matrix.os }} | cut -d '-' -f 1).jar
+          name: HesHustle-${{ matrix.os.replace('-latest','') }}.jar
           path: desktop/build/libs/desktop-1.0.jar
 
     - name: Upload JaCoCo coverage report as a workflow artifact
       uses: actions/upload-artifact@v4
       with:
-        name: jacoco-report-$(echo ${{ matrix.os }} | cut -d '-' -f 1)
+        name: jacoco-report-${{ matrix.os }}
         path: core/build/reports/jacoco/test/html/
 
     - name: Upload Checkstyle report
