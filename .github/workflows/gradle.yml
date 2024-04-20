@@ -33,7 +33,7 @@ jobs:
     - name: Upload game JAR
       uses: actions/upload-artifact@v4
       with:
-          name: HesHustle-${{ matrix.os.replace('-latest','') }}.jar
+          name: HesHustle-${{ replace(matrix.os, '-latest', '') }}.jar
           path: desktop/build/libs/desktop-1.0.jar
 
     - name: Upload JaCoCo coverage report as a workflow artifact
