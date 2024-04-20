@@ -30,30 +30,5 @@ jobs:
     - name: Upload game JAR
       uses: actions/upload-artifact@v4
       with:
-          name: HesHustle.jar
-          path: desktop/build/libs/lib.jar
-    - name: Upload game JAR 2
-      uses: actions/upload-artifact@v4
-      with:
-        name: HesHustle2.jar
-        path: desktop/build/libs/Heslington Hustle.jar
-    - name: Upload game JAR 3
-      uses: actions/upload-artifact@v4
-      with:
-        name: HesHustle3.jar
-        path: desktop/build/libs/HustleGame.jar
-    - name: Upload game JAR 4
-      uses: actions/upload-artifact@v4
-      with:
-        name: HesHustle4.jar
-        path: desktop/build/libs/skloch.jar
-    - name: Upload game JAR 5
-      uses: actions/upload-artifact@v4
-      with:
-        name: HesHustle5.jar
-        path: desktop/build/libs/game.jar
-    - name: Upload game JAR 6
-      uses: actions/upload-artifact@v4
-      with:
-        name: HesHustle6.jar
-        path: desktop/build/libs/HesHustle.jar
+          name: HeslingtonHustle.jar
+          path: desktop/build/libs/desktop-1.0.jar
