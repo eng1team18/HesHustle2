@@ -37,15 +37,10 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: jacoco-report
-        path: desktop/build/reports/jacoco/test/html/
+        path: core/build/reports/jacoco/test/html/
 
-    - name: Upload Checkstyle report for core folder
+    - name: Upload Checkstyle report
       uses: actions/upload-artifact@v4
       with:
-        name: checkstyle-report-core
+        name: checkstyle-report
         path: core/build/reports/checkstyle
-    - name: Upload Checkstyle report for desktop folder
-      uses: actions/upload-artifact@v4
-      with:
-        name: checkstyle-report-desktop
-        path: desktop/build/reports/checkstyle
