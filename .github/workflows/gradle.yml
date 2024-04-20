@@ -8,7 +8,10 @@ on:
 
 jobs:
   build:
-    runs-on: windows-latest
+    strategy:
+      matrix:
+        os: [windows-latest, macos-latest, ubuntu-latest]
+    runs-on: ${{matrix.os}}
     permissions:
       contents: read
 
@@ -30,17 +33,18 @@ jobs:
     - name: Upload game JAR
       uses: actions/upload-artifact@v4
       with:
-          name: HeslingtonHustle.jar
+          name: HesHustle-${{matrix.os}}.jar
           path: desktop/build/libs/desktop-1.0.jar
 
     - name: Upload JaCoCo coverage report as a workflow artifact
       uses: actions/upload-artifact@v4
       with:
-        name: jacoco-report
+        name: jacoco-report-${{matrix.os}}
         path: core/build/reports/jacoco/test/html/
 
     - name: Upload Checkstyle report
       uses: actions/upload-artifact@v4
+      if: startsWith(matrix.os, 'windows')
       with:
         name: checkstyle-report
         path: core/build/reports/checkstyle
