@@ -32,3 +32,15 @@ jobs:
       with:
           name: HeslingtonHustle.jar
           path: desktop/build/libs/desktop-1.0.jar
+
+    - name: Upload JaCoCo coverage report as a workflow artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: jacoco-report
+        path: desktop/build/reports/jacoco/test/html/
+
+    - name: Upload Checkstyle report
+      uses: actions/upload-artifact@v4
+      with:
+        name: checkstyle-report
+        path: desktop/build/reports/checkstyle

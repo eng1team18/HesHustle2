@@ -40,15 +40,31 @@ allprojects {
 }
 
 project(":desktop") {
-    apply plugin: "java-library"
+    apply plugin: 'java-library'
+    apply plugin: 'jacoco'
+    apply plugin: 'checkstyle'
 
+    def checkstyleVersion = '10.15.0'
+
+    configurations {
+        checkstyleRules
+    }
 
     dependencies {
         implementation project(":core")
         api "com.badlogicgames.gdx:gdx-backend-lwjgl3:$gdxVersion"
         api "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-desktop"
         api "com.badlogicgames.gdx:gdx-freetype-platform:$gdxVersion:natives-desktop"
-        
+
+        checkstyleRules("com.puppycrawl.tools:checkstyle:${checkstyleVersion}") {
+            transitive = false
+        }
+    }
+
+    checkstyle {
+        toolVersion "${checkstyleVersion}"
+        config = resources.text.fromArchiveEntry(configurations.checkstyleRules,
+                'google_checks.xml')
     }
 }
 
