@@ -7,6 +7,11 @@ import com.badlogic.gdx.utils.Array;
 import java.util.HashMap;
 import java.util.concurrent.ThreadLocalRandom;
 
+// Changes
+//
+// - Time check for piazzaEvent, compSciEvent, ronCookeEvent was remove to support the no time ticking change
+//
+
 /**
  * A class that maps Object's event strings to actual Java functions.
  */

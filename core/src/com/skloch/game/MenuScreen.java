@@ -14,6 +14,14 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
+// Changes
+//
+// - Added a new nameInputTable for a new Screen that ask for the username for the Leaderboard
+// - Leaderboard button added along with a listener component
+// - Line 316/326: GameScreen() also sends the playerName
+// - Line 74: tutorialWindow redirect to nameInputTable instead and avatarSelectTable are shown afterwards
+//
+
 /**
  * A screen to display the game menu to the player has the buttons "Start", "Settings", "Credits, "Exit"
  * ALso diaplays a tutorial window and an avatar select screen

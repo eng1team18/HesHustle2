@@ -13,6 +13,11 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 
+// Changes
+//
+// - Line 67: Added a new Skin for the Text Field component use for TextField when player select a name
+//
+
 /**
  * A class that is initially created by DesktopLauncher, loads consistent files at the start of the game and initialises lots of important classes.
  * Loads the map, ui skin, text files and makes sound manager and more

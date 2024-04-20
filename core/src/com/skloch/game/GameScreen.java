@@ -29,6 +29,13 @@ import com.badlogic.gdx.scenes.scene2d.ui.Window;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 
+// Changes
+//
+// - Line 84: GameScreen buttons height and padding has been modified to support the new Leaderboard button
+// - Line 69: GameScreen now also takes String userInput, which stores the player name for the Leaderboard
+// - Line 753: Added leaderboard.saveScore(playerName, totalScore) to the GameOver() function to save the scores for the Leaderboard
+//
+
 /**
  * Handles the majority of the game logic, rendering and user inputs of the game.
  * Responsible for rendering the player and the map, and calling events.

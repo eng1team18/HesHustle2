@@ -16,6 +16,15 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 
 import java.awt.*;
 
+// Changes
+//
+// - GameOverScreen no longer takes the hoursStudied, hoursRecreational, hoursSlept with Score as new replacement
+// - Line 60: GameOverScreen buttons height and padding has been modified to support the new Score, Achievements and Leaderboard button
+// - Achievements button added along with a listener component
+// - Leaderboard button added along with a listener component
+// - getTotalScore() functions get call from Score class to obtain the Final total score
+//
+
 /**
  * A screen that displays the player's stats at the end of the game.
  * Currently doesn't calculate a score
