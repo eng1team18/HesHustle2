@@ -351,10 +351,20 @@ public class MenuScreen implements Screen {
         tutTable.row();
 
         TextField nameField = new TextField("", game.skin2);
-        nameField.setMessageText("Enter your name here");  // Placeholder text
+        nameField.setMessageText("Enter your name here");
         nameField.setAlignment(Align.center);
+
+        nameField.setTextFieldFilter(new TextField.TextFieldFilter() {
+            @Override
+            public boolean acceptChar(TextField textField, char c) {
+                return Character.isLetter(c) && textField.getText().length() < 16;
+            }
+        });
+
         tutTable.add(nameField).padTop(20).fillX().expandX();
         tutTable.row();
+
+
 
         // Exit button
         TextButton continueButton = new TextButton("Continue", game.skin);
@@ -368,17 +378,19 @@ public class MenuScreen implements Screen {
         nameWindow.setX((viewport.getWorldWidth() / 2) - (nameWindow.getWidth() / 2));
         nameWindow.setY((viewport.getWorldHeight() / 2) - (nameWindow.getHeight() / 2));
 
-
-
         continueButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                game.soundManager.playButton();
-                nameWindow.setVisible(false);
-                nextTable.setVisible(true);
-                playerName = nameField.getText();
-            }
-        });
+                String inputText = nameField.getText();
+
+                if (inputText.isEmpty()) {
+                } else {
+                    game.soundManager.playButton();
+                    nameWindow.setVisible(false);
+                    nextTable.setVisible(true);
+                    playerName = inputText;
+                }
+            }});
 
 
 
