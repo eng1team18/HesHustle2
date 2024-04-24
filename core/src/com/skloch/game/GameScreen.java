@@ -34,6 +34,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 // - Line 84: GameScreen buttons height and padding has been modified to support the new Leaderboard button
 // - Line 69: GameScreen now also takes String userInput, which stores the player name for the Leaderboard
 // - Line 753: Added leaderboard.saveScore(playerName, totalScore) to the GameOver() function to save the scores for the Leaderboard
+// - Moved Energy from GameScreen to its own class
 //
 
 /**
@@ -43,7 +44,6 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 public class GameScreen implements Screen {
     final HustleGame game;
     private OrthographicCamera camera;
-    private int energy = 100;
     private int hoursStudied, hoursRecreational, hoursSlept;
     private float daySeconds = 0; // Current seconds elapsed in day
     private int day = 1; // What day the game is on
@@ -58,13 +58,13 @@ public class GameScreen implements Screen {
 //    private OptionDialogue optionDialogue;
     protected InputMultiplexer inputMultiplexer;
     private Table uiTable;
-    private Image energyBar;
     public DialogueBox dialogueBox;
     public final Image blackScreen;
     private boolean sleeping = false;
     private Leaderboard leaderboard;
     private final Score score;
     String playerName;
+    private Energy energyBar;
 
 
     /**
@@ -78,19 +78,19 @@ public class GameScreen implements Screen {
         this.game = game;
         this.game.gameScreen = this;
         this.score = Score.getInstance();
-        eventManager = new EventManager(this);
         this.playerName = userInput;
 
         // Scores
         hoursStudied = hoursRecreational = hoursSlept = 0;
 
-
         // Camera and viewport settings
         camera = new OrthographicCamera();
         viewport = new FitViewport(game.WIDTH, game.HEIGHT, camera);
+        Energy energyBar = new Energy(viewport);
         camera.setToOrtho(false, game.WIDTH, game.HEIGHT);
         game.shapeRenderer.setProjectionMatrix(camera.combined);
 
+        eventManager = new EventManager(this, energyBar);
         leaderboard = new Leaderboard();
 
         // Create a stage for the user interface to be on
@@ -105,16 +105,12 @@ public class GameScreen implements Screen {
         uiTable.setSize(game.WIDTH, game.HEIGHT);
         uiStage.addActor(uiTable);
 
-
-
         // Create a player class
         if (avatarChoice == 1) {
             player = new Player("avatar1");
         } else {
             player = new Player("avatar2");
         }
-
-
 
         // USER INTERFACE
 
@@ -139,20 +135,6 @@ public class GameScreen implements Screen {
                 15f);
         dialogueBox.hide();
 
-
-
-
-        // Load energy bar elements
-        Group energyGroup = new Group();
-        energyGroup.setDebug(true);
-        energyBar = new Image(new Texture(Gdx.files.internal("Interface/Energy Bar/green_bar.png")));
-        Image energyBarOutline = new Image(new Texture(Gdx.files.internal("Interface/Energy Bar/bar_outline.png")));
-        energyBarOutline.setPosition(viewport.getWorldWidth()-energyBarOutline.getWidth() - 15, 15);
-        energyBar.setPosition(energyBarOutline.getX()+16, energyBarOutline.getY()+16);
-        energyGroup.addActor(energyBar);
-        energyGroup.addActor(energyBarOutline);
-
-
         // Set initial time
         daySeconds = (8*60); // 8:00 am
 
@@ -168,18 +150,15 @@ public class GameScreen implements Screen {
 
         // Set the order of rendered UI elements
         uiTable.add(interactionLabel).padTop(300);
-        uiStage.addActor(energyGroup);
+        uiStage.addActor(energyBar);
         uiStage.addActor(timeTable);
         uiStage.addActor(blackScreen);
         uiStage.addActor(dialogueBox.getWindow());
         uiStage.addActor(dialogueBox.getSelectBox().getWindow());
         setupEscapeMenu(uiStage);
 
-
-
         // Start music
         game.soundManager.playOverworldMusic();
-
 
         // Create the keyboard input adapter that defines events to be called based on
         // specific button presses
@@ -193,8 +172,6 @@ public class GameScreen implements Screen {
         inputMultiplexer.addProcessor(gameKeyBoardInput);
         inputMultiplexer.addProcessor(uiStage);
         Gdx.input.setInputProcessor(inputMultiplexer);
-
-
 
         // Setup map
         float unitScale = game.mapScale / game.mapSquareSize;
@@ -246,9 +223,7 @@ public class GameScreen implements Screen {
     }
 
     @Override
-    public void show() {
-
-    }
+    public void show() {}
 
     /**
      * Renders the player, updates sound, renders the map and updates any UI elements
@@ -641,39 +616,6 @@ public class GameScreen implements Screen {
         };
     }
 
-
-    /**
-     * Sets the player's energy level and updates the onscreen bar
-     *
-     * @param energy An int between 0 and 100
-     */
-    public void setEnergy(int energy) {
-        this.energy = energy;
-        if (this.energy > 100) {
-            this.energy = 100;
-        }
-        energyBar.setScaleY(this.energy / 100f);
-    }
-
-    /**
-     * @return The player's energy out of 100
-     */
-    public int getEnergy() {
-        return this.energy;
-    }
-
-    /**
-     * Decreases the player's energy by a certain amount
-     *
-     * @param energy The energy to decrement
-     */
-    public void decreaseEnergy(int energy) {
-        this.energy = this.energy - energy;
-        if (this.energy < 0) {
-            this.energy = 0;
-        }
-        energyBar.setScaleY(this.energy / 100f);
-    }
 
     // Functions related to game score and requirements
 

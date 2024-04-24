@@ -10,6 +10,7 @@ import java.util.concurrent.ThreadLocalRandom;
 // Changes
 //
 // - Time check for piazzaEvent, compSciEvent, ronCookeEvent was remove to support the no time ticking change
+// - Energy now use the Energy class instead of GameScreen
 //
 
 /**
@@ -21,6 +22,7 @@ public class EventManager {
     private final HashMap<String, String> objectInteractions;
     private final Array<String> talkTopics;
     Score score = Score.getInstance();
+    private Energy energyBar;
 
     /**
      * A class that maps Object's event strings to actual Java functions.
@@ -31,8 +33,9 @@ public class EventManager {
      *
      * @param game An instance of the GameScreen containing a player and dialogue box
      */
-    public EventManager (GameScreen game) {
+    public EventManager (GameScreen game, Energy energyBar) {
         this.game = game;
+        this.energyBar = energyBar;
 
         // How much energy an hour of each activity should take
         activityEnergies = new HashMap<String, Integer>();
@@ -151,7 +154,7 @@ public class EventManager {
     public void piazzaEvent(String[] args) {
         int energyCost = activityEnergies.get("meet_friends");
         // If the player is too tired to meet friends
-        if (game.getEnergy() < energyCost) {
+        if (energyBar.getEnergy() < energyCost) {
             game.dialogueBox.setText("You are too tired to meet your friends right now!");
 
         } else if (args.length == 1) {
@@ -164,7 +167,7 @@ public class EventManager {
             // RNG factor adds a slight difficulty (may consume too much energy to study)
             int hours = ThreadLocalRandom.current().nextInt(1, 4);
             game.dialogueBox.setText(String.format("You talked about %s for %d hours!", args[1].toLowerCase(), hours));
-            game.decreaseEnergy(energyCost * hours);
+            energyBar.decreaseEnergy(energyCost * hours);
             game.passTime(hours * 60); // in seconds
             game.addRecreationalHours(hours);
         }
@@ -199,7 +202,7 @@ public class EventManager {
     public void compSciEvent(String[] args) {
         int energyCost = activityEnergies.get("studying");
         // If the player is too tired for any studying:
-        if (game.getEnergy() < energyCost) {
+        if (energyBar.getEnergy() < energyCost) {
             game.dialogueBox.hideSelectBox();
             game.dialogueBox.setText("You are too tired to study right now!");
         } else if (args.length == 1) {
@@ -209,12 +212,12 @@ public class EventManager {
         } else {
             int hours = Integer.parseInt(args[1]);
             // If the player does not have enough energy for the selected hours
-            if (game.getEnergy() < hours*energyCost) {
+            if (energyBar.getEnergy() < hours*energyCost) {
                 game.dialogueBox.setText("You don't have the energy to study for this long!");
             } else {
                 // If they do have the energy to study
                 game.dialogueBox.setText(String.format("You studied for %s hours!\nYou lost %d energy", args[1], hours*energyCost));
-                game.decreaseEnergy(energyCost * hours);
+                energyBar.decreaseEnergy(energyCost * hours);
                 game.addStudyHours(hours);
                 game.passTime(hours * 60); // in seconds
                 score.incrementTotalScore(1, 5);
@@ -231,11 +234,11 @@ public class EventManager {
      */
     public void ronCookeEvent(String[] args) {
         int energyCost = activityEnergies.get("eating");
-        if (game.getEnergy() < energyCost) {
+        if (energyBar.getEnergy() < energyCost) {
             game.dialogueBox.setText("You are too tired to eat right now!");
         } else {
             game.dialogueBox.setText(String.format("You took an hour to eat %s at the Ron Cooke Hub!\nYou lost %d energy!", game.getMeal(), energyCost));
-            game.decreaseEnergy(energyCost);
+            energyBar.decreaseEnergy(energyCost);
             game.passTime(60); // in seconds
         }
 
@@ -271,7 +274,7 @@ public class EventManager {
                     game.dialogueBox.show();
                     game.dialogueBox.setText(String.format("You slept for %d hours!\nYou recovered %d energy!", hoursSlept, Math.min(100, hoursSlept*13)), "fadefromblack");
                     // Restore energy and pass time
-                    game.setEnergy(hoursSlept*13);
+                    energyBar.setEnergy(hoursSlept*13);
                     game.passTime(secondsSlept);
                     game.addSleptHours(hoursSlept);
                 }

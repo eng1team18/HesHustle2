@@ -124,7 +124,6 @@ public class Player {
                 moving = true;
                 if (Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT) || Gdx.input.isKeyPressed(Input.Keys.SHIFT_RIGHT)) {
                     this.setX(sprite.getX() - running_speed * delta); // Note: Setting all the values with a constant delta removes hitbox desyncing issues
-                    direction = 3;
                     running = true;
                 }
             }
@@ -134,7 +133,6 @@ public class Player {
                 moving = true;
                 if (Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT) || Gdx.input.isKeyPressed(Input.Keys.SHIFT_RIGHT)) {
                     this.setX(sprite.getX() + running_speed * delta);
-                    direction = 1;
                     running = true;
                 }
             }
@@ -144,7 +142,6 @@ public class Player {
                 moving = true;
                 if (Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT) || Gdx.input.isKeyPressed(Input.Keys.SHIFT_RIGHT)) {
                     this.setY(sprite.getY() + running_speed * delta);
-                    direction = 0;
                     running = true;
                 }
             }
@@ -154,7 +151,6 @@ public class Player {
                 moving = true;
                 if (Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT) || Gdx.input.isKeyPressed(Input.Keys.SHIFT_RIGHT)) {
                     this.setY(sprite.getY() - running_speed * delta);
-                    direction = 2;
                     running = true;
                 }
             }
