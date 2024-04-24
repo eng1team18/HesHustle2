@@ -293,7 +293,9 @@ public class GameScreen implements Screen {
         // Player.move() handles player collision
         // Also play a footstep sound if they are moving
         player.move(delta);
-        if (player.isMoving()) {
+        if (player.isRunning()) {
+            game.soundManager.playRunningFootstep();
+        }else if (player.isMoving()) {
             game.soundManager.playFootstep();
         } else {
             game.soundManager.footstepBool = false;
@@ -304,7 +306,7 @@ public class GameScreen implements Screen {
         }
 
         if (Gdx.input.isKeyPressed(Input.Keys.G)) {
-            score.incrementTotalScore(5);
+            score.incrementTotalScore(1, 5);
         }
 
         // Update the map's render position

@@ -61,7 +61,7 @@ public class LeaderboardScreen implements Screen{
         // Scrollable widget
         ScrollPane scrollWindow = new ScrollPane(scrollTable, game.skin);
         scrollWindow.setFadeScrollBars(false);
-//         scrollWindow.setDebug(true);
+        // scrollWindow.setDebug(true);
 
         // scrollWindow.setFillParent(true);
         leaderboardTable.add(scrollWindow).padTop(20).height(350);

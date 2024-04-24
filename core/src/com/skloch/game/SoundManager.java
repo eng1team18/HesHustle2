@@ -5,6 +5,11 @@ import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.utils.Disposable;
 
+// Changes
+//
+// - Line 151: Added playRunningFootstep() for running sound effect
+//
+
 /**
  * A class handling loading, playing and disposing of sounds.
  */
@@ -133,6 +138,20 @@ public class SoundManager implements Disposable {
         // If it is time to play a footstep, play one
         if (footstepTimer <= 0) {
             footstepTimer = 0.5f; // Delay between each footstep sound, increase to have slower steps
+            if (footstepBool == false) {
+                footstep1.play(sfxVolume);
+                footstepBool = true;
+            } else {
+                footstep2.play(sfxVolume);
+                footstepBool = false;
+            }
+        }
+    }
+
+    public void playRunningFootstep() {
+        // If it is time to play a footstep, play one
+        if (footstepTimer <= 0) {
+            footstepTimer = 0.25f; // Delay between each footstep sound, increase to have slower steps
             if (footstepBool == false) {
                 footstep1.play(sfxVolume);
                 footstepBool = true;

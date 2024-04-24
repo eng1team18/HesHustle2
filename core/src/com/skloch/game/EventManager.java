@@ -217,7 +217,7 @@ public class EventManager {
                 game.decreaseEnergy(energyCost * hours);
                 game.addStudyHours(hours);
                 game.passTime(hours * 60); // in seconds
-                score.incrementTotalScore(5);
+                score.incrementTotalScore(1, 5);
                 Achievement.getInstance().giveAchievement(1);
             }
         }

@@ -9,6 +9,11 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Array;
 
+// Changes
+//
+// - Added running by implementing, running_speed, runningAnimation, new keybind checks for Shift key, and the new isRunning() function
+//
+
 /**
  * A class handling everything needed to control and draw a player, including animation, movement and collision
  */
@@ -19,14 +24,15 @@ public class Player {
     public int direction = 2; // 0 = up, 1 = right, 2 = down, 3 = left (like a clock)
     private TextureRegion currentFrame;
     private float stateTime = 0;
-    private final Array<Animation<TextureRegion>> walkingAnimation, idleAnimation;
+    private final Array<Animation<TextureRegion>> walkingAnimation, idleAnimation, runningAnimation;
     // Stats
     public float speed = 300f;
+    public float running_speed = 400f;
     public Array<GameObject> collidables;
     public int scale = 4;
     private Rectangle bounds;
     private GameObject closestObject;
-    public boolean frozen, moving;
+    public boolean frozen, moving, running;
 
     /**
      * A player character, contains methods to move the player and update animations, also includes collision handling
@@ -43,6 +49,7 @@ public class Player {
 
         walkingAnimation = new Array<Animation<TextureRegion>>();
         idleAnimation = new Array<Animation<TextureRegion>>();
+        runningAnimation = new Array<Animation<TextureRegion>>();
 
         // Load walking animation from Sprite atlas
         walkingAnimation.add(
@@ -50,6 +57,11 @@ public class Player {
                 new Animation<TextureRegion>(0.25f, playerAtlas.findRegions(avatar + "_walk_right"), Animation.PlayMode.LOOP),
                 new Animation<TextureRegion>(0.25f, playerAtlas.findRegions(avatar + "_walk_front"), Animation.PlayMode.LOOP),
                 new Animation<TextureRegion>(0.25f, playerAtlas.findRegions(avatar + "_walk_left"), Animation.PlayMode.LOOP));
+        runningAnimation.add(
+                new Animation<TextureRegion>(0.1f, playerAtlas.findRegions(avatar + "_walk_back"), Animation.PlayMode.LOOP),
+                new Animation<TextureRegion>(0.1f, playerAtlas.findRegions(avatar + "_walk_right"), Animation.PlayMode.LOOP),
+                new Animation<TextureRegion>(0.1f, playerAtlas.findRegions(avatar + "_walk_front"), Animation.PlayMode.LOOP),
+                new Animation<TextureRegion>(0.1f, playerAtlas.findRegions(avatar + "_walk_left"), Animation.PlayMode.LOOP));
         // Load idle animation
         idleAnimation.add(
                 new Animation<TextureRegion>(0.40f, playerAtlas.findRegions(avatar + "_idle_back"), Animation.PlayMode.LOOP),
@@ -105,25 +117,46 @@ public class Player {
         if (!frozen) {
             // Move the player and their 2 other hitboxes
             moving = false;
+            running = false;
             if (Gdx.input.isKeyPressed(Input.Keys.LEFT) || Gdx.input.isKeyPressed(Input.Keys.A)) {
                 this.setX(sprite.getX() - speed * delta); // Note: Setting all the values with a constant delta removes hitbox desyncing issues
                 direction = 3;
                 moving = true;
+                if (Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT) || Gdx.input.isKeyPressed(Input.Keys.SHIFT_RIGHT)) {
+                    this.setX(sprite.getX() - running_speed * delta); // Note: Setting all the values with a constant delta removes hitbox desyncing issues
+                    direction = 3;
+                    running = true;
+                }
             }
             if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) || Gdx.input.isKeyPressed(Input.Keys.D)) {
                 this.setX(sprite.getX() + speed * delta);
                 direction = 1;
                 moving = true;
+                if (Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT) || Gdx.input.isKeyPressed(Input.Keys.SHIFT_RIGHT)) {
+                    this.setX(sprite.getX() + running_speed * delta);
+                    direction = 1;
+                    running = true;
+                }
             }
             if (Gdx.input.isKeyPressed(Input.Keys.UP) || Gdx.input.isKeyPressed(Input.Keys.W)) {
                 this.setY(sprite.getY() + speed * delta);
                 direction = 0;
                 moving = true;
+                if (Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT) || Gdx.input.isKeyPressed(Input.Keys.SHIFT_RIGHT)) {
+                    this.setY(sprite.getY() + running_speed * delta);
+                    direction = 0;
+                    running = true;
+                }
             }
             if (Gdx.input.isKeyPressed(Input.Keys.DOWN) || Gdx.input.isKeyPressed(Input.Keys.S)) {
                 this.setY(sprite.getY() - speed * delta);
                 direction = 2;
                 moving = true;
+                if (Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT) || Gdx.input.isKeyPressed(Input.Keys.SHIFT_RIGHT)) {
+                    this.setY(sprite.getY() - running_speed * delta);
+                    direction = 2;
+                    running = true;
+                }
             }
 
             // Check if the player's feet are inside an object, if they are, move them back in that axis
@@ -198,7 +231,9 @@ public class Player {
         stateTime += Gdx.graphics.getDeltaTime();
         // Set the current frame of the animation
         // Show a different animation if the player is moving vs idling
-        if (moving) {
+        if (running) {
+            currentFrame = runningAnimation.get(direction).getKeyFrame(stateTime);
+        }else if (moving) {
             currentFrame = walkingAnimation.get(direction).getKeyFrame(stateTime);
         } else {
             currentFrame = idleAnimation.get(direction).getKeyFrame(stateTime);
@@ -231,6 +266,15 @@ public class Player {
      */
     public boolean isMoving() {
         return moving;
+    }
+
+    /**
+     * Returns if the player is running or not
+     *
+     * @return true if the player is moving
+     */
+    public boolean isRunning() {
+        return running;
     }
 
     /**

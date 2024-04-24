@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Window;
@@ -23,6 +24,9 @@ import java.awt.*;
 // - Achievements button added along with a listener component
 // - Leaderboard button added along with a listener component
 // - getTotalScore() functions get call from Score class to obtain the Final total score
+// - Line 71: Implement ScrollTable for Score breakdown
+// - Removed gameOverTable and replaced it with scrollable table and a button table
+// - Line 146: Changed gameOverWindow.setSize(1000, 600); from 600 > 1000
 //
 
 /**
@@ -60,33 +64,49 @@ public class GameOverScreen implements Screen {
         Table gameOverTable = new Table();
         gameOverWindow.add(gameOverTable);
 
-        // Title
-        Label title = new Label("Game Over!", game.skin, "button");
-        gameOverTable.add(title).padTop(10);
-        gameOverTable.row();
-
-        Table scoresTable = new Table();
-        gameOverTable.add(scoresTable).prefHeight(160).prefWidth(450);
-        gameOverTable.row();
-
         this.score = Score.getInstance();
         int totalScore = score.getTotalScore();
 
+        Table scoreTable = new Table();
+        gameOverWindow.add(scoreTable).prefHeight(600);
+
+        // Table for things inside the scrollable widget
+        Table scrollTable = new Table();
+
+        // Scrollable widget
+        com.badlogic.gdx.scenes.scene2d.ui.ScrollPane scrollWindow = new ScrollPane(scrollTable, game.skin);
+        scrollWindow.setFadeScrollBars(false);
+//        scrollWindow.setDebug(true);
+
+        // scrollWindow.setFillParent(true);
+        scoreTable.add(scrollWindow).padTop(5).height(530).width(550);
+
+        // Title
+        Label title = new Label("Game Over!", game.skin, "button");
+        scrollTable.add(title).padTop(10);
+        scrollTable.row();
+
         // Display scores
-        scoresTable.add(new Label("Score", game.skin, "interaction")).padBottom(5);
-        scoresTable.row();
-        scoresTable.add(new Label(String.valueOf(totalScore), game.skin, "button")).padBottom(20);
-        scoresTable.row();
-        // Added new buttons (originally just Exit) now with Achievements and Leaderboard
-        gameOverTable.row();
+        scrollTable.add(new Label("Total Score", game.skin, "interaction")).padBottom(5);
+        scrollTable.row();
+        scrollTable.add(new Label(String.valueOf(totalScore), game.skin, "button")).padBottom(20);
+        scrollTable.row();
+
+        Label text = new Label(Score.getInstance().getUserScores(), game.skin, "interaction");
+        text.setWrap(true);
+        scrollTable.add(text).width(500f).padLeft(15);
+
+        Table buttonTable = new Table();
+        scoreTable.add(buttonTable).padTop(0).height(530).width(300).padLeft(25);
+
         TextButton achievementsButton = new TextButton("Achievements", game.skin);
-        gameOverTable.add(achievementsButton).bottom().width(300).padTop(10);
-        gameOverTable.row();
+        buttonTable.add(achievementsButton).width(300).padTop(10);;
+        buttonTable.row();
         TextButton leaderboardButton = new TextButton("Leaderboard", game.skin);
-        gameOverTable.add(leaderboardButton).bottom().width(300).padTop(10);
-        gameOverTable.row();
+        buttonTable.add(leaderboardButton).width(300).padTop(10);
+        buttonTable.row();
         TextButton exitButton = new TextButton("Main Menu", game.skin);
-        gameOverTable.add(exitButton).bottom().width(300).padTop(10);
+        buttonTable.add(exitButton).width(300).padTop(10);
 
         exitButton.addListener(new ChangeListener() {
             @Override
@@ -95,7 +115,7 @@ public class GameOverScreen implements Screen {
                 game.soundManager.overworldMusic.stop();
                 dispose();
                 game.setScreen(new MenuScreen(game));
-                score.setTotalScore(0);
+                score.resetScores();
                 Achievement.getInstance().resetAllAchievements();
             }
         });
@@ -107,7 +127,7 @@ public class GameOverScreen implements Screen {
                 game.soundManager.overworldMusic.stop();
                 dispose();
                 game.setScreen(new LeaderboardScreen(game));
-                score.setTotalScore(0);
+                score.resetScores();
                 Achievement.getInstance().resetAllAchievements();
             }
         });
@@ -123,7 +143,7 @@ public class GameOverScreen implements Screen {
 
         gameOverWindow.pack();
 
-        gameOverWindow.setSize(600, 600);
+        gameOverWindow.setSize(1000, 600);
 
         // Centre the window
         gameOverWindow.setX((viewport.getWorldWidth() / 2) - (gameOverWindow.getWidth() / 2));

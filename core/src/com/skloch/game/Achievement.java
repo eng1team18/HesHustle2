@@ -7,18 +7,19 @@ import java.util.stream.Collectors;
 public class Achievement {
     private Map<Integer, AchievementEntry> achievements;
     private static final Achievement instance = new Achievement();
+    private int scoreGainedPer = 100;
 
     public Achievement() {
         achievements = new HashMap<>();
-        addAchievement(1, "Bookworm");
+        addAchievement(1, "Bookworm", "Read 10 books at the Study Building");
     }
 
     public static Achievement getInstance() {
         return instance;
     }
 
-    private void addAchievement(int id, String name) {
-        achievements.put(id, new AchievementEntry(id, name));
+    private void addAchievement(int id, String name, String desc) {
+        achievements.put(id, new AchievementEntry(id, name, desc));
     }
 
     public void giveAchievement(int id) {
@@ -37,19 +38,21 @@ public class Achievement {
     public String getUserAchievements() {
         return achievements.values().stream()
                 .filter(AchievementEntry::isAchieved)
-                .map(AchievementEntry::getName)
-                .map(name -> "- " + name + "\n")
+                .map(achievement -> "- " + achievement.getName() + " +" + scoreGainedPer + ": " + achievement.getDesc() + "\n")
                 .collect(Collectors.joining());
     }
+
 
     public class AchievementEntry {
         private int id;
         private String name;
+        private String desc;
         private boolean achieved;
 
-        public AchievementEntry(int id, String name) {
+        public AchievementEntry(int id, String name, String desc) {
             this.id = id;
             this.name = name;
+            this.desc = desc;
             this.achieved = false;
         }
 
@@ -59,6 +62,10 @@ public class Achievement {
 
         public String getName() {
             return name;
+        }
+
+        public String getDesc() {
+            return desc;
         }
 
         public boolean isAchieved() {
