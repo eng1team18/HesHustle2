@@ -135,3 +135,4 @@ tests/build/reports/tests/test/css/style.css
 tests/build/reports/tests/test/css/base-style.css
 tests/build/reports/tests/test/classes/com.skloch.game.tests.EnergyTests.html
 tests/build/jacoco/test.exec
+tests/build/*

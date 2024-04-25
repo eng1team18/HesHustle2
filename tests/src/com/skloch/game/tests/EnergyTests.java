@@ -26,5 +26,10 @@ public class EnergyTests {
         assertEquals(energyPoints - 20, -10);
 
     }
+
+    @Test
+    public void testTest(){
+        assertEquals(true, true);
+    }
 }
 
