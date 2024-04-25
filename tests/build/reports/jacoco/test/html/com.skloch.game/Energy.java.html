@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Energy.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">tests</a> &gt; <a href="index.source.html" class="el_package">com.skloch.game</a> &gt; <span class="el_source">Energy.java</span></div><h1>Energy.java</h1><pre class="source lang-java linenums">package com.skloch.game;
+
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.scenes.scene2d.Group;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.utils.viewport.Viewport;
+
+public class Energy extends Group {
+    private Image energyBar;
+    private float maxEnergyWidth;
+<span class="nc" id="L12">    private int energy = 100;</span>
+
+<span class="nc" id="L14">    public Energy(Viewport viewport) {</span>
+
+<span class="nc" id="L16">        Group energyGroup = new Group();</span>
+<span class="nc" id="L17">        energyGroup.setDebug(true);</span>
+<span class="nc" id="L18">        energyBar = new Image(new Texture(Gdx.files.internal(&quot;Interface/Energy Bar/green_bar.png&quot;)));</span>
+<span class="nc" id="L19">        Image energyBarOutline = new Image(new Texture(Gdx.files.internal(&quot;Interface/Energy Bar/bar_outline.png&quot;)));</span>
+<span class="nc" id="L20">        energyBarOutline.setPosition(viewport.getWorldWidth()-energyBarOutline.getWidth() - 15, 15);</span>
+<span class="nc" id="L21">        energyBar.setPosition(energyBarOutline.getX()+16, energyBarOutline.getY()+16);</span>
+<span class="nc" id="L22">        energyGroup.addActor(energyBar);</span>
+<span class="nc" id="L23">        energyGroup.addActor(energyBarOutline);</span>
+
+<span class="nc" id="L25">        Texture energyTexture = new Texture(Gdx.files.internal(&quot;Interface/Energy Bar/green_bar.png&quot;));</span>
+<span class="nc" id="L26">        Texture outlineTexture = new Texture(Gdx.files.internal(&quot;Interface/Energy Bar/bar_outline.png&quot;));</span>
+
+<span class="nc" id="L28">        energyBar = new Image(energyTexture);</span>
+<span class="nc" id="L29">        energyBarOutline = new Image(outlineTexture);</span>
+
+<span class="nc" id="L31">        energyBarOutline.setPosition(viewport.getWorldWidth() - energyBarOutline.getWidth() - 15, 15);</span>
+<span class="nc" id="L32">        energyBar.setPosition(energyBarOutline.getX() + 16, energyBarOutline.getY() + 16);</span>
+
+<span class="nc" id="L34">        maxEnergyWidth = energyBar.getWidth();</span>
+<span class="nc" id="L35">        addActor(energyBar);</span>
+<span class="nc" id="L36">        addActor(energyBarOutline);</span>
+<span class="nc" id="L37">    }</span>
+
+    /**
+     * Sets the player's energy level and updates the onscreen bar
+     *
+     * @param energy An int between 0 and 100
+     */
+    public void setEnergy(int energy) {
+<span class="nc" id="L45">        this.energy = energy;</span>
+<span class="nc bnc" id="L46" title="All 2 branches missed.">        if (this.energy &gt; 100) {</span>
+<span class="nc" id="L47">            this.energy = 100;</span>
+        }
+<span class="nc" id="L49">        energyBar.setScaleY(this.energy / 100f);</span>
+<span class="nc" id="L50">    }</span>
+
+    /**
+     * Decreases the player's energy by a certain amount
+     *
+     * @param energy The energy to decrement
+     */
+    public void decreaseEnergy(int energy) {
+<span class="nc" id="L58">        this.energy -= energy;</span>
+<span class="nc bnc" id="L59" title="All 2 branches missed.">        if (this.energy &lt; 0) {</span>
+<span class="nc" id="L60">            this.energy = 0;</span>
+        }
+<span class="nc" id="L62">        energyBar.setScaleY(this.energy / 100f);</span>
+<span class="nc" id="L63">    }</span>
+
+    public int getEnergy() {
+<span class="nc" id="L66">        return this.energy;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.9.202303310957</span></div></body></html>

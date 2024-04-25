@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>GameOverScreen.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">tests</a> &gt; <a href="index.source.html" class="el_package">com.skloch.game</a> &gt; <span class="el_source">GameOverScreen.java</span></div><h1>GameOverScreen.java</h1><pre class="source lang-java linenums">package com.skloch.game;
+
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.ui.Window;
+import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.badlogic.gdx.utils.ScreenUtils;
+import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.badlogic.gdx.utils.viewport.Viewport;
+
+import java.awt.*;
+
+// Changes
+//
+// - GameOverScreen no longer takes the hoursStudied, hoursRecreational, hoursSlept with Score as new replacement
+// - Line 60: GameOverScreen buttons height and padding has been modified to support the new Score, Achievements and Leaderboard button
+// - Achievements button added along with a listener component
+// - Leaderboard button added along with a listener component
+// - getTotalScore() functions get call from Score class to obtain the Final total score
+// - Line 71: Implement ScrollTable for Score breakdown
+// - Removed gameOverTable and replaced it with scrollable table and a button table
+// - Line 146: Changed gameOverWindow.setSize(1000, 600); from 600 &gt; 1000
+//
+
+/**
+ * A screen that displays the player's stats at the end of the game.
+ * Currently doesn't calculate a score
+ */
+public class GameOverScreen implements Screen {
+    private HustleGame game;
+    Stage gameOverStage;
+    Viewport viewport;
+    OrthographicCamera camera;
+    private final Score score;
+
+    /**
+     * A screen to display a 'Game Over' screen when the player finishes their exams
+     * Currently does not calculate a score, just shows the player's stats to them, as requested in assessment 1
+     * Tracking them now will make win conditions easier to implement for assessment 2
+     *
+     * @param game An instance of HustleGame
+     */
+<span class="nc" id="L50">    public GameOverScreen (final HustleGame game) {</span>
+<span class="nc" id="L51">        this.game = game;</span>
+<span class="nc" id="L52">        gameOverStage = new Stage(new FitViewport(game.WIDTH, game.HEIGHT));</span>
+<span class="nc" id="L53">        Gdx.input.setInputProcessor(gameOverStage);</span>
+
+<span class="nc" id="L55">        camera = new OrthographicCamera();</span>
+<span class="nc" id="L56">        viewport = new FitViewport(game.WIDTH, game.HEIGHT, camera);</span>
+<span class="nc" id="L57">        camera.setToOrtho(false, game.WIDTH, game.HEIGHT);</span>
+
+        // Create the window
+<span class="nc" id="L60">        Window gameOverWindow = new Window(&quot;&quot;, game.skin);</span>
+<span class="nc" id="L61">        gameOverStage.addActor(gameOverWindow);</span>
+
+        // Table for UI elements in window
+<span class="nc" id="L64">        Table gameOverTable = new Table();</span>
+<span class="nc" id="L65">        gameOverWindow.add(gameOverTable);</span>
+
+<span class="nc" id="L67">        this.score = Score.getInstance();</span>
+<span class="nc" id="L68">        int totalScore = score.getTotalScore();</span>
+
+<span class="nc" id="L70">        Table scoreTable = new Table();</span>
+<span class="nc" id="L71">        gameOverWindow.add(scoreTable).prefHeight(600);</span>
+
+        // Table for things inside the scrollable widget
+<span class="nc" id="L74">        Table scrollTable = new Table();</span>
+
+        // Scrollable widget
+<span class="nc" id="L77">        com.badlogic.gdx.scenes.scene2d.ui.ScrollPane scrollWindow = new ScrollPane(scrollTable, game.skin);</span>
+<span class="nc" id="L78">        scrollWindow.setFadeScrollBars(false);</span>
+//        scrollWindow.setDebug(true);
+
+        // scrollWindow.setFillParent(true);
+<span class="nc" id="L82">        scoreTable.add(scrollWindow).padTop(5).height(530).width(550);</span>
+
+        // Title
+<span class="nc" id="L85">        Label title = new Label(&quot;Game Over!&quot;, game.skin, &quot;button&quot;);</span>
+<span class="nc" id="L86">        scrollTable.add(title).padTop(10);</span>
+<span class="nc" id="L87">        scrollTable.row();</span>
+
+        // Display scores
+<span class="nc" id="L90">        scrollTable.add(new Label(&quot;Total Score&quot;, game.skin, &quot;interaction&quot;)).padBottom(5);</span>
+<span class="nc" id="L91">        scrollTable.row();</span>
+<span class="nc" id="L92">        scrollTable.add(new Label(String.valueOf(totalScore), game.skin, &quot;button&quot;)).padBottom(20);</span>
+<span class="nc" id="L93">        scrollTable.row();</span>
+
+<span class="nc" id="L95">        Label text = new Label(Score.getInstance().getUserScores(), game.skin, &quot;interaction&quot;);</span>
+<span class="nc" id="L96">        text.setWrap(true);</span>
+<span class="nc" id="L97">        scrollTable.add(text).width(500f).padLeft(15);</span>
+
+<span class="nc" id="L99">        Table buttonTable = new Table();</span>
+<span class="nc" id="L100">        scoreTable.add(buttonTable).padTop(0).height(530).width(300).padLeft(25);</span>
+
+<span class="nc" id="L102">        TextButton achievementsButton = new TextButton(&quot;Achievements&quot;, game.skin);</span>
+<span class="nc" id="L103">        buttonTable.add(achievementsButton).width(300).padTop(10);;</span>
+<span class="nc" id="L104">        buttonTable.row();</span>
+<span class="nc" id="L105">        TextButton leaderboardButton = new TextButton(&quot;Leaderboard&quot;, game.skin);</span>
+<span class="nc" id="L106">        buttonTable.add(leaderboardButton).width(300).padTop(10);</span>
+<span class="nc" id="L107">        buttonTable.row();</span>
+<span class="nc" id="L108">        TextButton exitButton = new TextButton(&quot;Main Menu&quot;, game.skin);</span>
+<span class="nc" id="L109">        buttonTable.add(exitButton).width(300).padTop(10);</span>
+
+<span class="nc" id="L111">        exitButton.addListener(new ChangeListener() {</span>
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+<span class="nc" id="L114">                game.soundManager.playButton();</span>
+<span class="nc" id="L115">                game.soundManager.overworldMusic.stop();</span>
+<span class="nc" id="L116">                dispose();</span>
+<span class="nc" id="L117">                game.setScreen(new MenuScreen(game));</span>
+<span class="nc" id="L118">                score.resetScores();</span>
+<span class="nc" id="L119">                Achievement.getInstance().resetAllAchievements();</span>
+<span class="nc" id="L120">            }</span>
+        });
+
+<span class="nc" id="L123">        leaderboardButton.addListener(new ChangeListener() {</span>
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+<span class="nc" id="L126">                game.soundManager.playButton();</span>
+<span class="nc" id="L127">                game.soundManager.overworldMusic.stop();</span>
+<span class="nc" id="L128">                dispose();</span>
+<span class="nc" id="L129">                game.setScreen(new LeaderboardScreen(game));</span>
+<span class="nc" id="L130">                score.resetScores();</span>
+<span class="nc" id="L131">                Achievement.getInstance().resetAllAchievements();</span>
+<span class="nc" id="L132">            }</span>
+        });
+
+<span class="nc" id="L135">        Screen thisScreen = this;</span>
+<span class="nc" id="L136">        achievementsButton.addListener(new ChangeListener() {</span>
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+<span class="nc" id="L139">                game.soundManager.playButton();</span>
+<span class="nc" id="L140">                game.setScreen(new AchievementScreen(game));</span>
+<span class="nc" id="L141">            }</span>
+        });
+
+<span class="nc" id="L144">        gameOverWindow.pack();</span>
+
+<span class="nc" id="L146">        gameOverWindow.setSize(1000, 600);</span>
+
+        // Centre the window
+<span class="nc" id="L149">        gameOverWindow.setX((viewport.getWorldWidth() / 2) - (gameOverWindow.getWidth() / 2));</span>
+<span class="nc" id="L150">        gameOverWindow.setY((viewport.getWorldHeight() / 2) - (gameOverWindow.getHeight() / 2));</span>
+<span class="nc" id="L151">    }</span>
+
+
+    /**
+     * Renders the screen and the background each frame
+     * @param delta The time in seconds since the last render.
+     */
+    @Override
+    public void render(float delta) {
+<span class="nc" id="L160">        ScreenUtils.clear(0, 0, 0, 1);</span>
+
+<span class="nc" id="L162">        game.blueBackground.draw();</span>
+
+<span class="nc" id="L164">        gameOverStage.act(delta);</span>
+<span class="nc" id="L165">        gameOverStage.draw();</span>
+
+<span class="nc" id="L167">        camera.update();</span>
+
+<span class="nc" id="L169">    }</span>
+
+
+
+    /**
+     * Correctly resizes the onscreen elements when the window is resized
+     * @param width
+     * @param height
+     */
+    @Override
+    public void resize(int width, int height) {
+<span class="nc" id="L180">        gameOverStage.getViewport().update(width, height);</span>
+<span class="nc" id="L181">        viewport.update(width, height);</span>
+<span class="nc" id="L182">    }</span>
+
+    // Other required methods from Screen
+    @Override
+    public void show() {
+<span class="nc" id="L187">    }</span>
+
+    @Override
+    public void hide() {
+<span class="nc" id="L191">    }</span>
+
+    @Override
+    public void pause() {
+<span class="nc" id="L195">    }</span>
+
+    @Override
+    public void resume() {
+<span class="nc" id="L199">    }</span>
+
+    @Override
+    public void dispose() {
+<span class="nc" id="L203">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.9.202303310957</span></div></body></html>

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Leaderboard.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">tests</a> &gt; <a href="index.source.html" class="el_package">com.skloch.game</a> &gt; <span class="el_source">Leaderboard.java</span></div><h1>Leaderboard.java</h1><pre class="source lang-java linenums">package com.skloch.game;
+
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.files.FileHandle;
+import com.badlogic.gdx.utils.Json;
+import com.badlogic.gdx.utils.Array;
+
+<span class="nc" id="L8">public class Leaderboard {</span>
+    private static final String SCORE_FILE = &quot;leaderboard.json&quot;;
+<span class="nc" id="L10">    private Json json = new Json();</span>
+<span class="nc" id="L11">    private Array&lt;ScoreEntry&gt; scores = new Array&lt;&gt;();</span>
+<span class="nc" id="L12">    private static final Leaderboard instance = new Leaderboard();</span>
+
+    public static Leaderboard getInstance() {
+<span class="nc" id="L15">        return instance;</span>
+    }
+
+    public void saveScore(String playerName, int score) {
+<span class="nc" id="L19">        FileHandle file = Gdx.files.local(SCORE_FILE);</span>
+
+        // Check if file exist and load if does
+<span class="nc bnc" id="L22" title="All 2 branches missed.">        if (file.exists()) {</span>
+<span class="nc" id="L23">            String scoresJson = file.readString();</span>
+<span class="nc" id="L24">            scores = json.fromJson(Array.class, ScoreEntry.class, scoresJson);</span>
+        }
+
+<span class="nc" id="L27">        scores.add(new ScoreEntry(playerName, score));</span>
+
+<span class="nc" id="L29">        scores.sort();</span>
+
+<span class="nc bnc" id="L31" title="All 2 branches missed.">        if (scores.size &gt; 10) {</span>
+<span class="nc" id="L32">            scores.truncate(10);</span>
+        }
+
+<span class="nc" id="L35">        file.writeString(json.toJson(scores, Array.class, ScoreEntry.class), false);</span>
+<span class="nc" id="L36">    }</span>
+
+    public Array&lt;ScoreEntry&gt; getTopScores() {
+<span class="nc" id="L39">        FileHandle file = Gdx.files.local(SCORE_FILE);</span>
+<span class="nc bnc" id="L40" title="All 2 branches missed.">        if (file.exists()) {</span>
+<span class="nc" id="L41">            String scoresJson = file.readString();</span>
+<span class="nc" id="L42">            return json.fromJson(Array.class, ScoreEntry.class, scoresJson);</span>
+        }
+<span class="nc" id="L44">        return new Array&lt;&gt;();</span>
+    }
+
+    public String getFormattedTopScores() {
+<span class="nc" id="L48">        StringBuilder sb = new StringBuilder();</span>
+<span class="nc" id="L49">        Array&lt;ScoreEntry&gt; topScores = getTopScores();</span>
+<span class="nc bnc" id="L50" title="All 2 branches missed.">        for (int i = 0; i &lt; topScores.size; i++) {</span>
+<span class="nc" id="L51">            sb.append((i + 1) + &quot;. &quot; + topScores.get(i).playerName + &quot; : &quot; + topScores.get(i).score + &quot;\n&quot;);</span>
+        }
+<span class="nc" id="L53">        return sb.toString();</span>
+    }
+
+    public static class ScoreEntry implements Comparable&lt;ScoreEntry&gt; {
+        public String playerName;
+        public int score;
+
+        // Do not delete, ScoreEntry gets run when LeaderboardScreen is being displayed
+<span class="nc" id="L61">        public ScoreEntry() {</span>
+<span class="nc" id="L62">        }</span>
+
+<span class="nc" id="L64">        public ScoreEntry(String playerName, int score) {</span>
+<span class="nc" id="L65">            this.playerName = playerName;</span>
+<span class="nc" id="L66">            this.score = score;</span>
+<span class="nc" id="L67">        }</span>
+
+        @Override
+        public int compareTo(ScoreEntry other) {
+<span class="nc" id="L71">            return Integer.compare(other.score, this.score);</span>
+        }
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.9.202303310957</span></div></body></html>

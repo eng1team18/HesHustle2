@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Achievement.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">tests</a> &gt; <a href="index.source.html" class="el_package">com.skloch.game</a> &gt; <span class="el_source">Achievement.java</span></div><h1>Achievement.java</h1><pre class="source lang-java linenums">package com.skloch.game;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.stream.Collectors;
+
+public class Achievement {
+    private Map&lt;Integer, AchievementEntry&gt; achievements;
+<span class="nc" id="L9">    private static final Achievement instance = new Achievement();</span>
+<span class="nc" id="L10">    private int scoreGainedPer = 100;</span>
+
+<span class="nc" id="L12">    public Achievement() {</span>
+<span class="nc" id="L13">        achievements = new HashMap&lt;&gt;();</span>
+<span class="nc" id="L14">        addAchievement(1, &quot;Bookworm&quot;, &quot;Read 10 books at the Study Building&quot;);</span>
+<span class="nc" id="L15">    }</span>
+
+    public static Achievement getInstance() {
+<span class="nc" id="L18">        return instance;</span>
+    }
+
+    private void addAchievement(int id, String name, String desc) {
+<span class="nc" id="L22">        achievements.put(id, new AchievementEntry(id, name, desc));</span>
+<span class="nc" id="L23">    }</span>
+
+    public void giveAchievement(int id) {
+<span class="nc" id="L26">        AchievementEntry achievement = achievements.get(id);</span>
+<span class="nc bnc" id="L27" title="All 4 branches missed.">        if (achievement != null &amp;&amp; !achievement.isAchieved()) {</span>
+<span class="nc" id="L28">            achievement.setAchieved(true);</span>
+        }
+<span class="nc" id="L30">    }</span>
+
+    public void resetAllAchievements() {
+<span class="nc bnc" id="L33" title="All 2 branches missed.">        for (AchievementEntry achievement : achievements.values()) {</span>
+<span class="nc" id="L34">            achievement.setAchieved(false);</span>
+<span class="nc" id="L35">        }</span>
+<span class="nc" id="L36">    }</span>
+
+    public String getUserAchievements() {
+<span class="nc" id="L39">        return achievements.values().stream()</span>
+<span class="nc" id="L40">                .filter(AchievementEntry::isAchieved)</span>
+<span class="nc" id="L41">                .map(achievement -&gt; &quot;- &quot; + achievement.getName() + &quot; +&quot; + scoreGainedPer + &quot;: &quot; + achievement.getDesc() + &quot;\n&quot;)</span>
+<span class="nc" id="L42">                .collect(Collectors.joining());</span>
+    }
+
+
+    public class AchievementEntry {
+        private int id;
+        private String name;
+        private String desc;
+        private boolean achieved;
+
+<span class="nc" id="L52">        public AchievementEntry(int id, String name, String desc) {</span>
+<span class="nc" id="L53">            this.id = id;</span>
+<span class="nc" id="L54">            this.name = name;</span>
+<span class="nc" id="L55">            this.desc = desc;</span>
+<span class="nc" id="L56">            this.achieved = false;</span>
+<span class="nc" id="L57">        }</span>
+
+        public int getId() {
+<span class="nc" id="L60">            return id;</span>
+        }
+
+        public String getName() {
+<span class="nc" id="L64">            return name;</span>
+        }
+
+        public String getDesc() {
+<span class="nc" id="L68">            return desc;</span>
+        }
+
+        public boolean isAchieved() {
+<span class="nc" id="L72">            return achieved;</span>
+        }
+
+        public void setAchieved(boolean achieved) {
+<span class="nc" id="L76">            this.achieved = achieved;</span>
+<span class="nc" id="L77">        }</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.9.202303310957</span></div></body></html>
