@@ -14,7 +14,6 @@ import static org.junit.Assert.assertTrue;
 public class AssetTests {
     @Test
     public void testIfFileExists() {
-        System.out.println("000000000000000000");
-        assertTrue("The asset for player exists", Gdx.files.internal("assets/title.png").exists());
+        assertTrue(Gdx.files.internal("../assets/title.png").exists());
     }
 }
