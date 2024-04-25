@@ -39,26 +39,45 @@ allprojects {
     }
 }
 
-project(":desktop") {
-    apply plugin: "java-library"
+def checkstyleVersion = '10.15.0'
 
+project(":desktop") {
+    apply plugin: 'java-library'
 
     dependencies {
         implementation project(":core")
         api "com.badlogicgames.gdx:gdx-backend-lwjgl3:$gdxVersion"
         api "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-desktop"
         api "com.badlogicgames.gdx:gdx-freetype-platform:$gdxVersion:natives-desktop"
-        
     }
 }
 
 project(":core") {
     apply plugin: "java-library"
+    apply plugin: 'jacoco'
+    apply plugin: 'checkstyle'
 
+    configurations {
+        checkstyleRules
+    }
 
     dependencies {
         api "com.badlogicgames.gdx:gdx:$gdxVersion"
         api "com.badlogicgames.gdx:gdx-freetype:$gdxVersion"
-        
+        testImplementation 'org.junit.jupiter:junit-jupiter:5.8.1'
+        checkstyleRules("com.puppycrawl.tools:checkstyle:${checkstyleVersion}") {
+            transitive = false
+        }
+    }
+
+    test {
+        useJUnitPlatform()
+        finalizedBy jacocoTestReport
+    }
+
+    checkstyle {
+        toolVersion "${checkstyleVersion}"
+        config = resources.text.fromArchiveEntry(configurations.checkstyleRules,
+                'google_checks.xml')
     }
 }
