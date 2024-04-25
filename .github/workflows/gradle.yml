@@ -41,7 +41,7 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: jacoco-report-${{ matrix.os }}
-        path: core/build/reports/jacoco/test/html/
+        path: tests/build/reports/jacoco/test/html/
 
     - name: Upload Checkstyle report
       uses: actions/upload-artifact@v4
