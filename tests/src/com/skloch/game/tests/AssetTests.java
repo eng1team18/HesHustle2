@@ -1,8 +1,5 @@
 package com.skloch.game.tests;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.utils.viewport.FitViewport;
-import com.badlogic.gdx.utils.viewport.Viewport;
-import com.skloch.game.Energy;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -45,7 +42,7 @@ public class AssetTests {
     }
 
     @Test
-    public void testIfInterfaceBlockyInterface_dataExists() {
+    public void testIfInterfaceBlockyInterfaceDataExists() {
         assertTrue(Gdx.files.internal("../assets/Interface/BlockyInterface_data/avatar2.png").exists());
         assertTrue(Gdx.files.internal("../assets/Interface/BlockyInterface_data/button_disabled.9.png").exists());
         assertTrue(Gdx.files.internal("../assets/Interface/BlockyInterface_data/button_over.9.png").exists());
@@ -106,7 +103,7 @@ public class AssetTests {
     }
 
     @Test
-    public void testIfTextFeildExists() {
+    public void testIfTextFieldExists() {
         assertTrue(Gdx.files.internal("../assets/TextField/TextField.atlas").exists());
         assertTrue(Gdx.files.internal("../assets/TextField/TextField.json").exists());
         assertTrue(Gdx.files.internal("../assets/TextField/TextField.json").exists());
