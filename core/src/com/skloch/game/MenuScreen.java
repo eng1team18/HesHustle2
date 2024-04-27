@@ -60,7 +60,7 @@ public class MenuScreen implements Screen {
         game.blueBackground.getRoot().findActor("blue image").setSize(viewport.getWorldWidth(), viewport.getWorldHeight());
 
         // Title image
-        titleImage = new Image(new Texture(Gdx.files.internal("title.png")));
+        titleImage = new Image(new Texture(Gdx.files.internal("Sprites/title.png")));
         titleImage.setPosition((viewport.getWorldWidth() / 2f) - (titleImage.getWidth() / 2f), 550);
         menuStage.addActor(titleImage);
 
