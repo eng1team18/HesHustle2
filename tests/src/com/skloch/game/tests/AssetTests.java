@@ -45,8 +45,71 @@ public class AssetTests {
     }
 
     @Test
+    public void testIfInterfaceBlockyInterface_dataExists() {
+        assertTrue(Gdx.files.internal("../assets/Interface/BlockyInterface_data/avatar2.png").exists());
+        assertTrue(Gdx.files.internal("../assets/Interface/BlockyInterface_data/button_disabled.9.png").exists());
+        assertTrue(Gdx.files.internal("../assets/Interface/BlockyInterface_data/button_over.9.png").exists());
+        assertTrue(Gdx.files.internal("../assets/Interface/BlockyInterface_data/button_up.9.png").exists());
+        assertTrue(Gdx.files.internal("../assets/Interface/BlockyInterface_data/MotorolaScreentype.fnt").exists());
+        assertTrue(Gdx.files.internal("../assets/Interface/BlockyInterface_data/MotorolaScreentype.png").exists());
+        assertTrue(Gdx.files.internal("../assets/Interface/BlockyInterface_data/nk57-monospace.rg-bold.png").exists());
+        assertTrue(Gdx.files.internal("../assets/Interface/BlockyInterface_data/nk57-monospace.rg-bold.fnt").exists());
+        assertTrue(Gdx.files.internal("../assets/Interface/BlockyInterface_data/PixeloidMono edited(2).png").exists());
+        assertTrue(Gdx.files.internal("../assets/Interface/BlockyInterface_data/PixeloidMono edited(2).fnt").exists());
+        assertTrue(Gdx.files.internal("../assets/Interface/BlockyInterface_data/scroll_bar.9.png").exists());
+        assertTrue(Gdx.files.internal("../assets/Interface/BlockyInterface_data/scroll_bar_v.9.png").exists());
+        assertTrue(Gdx.files.internal("../assets/Interface/BlockyInterface_data/slider_bar.png").exists());
+        assertTrue(Gdx.files.internal("../assets/Interface/BlockyInterface_data/slider_button.png").exists());
+        assertTrue(Gdx.files.internal("../assets/Interface/BlockyInterface_data/window.9.png").exists());
+        assertTrue(Gdx.files.internal("../assets/Interface/BlockyInterface_data/scroll_bar.9.png").exists());
+        assertTrue(Gdx.files.internal("../assets/Interface/BlockyInterface_data/W95FA(3).png").exists());
+        assertTrue(Gdx.files.internal("../assets/Interface/BlockyInterface_data/W95FA(3).fnt").exists());
+    }
+
+    @Test
+    public void testIfInterfaceEnergyBarExists() {
+        assertTrue(Gdx.files.internal("../assets/Interface/Energy Bar/bar_outline.png").exists());
+        assertTrue(Gdx.files.internal("../assets/Interface/Energy Bar/green_bar.png").exists());
+    }
+
+    @Test
+    public void testIfInterfaceExists() {
+        assertTrue(Gdx.files.internal("../assets/Interface/BlockyInterface.atlas").exists());
+        assertTrue(Gdx.files.internal("../assets/Interface/BlockyInterface.json").exists());
+        assertTrue(Gdx.files.internal("../assets/Interface/BlockyInterface.png").exists());
+        assertTrue(Gdx.files.internal("../assets/Interface/BlockyInterface.scmp").exists());
+    }
+
+    @Test
+    public void testIfMusicExists() {
+        assertTrue(Gdx.files.internal("../assets/Music/OverworldMusic.mp3").exists());
+        assertTrue(Gdx.files.internal("../assets/Music/Streetlights.ogg").exists());
+    }
+
+    @Test
+    public void testIfSoundsExists() {
+        assertTrue(Gdx.files.internal("../assets/Sounds/Button.wav").exists());
+        assertTrue(Gdx.files.internal("../assets/Sounds/DialogueOpen.wav").exists());
+        assertTrue(Gdx.files.internal("../assets/Sounds/DialogueOption.wav").exists());
+        assertTrue(Gdx.files.internal("../assets/Sounds/footstep1.ogg").exists());
+        assertTrue(Gdx.files.internal("../assets/Sounds/footstep1 grass.ogg").exists());
+        assertTrue(Gdx.files.internal("../assets/Sounds/footstep2.ogg").exists());
+        assertTrue(Gdx.files.internal("../assets/Sounds/footstep2 grass.ogg").exists());
+        assertTrue(Gdx.files.internal("../assets/Sounds/Pause01.wav").exists());
+        assertTrue(Gdx.files.internal("../assets/Sounds/Walking.wav").exists());
+    }
+
+    @Test
     public void testIfTextExists() {
         assertTrue(Gdx.files.internal("../assets/Text/credits.txt").exists());
         assertTrue(Gdx.files.internal("../assets/Text/tutorial_text.txt").exists());
+    }
+
+    @Test
+    public void testIfTextFeildExists() {
+        assertTrue(Gdx.files.internal("../assets/TextField/TextField.atlas").exists());
+        assertTrue(Gdx.files.internal("../assets/TextField/TextField.json").exists());
+        assertTrue(Gdx.files.internal("../assets/TextField/TextField.json").exists());
+        assertTrue(Gdx.files.internal("../assets/TextField/W95FA(1).fnt").exists());
     }
 }
