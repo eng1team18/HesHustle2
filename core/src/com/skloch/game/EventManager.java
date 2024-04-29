@@ -24,6 +24,11 @@ public class EventManager {
     Score score = Score.getInstance();
     private Energy energyBar;
 
+    // New Stuff
+    private boolean studiedToday = false;
+    private boolean catchUpUsed = false;
+    private boolean missedDay = false;
+    private int dayLastStudied = 0;
     /**
      * A class that maps Object's event strings to actual Java functions.
      * To run a function call event(eventString), to add arguments add dashes.
@@ -200,6 +205,13 @@ public class EventManager {
      * @param args
      */
     public void compSciEvent(String[] args) {
+        //New
+        if(dayLastStudied < game.day){
+            studiedToday = false;
+        }
+        if(game.day - dayLastStudied > 1){
+            missedDay = true;
+        }
         int energyCost = activityEnergies.get("studying");
         // If the player is too tired for any studying:
         if (energyBar.getEnergy() < energyCost) {
@@ -214,14 +226,32 @@ public class EventManager {
             // If the player does not have enough energy for the selected hours
             if (energyBar.getEnergy() < hours*energyCost) {
                 game.dialogueBox.setText("You don't have the energy to study for this long!");
-            } else {
-                // If they do have the energy to study
+            }
+            // New stuff/changes made
+            else if(studiedToday == false){
+                // If they do have the energy to study and haven't studied today
+                studiedToday = true;
+                dayLastStudied = game.day;
                 game.dialogueBox.setText(String.format("You studied for %s hours!\nYou lost %d energy", args[1], hours*energyCost));
                 energyBar.decreaseEnergy(energyCost * hours);
                 game.addStudyHours(hours);
                 game.passTime(hours * 60); // in seconds
-                score.incrementTotalScore(1, 5);
+                score.incrementTotalScore(2, 5);
                 Achievement.getInstance().giveAchievement(1);
+            } else if (studiedToday && missedDay && !catchUpUsed) {
+                // If you have missed a day, this code should only ever be able to be called once
+                catchUpUsed = true;
+                dayLastStudied = game.day;
+                game.dialogueBox.setText(String.format("You caught up for %s hours!\nYou lost %d energy", args[1], hours*energyCost));
+                energyBar.decreaseEnergy(energyCost * hours);
+                game.addStudyHours(hours);
+                game.passTime(hours * 60); // in seconds   POSSIBLY make longer/ shorter as a catchup session?
+                score.incrementTotalScore(2, 3); //slightly lower score for catch up
+                Achievement.getInstance().giveAchievement(1);
+
+            } else {
+                // This should catch the cases where a user tries to study but either already has today or already used their catchup session
+                game.dialogueBox.setText(String.format("You've already studied as much as you can for today!"));
             }
         }
     }
