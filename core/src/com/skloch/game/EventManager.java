@@ -29,6 +29,7 @@ public class EventManager {
     private boolean catchUpUsed = false;
     private boolean missedDay = false;
     private int dayLastStudied = 0;
+    private int timeLastEat = 0;
     /**
      * A class that maps Object's event strings to actual Java functions.
      * To run a function call event(eventString), to add arguments add dashes.
@@ -269,6 +270,7 @@ public class EventManager {
         } else {
             game.dialogueBox.setText(String.format("You took an hour to eat %s at the Ron Cooke Hub!\nYou lost %d energy!", game.getMeal(), energyCost));
             energyBar.decreaseEnergy(energyCost);
+            score.incrementTotalScore(1, score.hungerScore(Math.round(game.daySeconds), timeLastEat));
             game.passTime(60); // in seconds
         }
 

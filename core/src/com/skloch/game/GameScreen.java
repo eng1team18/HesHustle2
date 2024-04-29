@@ -45,7 +45,7 @@ public class GameScreen implements Screen {
     final HustleGame game;
     private OrthographicCamera camera;
     private int hoursStudied, hoursRecreational, hoursSlept;
-    private float daySeconds = 0; // Current seconds elapsed in day
+    public float daySeconds = 0; // Current seconds elapsed in day
     public int day = 1; // What day the game is on
     private Label timeLabel, dayLabel;
     public Player player;
