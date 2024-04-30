@@ -74,7 +74,7 @@ public class AssetTests {
         assertTrue(Gdx.files.internal("../assets/Interface/BlockyInterface.atlas").exists());
         assertTrue(Gdx.files.internal("../assets/Interface/BlockyInterface.json").exists());
         assertTrue(Gdx.files.internal("../assets/Interface/BlockyInterface.png").exists());
-        assertTrue(Gdx.files.internal("../assets/Interface/BlockyInterface.scmp").exists());
+        assertTrue(Gdx.files.internal("../assets/Interface/Blockyinterface.scmp").exists());
     }
 
     @Test
