@@ -71,7 +71,7 @@ public class HustleGame extends Game {
 		skin = new Skin(Gdx.files.internal("Interface/BlockyInterface.json"));
 		skin2 = new Skin(Gdx.files.internal("TextField/TextField.json"));
 		// Map
-		map = new TmxMapLoader().load("East Campus/east_campus.tmx");
+		map = new TmxMapLoader().load("East Campus/east_campus_new.tmx");
 		mapProperties = map.getProperties();
 
 		// Define background, foreground and object layers
