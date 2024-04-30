@@ -173,6 +173,8 @@ public class EventManager {
             // RNG factor adds a slight difficulty (may consume too much energy to study)
             int hours = ThreadLocalRandom.current().nextInt(1, 4);
             game.dialogueBox.setText(String.format("You talked about %s for %d hours!", args[1].toLowerCase(), hours));
+            //New
+            score.incrementTotalScore(3, score.activityScore(0, game.day));
             energyBar.decreaseEnergy(energyCost * hours);
             game.passTime(hours * 60); // in seconds
             game.addRecreationalHours(hours);
@@ -307,6 +309,8 @@ public class EventManager {
                     game.dialogueBox.setText(String.format("You slept for %d hours!\nYou recovered %d energy!", hoursSlept, Math.min(100, hoursSlept*13)), "fadefromblack");
                     // Restore energy and pass time
                     energyBar.setEnergy(hoursSlept*13);
+                    //New
+                    score.incrementTotalScore(4, Math.min(hoursSlept*13, 100));
                     game.passTime(secondsSlept);
                     game.addSleptHours(hoursSlept);
                 }

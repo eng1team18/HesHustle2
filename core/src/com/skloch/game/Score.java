@@ -21,6 +21,11 @@ public class Score {
     public static Score getInstance() {
         return instance;
     }
+// New
+    private int lastDay = 0;
+    // pos 0 is piazza
+    // pos 1 TBD and so forth
+    private int[]recActivityLog = {0,0,0,0,0}; // Add more based on number of different rec activities
 
     private void initializeActivities() {
         // Initialize with some example activities
@@ -44,6 +49,16 @@ public class Score {
         //Double max score awarded for a meal
         int maxScore = 500;
         return (int) Math.round(maxScore * x);
+    }
+//New
+    public int activityScore(int activityType, int currentDay){
+        if (lastDay != currentDay){
+            lastDay = currentDay;
+            recActivityLog = new int[]{0, 0, 0, 0, 0};
+        }
+        recActivityLog[activityType] += 1;
+        int recreationScore = 200; // is changeable
+        return recreationScore / recActivityLog[activityType];
     }
 
     public int getTotalScore() {
