@@ -7,62 +7,65 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
 public class Energy extends Group {
-    private Image energyBar;
-    private float maxEnergyWidth;
-    private int energy = 100;
 
-    public Energy(Viewport viewport) {
+  private Image energyBar;
+  private float maxEnergyWidth;
+  private int energy = 100;
 
-        Group energyGroup = new Group();
-        energyGroup.setDebug(true);
-        energyBar = new Image(new Texture(Gdx.files.internal("Interface/Energy Bar/green_bar.png")));
-        Image energyBarOutline = new Image(new Texture(Gdx.files.internal("Interface/Energy Bar/bar_outline.png")));
-        energyBarOutline.setPosition(viewport.getWorldWidth()-energyBarOutline.getWidth() - 15, 15);
-        energyBar.setPosition(energyBarOutline.getX()+16, energyBarOutline.getY()+16);
-        energyGroup.addActor(energyBar);
-        energyGroup.addActor(energyBarOutline);
+  public Energy(Viewport viewport) {
 
-        Texture energyTexture = new Texture(Gdx.files.internal("Interface/Energy Bar/green_bar.png"));
-        Texture outlineTexture = new Texture(Gdx.files.internal("Interface/Energy Bar/bar_outline.png"));
+    Group energyGroup = new Group();
+    energyGroup.setDebug(true);
+    energyBar = new Image(new Texture(Gdx.files.internal("Interface/Energy Bar/green_bar.png")));
+    Image energyBarOutline = new Image(
+        new Texture(Gdx.files.internal("Interface/Energy Bar/bar_outline.png")));
+    energyBarOutline.setPosition(viewport.getWorldWidth() - energyBarOutline.getWidth() - 15, 15);
+    energyBar.setPosition(energyBarOutline.getX() + 16, energyBarOutline.getY() + 16);
+    energyGroup.addActor(energyBar);
+    energyGroup.addActor(energyBarOutline);
 
-        energyBar = new Image(energyTexture);
-        energyBarOutline = new Image(outlineTexture);
+    Texture energyTexture = new Texture(Gdx.files.internal("Interface/Energy Bar/green_bar.png"));
+    Texture outlineTexture = new Texture(
+        Gdx.files.internal("Interface/Energy Bar/bar_outline.png"));
 
-        energyBarOutline.setPosition(viewport.getWorldWidth() - energyBarOutline.getWidth() - 15, 15);
-        energyBar.setPosition(energyBarOutline.getX() + 16, energyBarOutline.getY() + 16);
+    energyBar = new Image(energyTexture);
+    energyBarOutline = new Image(outlineTexture);
 
-        maxEnergyWidth = energyBar.getWidth();
-        addActor(energyBar);
-        addActor(energyBarOutline);
+    energyBarOutline.setPosition(viewport.getWorldWidth() - energyBarOutline.getWidth() - 15, 15);
+    energyBar.setPosition(energyBarOutline.getX() + 16, energyBarOutline.getY() + 16);
+
+    maxEnergyWidth = energyBar.getWidth();
+    addActor(energyBar);
+    addActor(energyBarOutline);
+  }
+
+  /**
+   * Sets the player's energy level and updates the onscreen bar
+   *
+   * @param energy An int between 0 and 100
+   */
+  public void setEnergy(int energy) {
+    this.energy = energy;
+    if (this.energy > 100) {
+      this.energy = 100;
     }
+    energyBar.setScaleY(this.energy / 100f);
+  }
 
-    /**
-     * Sets the player's energy level and updates the onscreen bar
-     *
-     * @param energy An int between 0 and 100
-     */
-    public void setEnergy(int energy) {
-        this.energy = energy;
-        if (this.energy > 100) {
-            this.energy = 100;
-        }
-        energyBar.setScaleY(this.energy / 100f);
+  /**
+   * Decreases the player's energy by a certain amount
+   *
+   * @param energy The energy to decrement
+   */
+  public void decreaseEnergy(int energy) {
+    this.energy -= energy;
+    if (this.energy < 0) {
+      this.energy = 0;
     }
+    energyBar.setScaleY(this.energy / 100f);
+  }
 
-    /**
-     * Decreases the player's energy by a certain amount
-     *
-     * @param energy The energy to decrement
-     */
-    public void decreaseEnergy(int energy) {
-        this.energy -= energy;
-        if (this.energy < 0) {
-            this.energy = 0;
-        }
-        energyBar.setScaleY(this.energy / 100f);
-    }
-
-    public int getEnergy() {
-        return this.energy;
-    }
+  public int getEnergy() {
+    return this.energy;
+  }
 }
