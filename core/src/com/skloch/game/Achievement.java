@@ -12,7 +12,7 @@ public class Achievement {
 
   public Achievement() {
     achievements = new HashMap<>();
-    addAchievement(1, "Bookworm", "Read 10 books at the Study Building");
+    addAchievement(1, "Tree?", "Talk to the tree!");
   }
 
   public static Achievement getInstance() {

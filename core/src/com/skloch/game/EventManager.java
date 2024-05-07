@@ -152,6 +152,7 @@ public class EventManager {
   public void treeEvent() {
     game.dialogueBox.hideSelectBox();
     game.dialogueBox.setText("The tree doesn't say anything back.");
+    Achievement.getInstance().giveAchievement(1);
   }
 
 
@@ -260,7 +261,6 @@ public class EventManager {
         game.addStudyHours(3);
         game.passTime(3 * 60); // in seconds
         score.incrementTotalScore(2, 5);
-        Achievement.getInstance().giveAchievement(1);
       } else if (missedDay && !catchUpUsed) {
         // If you have missed a day, this code should only ever be able to be called once
         catchUpUsed = true;
@@ -273,7 +273,6 @@ public class EventManager {
         game.passTime(
             3 * 60); // in seconds   POSSIBLY make longer/ shorter as a catchup session?
         score.incrementTotalScore(2, 3); //slightly lower score for catch up
-        Achievement.getInstance().giveAchievement(1);
 
       } else {
         // This should catch the cases where a user tries to study but either already has today or already used their catchup session

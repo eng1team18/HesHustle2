@@ -506,7 +506,7 @@ public class GameScreen implements Screen {
       dayLabel.setText(String.format("Day %s", day));
     }
 
-    if (day >= 8) {
+    if (day >= 3) {
       GameOver();
     }
   }
