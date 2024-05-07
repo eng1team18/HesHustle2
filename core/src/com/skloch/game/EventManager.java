@@ -46,11 +46,14 @@ public class EventManager {
 
     // How much energy an hour of each activity should take
     activityEnergies = new HashMap<String, Integer>();
-    activityEnergies.put("studying", 10);
+    activityEnergies.put("studying", 30);
     activityEnergies.put("meet_friends", 10);
+    activityEnergies.put("walk", 10);
+    activityEnergies.put("ducks", 10);
+    activityEnergies.put("bus", 10);
     activityEnergies.put("eating", 10);
 
-    // Define what to say when interacting with an object who's text won't change
+    // Define what to say when interacting with an object whose text won't change
     objectInteractions = new HashMap<String, String>();
     objectInteractions.put("chest", "Open the chest?");
     objectInteractions.put("ron_cooke", "Study in the Ron Cooke building?");
@@ -59,6 +62,9 @@ public class EventManager {
         "Go to sleep for the night?\nYour alarm is set for 8am.");
     objectInteractions.put("piazza", null); // Changes, dynamically returned in getObjectInteraction
     objectInteractions.put("tree", "Speak to the tree?");
+    objectInteractions.put("walk", "Go on a walk in the woods?");
+    objectInteractions.put("ducks", "Feed the ducks?");
+    objectInteractions.put("bus", "Get the bus to town?");
 
     // Some random topics that can be chatted about
     String[] topics = {"Dogs", "Cats", "Exams", "Celebrities", "Flatmates", "Video games", "Sports",
@@ -97,6 +103,15 @@ public class EventManager {
         break;
       case "accomodation":
         accomEvent(args);
+        break;
+      case "walk":
+        walk(args);
+        break;
+      case "ducks":
+        ducks(args);
+        break;
+      case "bus":
+        bus(args);
         break;
       case "exit":
         // Should do nothing and just close the dialogue menu
@@ -156,11 +171,10 @@ public class EventManager {
   }
 
   /**
-   * Lets the player study at the piazza for x num of hours, decreases the player's energy and
+   * Lets the player study at the Ron cooke hub for 3 hours, decreases the player's energy and
    * increments the game time.
    *
-   * @param args Arguments to be passed, should contain the hours the player wants to study. E.g.
-   *             ["piazza", "1"]
+   * @param args
    */
   public void friendsEvent(String[] args) {
     int energyCost = activityEnergies.get("meet_friends");
@@ -228,49 +242,42 @@ public class EventManager {
     if (energyBar.getEnergy() < energyCost) {
       game.dialogueBox.hideSelectBox();
       game.dialogueBox.setText("You are too tired to study right now!");
-    } else if (args.length == 1) {
-      // If the player has not yet chosen how many hours, ask
-      game.dialogueBox.setText("Study for how long?");
-      game.dialogueBox.getSelectBox()
-          .setOptions(new String[]{"2 Hours (20)", "3 Hours (30)", "4 Hours (40)"},
-              new String[]{"comp_sci-2", "comp_sci-3", "comp_sci-4"});
+
     } else {
-      int hours = Integer.parseInt(args[1]);
       // If the player does not have enough energy for the selected hours
-      if (energyBar.getEnergy() < hours * energyCost) {
+      if (energyBar.getEnergy() < energyCost) {
         game.dialogueBox.setText("You don't have the energy to study for this long!");
       }
       // New stuff/changes made
-      else if (studiedToday == false) {
+      else if (!studiedToday) {
         // If they do have the energy to study and haven't studied today
         studiedToday = true;
         dayLastStudied = game.day;
         game.dialogueBox.setText(
-            String.format("You studied for %s hours!\nYou lost %d energy", args[1],
-                hours * energyCost));
-        energyBar.decreaseEnergy(energyCost * hours);
-        game.addStudyHours(hours);
-        game.passTime(hours * 60); // in seconds
+            String.format("You studied for 3 hours!\nYou lost %d energy",
+                energyCost));
+        energyBar.decreaseEnergy(energyCost);
+        game.addStudyHours(3);
+        game.passTime(3 * 60); // in seconds
         score.incrementTotalScore(2, 5);
         Achievement.getInstance().giveAchievement(1);
-      } else if (studiedToday && missedDay && !catchUpUsed) {
+      } else if (missedDay && !catchUpUsed) {
         // If you have missed a day, this code should only ever be able to be called once
         catchUpUsed = true;
         dayLastStudied = game.day;
         game.dialogueBox.setText(
-            String.format("You caught up for %s hours!\nYou lost %d energy", args[1],
-                hours * energyCost));
-        energyBar.decreaseEnergy(energyCost * hours);
-        game.addStudyHours(hours);
+            String.format("You caught up for 3 hours!\nYou lost %d energy",
+                energyCost));
+        energyBar.decreaseEnergy(energyCost);
+        game.addStudyHours(3);
         game.passTime(
-            hours * 60); // in seconds   POSSIBLY make longer/ shorter as a catchup session?
+            3 * 60); // in seconds   POSSIBLY make longer/ shorter as a catchup session?
         score.incrementTotalScore(2, 3); //slightly lower score for catch up
         Achievement.getInstance().giveAchievement(1);
 
       } else {
         // This should catch the cases where a user tries to study but either already has today or already used their catchup session
-        game.dialogueBox.setText(
-            String.format("You've already studied as much as you can for today!"));
+        game.dialogueBox.setText("You've already studied as much as you can for today!");
       }
     }
   }
@@ -340,6 +347,53 @@ public class EventManager {
 
     fadeToBlack(setTextAction);
   }
+
+  //NEW CODE
+  public void walk(String[] args) {
+    int energyCost = activityEnergies.get("walk");
+    // If the player is too tired to meet friends
+    if (energyBar.getEnergy() < energyCost) {
+      game.dialogueBox.setText("You are too tired to go on a walk right now!");
+    } else {
+      game.dialogueBox.show();
+      game.dialogueBox.setText(
+              String.format("You went on a walk for 2 hours!\nYou used %d energy!", energyCost));
+      energyBar.decreaseEnergy(energyCost);
+      score.incrementTotalScore(3, score.activityScore(3, game.day));
+      game.passTime(2 * 60); // in seconds
+    }
+  }
+
+  public void bus(String[] args) {
+    int energyCost = activityEnergies.get("bus");
+    // If the player is too tired to meet friends
+    if (energyBar.getEnergy() < energyCost) {
+      game.dialogueBox.setText("You are too tired to into town right now!");
+    } else {
+      game.dialogueBox.show();
+      game.dialogueBox.setText(
+              String.format("You went into town for 2 hours!\nYou lost %d energy!", energyCost));
+      energyBar.decreaseEnergy(energyCost);
+      score.incrementTotalScore(3, score.activityScore(3, game.day));
+      game.passTime(2 * 60); // in seconds
+    }
+  }
+
+  public void ducks(String[] args) {
+    int energyCost = activityEnergies.get("ducks");
+    // If the player is too tired to meet friends
+    if (energyBar.getEnergy() < energyCost) {
+      game.dialogueBox.setText("You are too tired to feed the ducks right now!");
+    } else {
+      game.dialogueBox.show();
+      game.dialogueBox.setText(
+              String.format("You fed the ducks for 1 hour!\nYou lost %d energy!", energyCost));
+      energyBar.decreaseEnergy(energyCost);
+      score.incrementTotalScore(3, score.activityScore(3, game.day));
+      game.passTime(2 * 60); // in seconds
+    }
+  }
+
 
   /**
    * Fades the screen to black

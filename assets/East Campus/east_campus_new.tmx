@@ -1575,11 +1575,11 @@
   <object id="517" x="2212.33" y="842" width="87.6667" height="245"/>
   <object id="518" x="2287" y="790.333" width="64" height="77.6667"/>
   <object id="521" x="2258" y="689" width="89.6667" height="102"/>
-  <object id="522" x="2232.33" y="746.333" width="33.3333" height="45.3333"/>
+  <object id="522" x="2233.6" y="747.788" width="32.0606" height="43.8788"/>
   <object id="523" x="2067.67" y="744.667" width="115.333" height="46.3333"/>
   <object id="524" x="2141.67" y="639.667" width="139.667" height="54.3333"/>
   <object id="525" x="2129" y="668.333" width="29.6667" height="102.667"/>
-  <object id="526" x="2200.33" y="687" width="22" height="56.6667">
+  <object id="526" x="2200.33" y="708.455" width="22" height="30.8485">
    <properties>
     <property name="event" value="tree"/>
    </properties>
