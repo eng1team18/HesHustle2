@@ -50,7 +50,7 @@ jobs:
       with:
         arguments: tests:test
     
-    - name: Add Test Report
+    - name: Add Test Report to GitHub
       uses: dorny/test-reporter@v1
       if: always() # Run even if previous steps failed
       with:
@@ -66,11 +66,6 @@ jobs:
       with:
         name: checkstyle-report
         path: core/build/reports/checkstyle
-
-    - name: Add Checkstyle report on GitHub
-      uses: jwgmeligmeyling/checkstyle-github-action@master
-      with:
-        path: '**/reports/checkstyle/*.xml'
 
   dependency-submission:
     runs-on: windows-latest

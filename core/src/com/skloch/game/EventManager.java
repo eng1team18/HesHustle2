@@ -357,7 +357,7 @@ public class EventManager {
     } else {
       game.dialogueBox.show();
       game.dialogueBox.setText(
-              String.format("You went on a walk for 2 hours!\nYou used %d energy!", energyCost));
+          String.format("You went on a walk for 2 hours!\nYou used %d energy!", energyCost));
       energyBar.decreaseEnergy(energyCost);
       score.incrementTotalScore(3, score.activityScore(3, game.day));
       game.passTime(2 * 60); // in seconds
@@ -372,7 +372,7 @@ public class EventManager {
     } else {
       game.dialogueBox.show();
       game.dialogueBox.setText(
-              String.format("You went into town for 2 hours!\nYou lost %d energy!", energyCost));
+          String.format("You went into town for 2 hours!\nYou lost %d energy!", energyCost));
       energyBar.decreaseEnergy(energyCost);
       score.incrementTotalScore(3, score.activityScore(3, game.day));
       game.passTime(2 * 60); // in seconds
@@ -387,7 +387,7 @@ public class EventManager {
     } else {
       game.dialogueBox.show();
       game.dialogueBox.setText(
-              String.format("You fed the ducks for 1 hour!\nYou lost %d energy!", energyCost));
+          String.format("You fed the ducks for 1 hour!\nYou lost %d energy!", energyCost));
       energyBar.decreaseEnergy(energyCost);
       score.incrementTotalScore(3, score.activityScore(3, game.day));
       game.passTime(2 * 60); // in seconds
