@@ -14,8 +14,10 @@ buildscript {
     }
 }
 
+def checkstyleVersion = '10.15.0'
 allprojects {
     apply plugin: "eclipse"
+    apply plugin: 'checkstyle'
 
     version = '1.0'
     ext {
@@ -37,9 +39,24 @@ allprojects {
         maven { url "https://oss.sonatype.org/content/repositories/releases/" }
         maven { url "https://jitpack.io" }
     }
-}
 
-def checkstyleVersion = '10.15.0'
+    configurations {
+        checkstyleRules
+    }
+
+    dependencies {
+        checkstyleRules(
+                "com.puppycrawl.tools:checkstyle:${checkstyleVersion}") {
+            transitive = false
+        }
+    }
+
+    checkstyle {
+        toolVersion "${checkstyleVersion}"
+        config = resources.text.fromArchiveEntry(configurations.checkstyleRules,
+                'google_checks.xml')
+    }
+}
 
 project(":desktop") {
     apply plugin: 'java-library'
@@ -55,30 +72,16 @@ project(":desktop") {
 project(":core") {
     apply plugin: "java-library"
     apply plugin: 'jacoco'
-    apply plugin: 'checkstyle'
-
-    configurations {
-        checkstyleRules
-    }
 
     dependencies {
         api "com.badlogicgames.gdx:gdx:$gdxVersion"
         api "com.badlogicgames.gdx:gdx-freetype:$gdxVersion"
         testImplementation 'org.junit.jupiter:junit-jupiter:5.8.1'
-        checkstyleRules("com.puppycrawl.tools:checkstyle:${checkstyleVersion}") {
-            transitive = false
-        }
     }
 
     test {
         useJUnitPlatform()
         finalizedBy jacocoTestReport
-    }
-
-    checkstyle {
-        toolVersion "${checkstyleVersion}"
-        config = resources.text.fromArchiveEntry(configurations.checkstyleRules,
-                'google_checks.xml')
     }
 }
 

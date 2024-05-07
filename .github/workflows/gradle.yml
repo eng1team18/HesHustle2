@@ -60,12 +60,18 @@ jobs:
         fail-on-error: 'true'
         fail-on-empty: 'true'
 
-    - name: Upload Checkstyle report as a workflow artifact
+    - name: Zip Checkstyle report files into one folder
+      uses: vimtor/action-zip@v1.2
+      with:
+        files: core/**/checkstyle desktop/**/checkstyle tests/**/checkstyle
+        dest: checkstyle-reports.zip
+
+    - name: Upload Checkstyle report zip as a workflow artifact
       uses: actions/upload-artifact@v4
       if: startsWith(matrix.os, 'windows')
       with:
-        name: checkstyle-report
-        path: core/build/reports/checkstyle
+        name: checkstyle-reports
+        path: checkstyle-reports.zip
 
   dependency-submission:
     runs-on: windows-latest
