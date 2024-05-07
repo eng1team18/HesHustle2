@@ -13,7 +13,10 @@ jobs:
       matrix:
         os: [windows-latest, macos-latest, ubuntu-latest]
     runs-on: ${{matrix.os}}
-    permissions: write-all
+    permissions:
+      contents: read
+      actions: read
+      checks: write
 
     steps:
     - uses: actions/checkout@v4
@@ -51,9 +54,8 @@ jobs:
       uses: dorny/test-reporter@v1
       if: always()
       with:
-        artifact: test-results
         name: "Test Report ${{ matrix.os }}"
-        path: tests/build/test-results/test/*.xml
+        path: tests/build/*.xml
         reporter: java-junit
         fail-on-error: 'true'
         fail-on-empty: 'true'
