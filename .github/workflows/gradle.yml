@@ -45,6 +45,22 @@ jobs:
         name: jacoco-report-${{ matrix.os }}
         path: tests/build/reports/jacoco/test/html/
 
+    - name: Test
+      uses: gradle/gradle-build-action@v3
+      with:
+        arguments: tests:test
+    
+    - name: Add Test Report
+      uses: dorny/test-reporter@v1
+      if: always()
+      with:
+        artifact: test-results
+        name: "Test Report ${{ matrix.os }}"
+        path: tests/build/test-results/test/*.xml
+        reporter: java-junit
+        fail-on-error: 'true'
+        fail-on-empty: 'true'
+
     - name: Upload Checkstyle report
       uses: actions/upload-artifact@v4
       if: startsWith(matrix.os, 'windows')
