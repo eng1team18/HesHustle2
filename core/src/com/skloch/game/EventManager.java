@@ -53,11 +53,11 @@ public class EventManager {
     // Define what to say when interacting with an object who's text won't change
     objectInteractions = new HashMap<String, String>();
     objectInteractions.put("chest", "Open the chest?");
-    objectInteractions.put("comp_sci", "Study in the Computer Science building?");
-    objectInteractions.put("piazza", "Meet your friends at the Piazza?");
+    objectInteractions.put("ron_cooke", "Study in the Ron Cooke building?");
+    objectInteractions.put("friends", "Talk to your friends?");
     objectInteractions.put("accomodation",
         "Go to sleep for the night?\nYour alarm is set for 8am.");
-    objectInteractions.put("rch", null); // Changes, dynamically returned in getObjectInteraction
+    objectInteractions.put("piazza", null); // Changes, dynamically returned in getObjectInteraction
     objectInteractions.put("tree", "Speak to the tree?");
 
     // Some random topics that can be chatted about
@@ -86,14 +86,14 @@ public class EventManager {
       case "chest":
         chestEvent();
         break;
+      case "friends":
+        friendsEvent(args);
+        break;
+      case "ron_cooke":
+        ronCookeEvent(args);
+        break;
       case "piazza":
         piazzaEvent(args);
-        break;
-      case "comp_sci":
-        compSciEvent(args);
-        break;
-      case "rch":
-        ronCookeEvent(args);
         break;
       case "accomodation":
         accomEvent(args);
@@ -117,8 +117,8 @@ public class EventManager {
    * @return The object interaction text
    */
   public String getObjectInteraction(String key) {
-    if (key.equals("rch")) {
-      return String.format("Eat %s at the Ron Cooke Hub?", game.getMeal());
+    if (key.equals("piazza")) {
+      return String.format("Eat %s at the Piazza Building?", game.getMeal());
     } else {
       return objectInteractions.get(key);
     }
@@ -162,7 +162,7 @@ public class EventManager {
    * @param args Arguments to be passed, should contain the hours the player wants to study. E.g.
    *             ["piazza", "1"]
    */
-  public void piazzaEvent(String[] args) {
+  public void friendsEvent(String[] args) {
     int energyCost = activityEnergies.get("meet_friends");
     // If the player is too tired to meet friends
     if (energyBar.getEnergy() < energyCost) {
@@ -215,7 +215,7 @@ public class EventManager {
    *
    * @param args
    */
-  public void compSciEvent(String[] args) {
+  public void ronCookeEvent(String[] args) {
     //New
     if (dayLastStudied < game.day) {
       studiedToday = false;
@@ -282,13 +282,13 @@ public class EventManager {
    *
    * @param args
    */
-  public void ronCookeEvent(String[] args) {
+  public void piazzaEvent(String[] args) {
     int energyCost = activityEnergies.get("eating");
     if (energyBar.getEnergy() < energyCost) {
       game.dialogueBox.setText("You are too tired to eat right now!");
     } else {
       game.dialogueBox.setText(
-          String.format("You took an hour to eat %s at the Ron Cooke Hub!\nYou lost %d energy!",
+          String.format("You took an hour to eat %s at the Piazza Building!\nYou lost %d energy!",
               game.getMeal(), energyCost));
       energyBar.decreaseEnergy(energyCost);
       score.incrementTotalScore(1, score.hungerScore(Math.round(game.daySeconds), timeLastEat));

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="left-up" width="200" height="150" tilewidth="24" tileheight="24" infinite="0" nextlayerid="18" nextobjectid="629">
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="left-up" width="200" height="150" tilewidth="24" tileheight="24" infinite="0" nextlayerid="18" nextobjectid="630">
  <tileset firstgid="1" source="Tilemaps/StarRealmsCozyForestPack24x24.tsx"/>
  <tileset firstgid="529" source="Tilemaps/Buildings east.tsx"/>
  <tileset firstgid="970" source="Tilemaps/Bus.tsx"/>
@@ -1375,11 +1375,6 @@
   <object id="298" x="1680.4" y="1516.52" width="23.0824" height="17.081"/>
   <object id="299" x="1872.91" y="1660.32" width="23.0824" height="17.081"/>
   <object id="300" x="1800.87" y="1420.89" width="23.0824" height="17.081"/>
-  <object id="301" x="1884.96" y="2095.32" width="259.145" height="124.36">
-   <properties>
-    <property name="event" value="comp_sci"/>
-   </properties>
-  </object>
   <object id="304" x="1487.5" y="1827.5" width="713" height="43.5"/>
   <object id="305" x="2112.5" y="1871.5" width="88" height="52.25"/>
   <object id="306" x="2136" y="1923.75" width="64.75" height="19"/>
@@ -1641,5 +1636,10 @@
   <object id="624" x="3783.04" y="1184.42" width="24.6262" height="34.8637"/>
   <object id="625" x="3687.48" y="1088.24" width="24.6262" height="37.5257"/>
   <object id="628" x="2871.15" y="1040.59" width="25" height="38.75"/>
+  <object id="629" x="1888.74" y="2097.35" width="254.267" height="120.11">
+   <properties>
+    <property name="event" value="ron_cooke"/>
+   </properties>
+  </object>
  </objectgroup>
 </map>
