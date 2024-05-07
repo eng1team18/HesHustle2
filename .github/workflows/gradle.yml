@@ -60,12 +60,17 @@ jobs:
         fail-on-error: 'true'
         fail-on-empty: 'true'
 
-    - name: Upload Checkstyle report
+    - name: Upload Checkstyle report as a workflow artifact
       uses: actions/upload-artifact@v4
       if: startsWith(matrix.os, 'windows')
       with:
         name: checkstyle-report
         path: core/build/reports/checkstyle
+
+    - name: Add Checkstyle report on GitHub
+      uses: jwgmeligmeyling/checkstyle-github-action@master
+      with:
+        path: '**/reports/checkstyle/*.xml'
 
   dependency-submission:
     runs-on: windows-latest
