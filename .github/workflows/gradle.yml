@@ -63,7 +63,7 @@ jobs:
     - name: Zip Checkstyle report files into one folder
       uses: vimtor/action-zip@v1.2
       with:
-        files: core/**/checkstyle desktop/**/checkstyle tests/**/checkstyle
+        files: core/build/reports/checkstyle/* desktop/build/reports/checkstyle/* tests/build/reports/checkstyle/*
         dest: checkstyle-reports.zip
 
     - name: Upload Checkstyle report zip as a workflow artifact
