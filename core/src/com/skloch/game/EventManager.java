@@ -59,7 +59,7 @@ public class EventManager {
     objectInteractions.put("ron_cooke", "Study in the Ron Cooke building?");
     objectInteractions.put("friends", "Talk to your friends?");
     objectInteractions.put("accomodation",
-        "Go to sleep for the night?\nYour alarm is set for 8am.");
+            "Go to sleep for the night?\nYour alarm is set for 8am.");
     objectInteractions.put("piazza", null); // Changes, dynamically returned in getObjectInteraction
     objectInteractions.put("tree", "Speak to the tree?");
     objectInteractions.put("walk", "Go on a walk in the woods?");
@@ -68,7 +68,7 @@ public class EventManager {
 
     // Some random topics that can be chatted about
     String[] topics = {"Dogs", "Cats", "Exams", "Celebrities", "Flatmates", "Video games", "Sports",
-        "Food", "Fashion"};
+            "Food", "Fashion"};
     talkTopics = new Array<String>(topics);
   }
 
@@ -158,7 +158,7 @@ public class EventManager {
   public void chestEvent() {
     game.dialogueBox.hideSelectBox();
     game.dialogueBox.setText(
-        "Wow! This chest is full of so many magical items! I wonder how they will help you out on your journey! Boy, this is an awfully long piece of text, I wonder if someone is testing something?\n...\n...\n...\nHow cool!");
+            "Wow! This chest is full of so many magical items! I wonder how they will help you out on your journey! Boy, this is an awfully long piece of text, I wonder if someone is testing something?\n...\n...\n...\nHow cool!");
 
   }
 
@@ -187,13 +187,13 @@ public class EventManager {
       String[] topics = randomTopics(3);
       game.dialogueBox.setText("What do you want to chat about?");
       game.dialogueBox.getSelectBox().setOptions(topics,
-          new String[]{"piazza-" + topics[0], "piazza-" + topics[1], "piazza-" + topics[2]});
+              new String[]{"piazza-" + topics[0], "piazza-" + topics[1], "piazza-" + topics[2]});
     } else {
       // Say that the player chatted about this topic for 1-3 hours
       // RNG factor adds a slight difficulty (may consume too much energy to study)
       int hours = ThreadLocalRandom.current().nextInt(1, 4);
       game.dialogueBox.setText(
-          String.format("You talked about %s for %d hours!", args[1].toLowerCase(), hours));
+              String.format("You talked about %s for %d hours!", args[1].toLowerCase(), hours));
       //New
       score.incrementTotalScore(3, score.activityScore(0, game.day));
       energyBar.decreaseEnergy(energyCost * hours);
@@ -254,8 +254,8 @@ public class EventManager {
         studiedToday = true;
         dayLastStudied = game.day;
         game.dialogueBox.setText(
-            String.format("You studied for 3 hours!\nYou lost %d energy",
-                energyCost));
+                String.format("You studied for 3 hours!\nYou lost %d energy",
+                        energyCost));
         energyBar.decreaseEnergy(energyCost);
         game.addStudyHours(3);
         game.passTime(3 * 60); // in seconds
@@ -266,12 +266,12 @@ public class EventManager {
         catchUpUsed = true;
         dayLastStudied = game.day;
         game.dialogueBox.setText(
-            String.format("You caught up for 3 hours!\nYou lost %d energy",
-                energyCost));
+                String.format("You caught up for 3 hours!\nYou lost %d energy",
+                        energyCost));
         energyBar.decreaseEnergy(energyCost);
         game.addStudyHours(3);
         game.passTime(
-            3 * 60); // in seconds   POSSIBLY make longer/ shorter as a catchup session?
+                3 * 60); // in seconds   POSSIBLY make longer/ shorter as a catchup session?
         score.incrementTotalScore(2, 3); //slightly lower score for catch up
         Achievement.getInstance().giveAchievement(1);
 
@@ -295,8 +295,8 @@ public class EventManager {
       game.dialogueBox.setText("You are too tired to eat right now!");
     } else {
       game.dialogueBox.setText(
-          String.format("You took an hour to eat %s at the Piazza Building!\nYou lost %d energy!",
-              game.getMeal(), energyCost));
+              String.format("You took an hour to eat %s at the Piazza Building!\nYou lost %d energy!",
+                      game.getMeal(), energyCost));
       energyBar.decreaseEnergy(energyCost);
       score.incrementTotalScore(1, score.hungerScore(Math.round(game.daySeconds), timeLastEat));
       game.passTime(60); // in seconds
@@ -333,8 +333,8 @@ public class EventManager {
         if (game.getSleeping()) {
           game.dialogueBox.show();
           game.dialogueBox.setText(
-              String.format("You slept for %d hours!\nYou recovered %d energy!", hoursSlept,
-                  Math.min(100, hoursSlept * 13)), "fadefromblack");
+                  String.format("You slept for %d hours!\nYou recovered %d energy!", hoursSlept,
+                          Math.min(100, hoursSlept * 13)), "fadefromblack");
           // Restore energy and pass time
           energyBar.setEnergy(hoursSlept * 13);
           //New
@@ -350,17 +350,27 @@ public class EventManager {
 
   //NEW CODE
   public void walk(String[] args) {
+    game.setFadeout(true);
+    game.dialogueBox.hide();
     int energyCost = activityEnergies.get("walk");
     // If the player is too tired to meet friends
     if (energyBar.getEnergy() < energyCost) {
       game.dialogueBox.setText("You are too tired to go on a walk right now!");
     } else {
-      game.dialogueBox.show();
-      game.dialogueBox.setText(
-          String.format("You went on a walk for 2 hours!\nYou used %d energy!", energyCost));
-      energyBar.decreaseEnergy(energyCost);
-      score.incrementTotalScore(3, score.activityScore(3, game.day));
-      game.passTime(2 * 60); // in seconds
+      RunnableAction setTextAction = new RunnableAction();
+      setTextAction.setRunnable(new Runnable() {
+        @Override
+        public void run() {
+          game.dialogueBox.show();
+          game.dialogueBox.setText(
+                  String.format("You went on a walk for 2 hours!\nYou recovered %d energy!",
+                          energyCost), "fadefromblack");
+          energyBar.decreaseEnergy(energyCost);
+          score.incrementTotalScore(3, score.activityScore(2, game.day));
+          game.passTime(2 * 60);
+        }
+      });
+      fadeToBlack(setTextAction);
     }
   }
 
@@ -372,7 +382,7 @@ public class EventManager {
     } else {
       game.dialogueBox.show();
       game.dialogueBox.setText(
-          String.format("You went into town for 2 hours!\nYou lost %d energy!", energyCost));
+              String.format("You went into town for 2 hours!\nYou lost %d energy!", energyCost));
       energyBar.decreaseEnergy(energyCost);
       score.incrementTotalScore(3, score.activityScore(3, game.day));
       game.passTime(2 * 60); // in seconds
@@ -387,7 +397,7 @@ public class EventManager {
     } else {
       game.dialogueBox.show();
       game.dialogueBox.setText(
-          String.format("You fed the ducks for 1 hour!\nYou lost %d energy!", energyCost));
+              String.format("You fed the ducks for 1 hour!\nYou lost %d energy!", energyCost));
       energyBar.decreaseEnergy(energyCost);
       score.incrementTotalScore(3, score.activityScore(3, game.day));
       game.passTime(2 * 60); // in seconds
@@ -430,11 +440,11 @@ public class EventManager {
           }
         }
       });
-
       // Queue up events
       game.blackScreen.addAction(Actions.sequence(Actions.fadeOut(3f), setTextAction));
     } else {
       game.blackScreen.addAction(Actions.fadeOut(3f));
     }
+    game.setFadeout(false);
   }
 }

@@ -12,7 +12,6 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
@@ -62,6 +61,8 @@ public class GameScreen implements Screen {
   public DialogueBox dialogueBox;
   public final Image blackScreen;
   private boolean sleeping = false;
+  private boolean fadeout = false;
+
   private Leaderboard leaderboard;
   private final Score score;
   String playerName;
@@ -256,7 +257,7 @@ public class GameScreen implements Screen {
     timeLabel.setText(formatTime((int) daySeconds));
 
     // Freeze the player's movement for this frame if any menus are visible
-    if (escapeMenu.isVisible() || dialogueBox.isVisible() || sleeping) {
+    if (escapeMenu.isVisible() || dialogueBox.isVisible() || sleeping || fadeout) {
       player.setFrozen(true);
     } else {
       player.setFrozen(false);
@@ -309,7 +310,7 @@ public class GameScreen implements Screen {
 
     // Check if the interaction (press e to use) label needs to be drawn
     interactionLabel.setVisible(false);
-    if (!dialogueBox.isVisible() && !escapeMenu.isVisible() && !sleeping) {
+    if (!dialogueBox.isVisible() && !escapeMenu.isVisible() && !sleeping  && !fadeout) {
       if (player.nearObject()) {
         interactionLabel.setVisible(true);
         // Change text whether pressing E will interact or just read text
@@ -567,7 +568,7 @@ public class GameScreen implements Screen {
               dialogueBox.enter(eventManager);
               game.soundManager.playButton();
 
-            } else if (player.nearObject() && !sleeping) {
+            } else if (player.nearObject() && !sleeping && !fadeout) {
               // If the object has an event associated with it
               if (player.getClosestObject().get("event") != null) {
                 // Show a dialogue menu asking if they want to do an interaction with the object
@@ -682,6 +683,18 @@ public class GameScreen implements Screen {
    */
   public boolean getSleeping() {
     return sleeping;
+  }
+
+  /**
+   * @param fadeout sets the value of fadeout
+   */
+  //NEW CODE
+  public void setFadeout(boolean fadeout) {
+    this.fadeout = fadeout;
+  }
+
+  public boolean getFadeout() {
+    return fadeout;
   }
 
   /**
