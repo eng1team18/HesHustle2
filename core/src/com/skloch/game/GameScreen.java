@@ -276,14 +276,6 @@ public class GameScreen implements Screen {
       game.soundManager.footstepBool = false;
     }
 
-    if (Gdx.input.isKeyPressed(Input.Keys.B)) {
-      GameOver();
-    }
-
-    if (Gdx.input.isKeyPressed(Input.Keys.G)) {
-      score.incrementTotalScore(1, 5);
-    }
-
     // Update the map's render position
     mapRenderer.setView(camera);
     // Draw the background layer
