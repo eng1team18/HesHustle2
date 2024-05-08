@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="left-up" width="200" height="150" tilewidth="24" tileheight="24" infinite="0" nextlayerid="18" nextobjectid="630">
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="left-up" width="200" height="150" tilewidth="24" tileheight="24" infinite="0" nextlayerid="18" nextobjectid="631">
  <tileset firstgid="1" source="Tilemaps/StarRealmsCozyForestPack24x24.tsx"/>
  <tileset firstgid="529" source="Tilemaps/Buildings east.tsx"/>
  <tileset firstgid="970" source="Tilemaps/Bus.tsx"/>
@@ -1640,5 +1640,6 @@
     <property name="event" value="ron_cooke"/>
    </properties>
   </object>
+  <object id="630" x="1752.79" y="1732.29" width="22.9516" height="17.6037"/>
  </objectgroup>
 </map>
