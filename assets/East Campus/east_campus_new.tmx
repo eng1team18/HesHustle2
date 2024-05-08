@@ -1445,7 +1445,6 @@
     <property name="event" value="piazza"/>
    </properties>
   </object>
-  <object id="373" x="3655.5" y="1994" width="2.5"/>
   <object id="375" x="3398.34" y="1950.69" width="289.724" height="29.1467"/>
   <object id="376" x="2586.75" y="2447" width="104" height="59.25"/>
   <object id="377" x="2741.25" y="2448" width="103.5" height="58.5"/>
