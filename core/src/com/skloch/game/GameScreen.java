@@ -270,9 +270,9 @@ public class GameScreen implements Screen {
     // Also play a footstep sound if they are moving
     player.move(delta);
     if (player.isRunning()) {
-      game.soundManager.playRunningFootstep();
+      game.soundManager.playFootstep(0.25f);
     } else if (player.isMoving()) {
-      game.soundManager.playFootstep();
+      game.soundManager.playFootstep(0.5f);
     } else {
       game.soundManager.footstepBool = false;
     }
