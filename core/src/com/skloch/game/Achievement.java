@@ -12,7 +12,7 @@ public class Achievement {
 
   public Achievement() {
     achievements = new HashMap<>();
-    addAchievement(1, "Bookworm", "Read 10 books at the Study Building");
+    addAchievement(1, "Tree?", "Talk to the mysterious tree");
   }
 
   public static Achievement getInstance() {
@@ -44,6 +44,13 @@ public class Achievement {
         .collect(Collectors.joining());
   }
 
+  public boolean checkAchievement(int id) {
+    AchievementEntry achievement = achievements.get(id);
+    if (achievement != null) {
+      return achievement.isAchieved();
+    }
+    return false;
+  }
 
   public class AchievementEntry {
 
