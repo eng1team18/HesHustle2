@@ -44,11 +44,6 @@ jobs:
       with:
         name: jacoco-report-${{ matrix.os }}
         path: tests/build/reports/jacoco/test/html/
-
-    - name: Test
-      uses: gradle/gradle-build-action@v3
-      with:
-        arguments: tests:test
     
     - name: Add Test Report to GitHub
       uses: dorny/test-reporter@v1
@@ -64,14 +59,14 @@ jobs:
       uses: actions/upload-artifact@v4
       if: startsWith(matrix.os, 'ubuntu')
       with:
-        name: core-checkstyle-report
+        name: checkstyle-report-core
         path: core/build/reports/checkstyle
 
     - name: Upload tests checkstyle report
       uses: actions/upload-artifact@v4
       if: startsWith(matrix.os, 'ubuntu')
       with:
-        name: tests-checkstyle-report
+        name: checkstyle-report-tests
         path: tests/build/reports/checkstyle
 
   dependency-submission:
