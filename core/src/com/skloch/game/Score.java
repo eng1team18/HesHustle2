@@ -28,8 +28,7 @@ public class Score {
   private int lastDay = 0;
   // pos 0 is piazza
   // pos 1 TBD and so forth
-  private int[] recActivityLog = {0, 0, 0, 0,
-      0}; // Add more based on number of different rec activities
+  private int[] recActivityLog = {0, 0, 0, 0, 0}; // Add more based on number of different rec activities
 
   private void initializeActivities() {
     // Initialize with some example activities
