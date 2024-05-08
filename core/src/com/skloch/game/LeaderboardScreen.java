@@ -7,9 +7,6 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
-import com.badlogic.gdx.scenes.scene2d.ui.Window;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.FitViewport;
@@ -19,12 +16,12 @@ import com.badlogic.gdx.utils.viewport.Viewport;
  * A scene2d window consisting of a title, a scrollable widget and an exit button. Used to display
  * the top 10 Leaderboard
  */
-public class LeaderboardScreen implements Screen {
+public abstract class LeaderboardScreen implements Screen {
 
-  private HustleGame game;
-  private Stage leaderboardStage;
-  private OrthographicCamera camera;
-  private Viewport viewport;
+  protected HustleGame game;
+  protected Stage leaderboardStage;
+  protected OrthographicCamera camera;
+  protected Viewport viewport;
 
   /**
    * A scene2d window consisting of a title, a scrollable list of Top 10 Leaderboard and a main menu
@@ -75,7 +72,7 @@ public class LeaderboardScreen implements Screen {
     scrollTable.add(text).width(520f).padLeft(15);
 
     // Exit button
-    TextButton exitButton = new TextButton("Main Menu", game.skin);
+    TextButton exitButton = new TextButton(getExitButtonText(), game.skin);
     leaderboardTable.add(exitButton).bottom().width(300).padTop(10);
 
     leaderboardMenu.pack();
@@ -90,13 +87,13 @@ public class LeaderboardScreen implements Screen {
     exitButton.addListener(new ChangeListener() {
       @Override
       public void changed(ChangeEvent event, Actor actor) {
-        game.soundManager.playButton();
-        dispose();
-        game.setScreen(new MenuScreen(game));
+        onExitPressed();
       }
     });
-
   }
+
+  protected abstract void onExitPressed();
+  protected abstract String getExitButtonText();
 
   /**
    * Renders the Leaderboard window

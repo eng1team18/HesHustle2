@@ -129,9 +129,7 @@ public class GameOverScreen implements Screen {
         game.soundManager.playButton();
         game.soundManager.overworldMusic.stop();
         dispose();
-        game.setScreen(new LeaderboardScreen(game));
-        score.resetScores();
-        Achievement.getInstance().resetAllAchievements();
+        game.setScreen(new LeaderboardScreenGame(game));
       }
     });
 
