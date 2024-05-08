@@ -1,9 +1,9 @@
 package com.skloch.game;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
 public class Energy extends Group {
@@ -40,7 +40,7 @@ public class Energy extends Group {
   }
 
   /**
-   * Sets the player's energy level and updates the onscreen bar
+   * Sets the player's energy level and updates the onscreen bar.
    *
    * @param energy An int between 0 and 100
    */
@@ -53,7 +53,7 @@ public class Energy extends Group {
   }
 
   /**
-   * Decreases the player's energy by a certain amount
+   * Decreases the player's energy by a certain amount.
    *
    * @param energy The energy to decrement
    */

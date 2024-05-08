@@ -17,7 +17,7 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 
 /**
  * A scene2d window consisting of a title, a scrollable widget and an exit button. Used to display
- * the assets used in the game
+ * the assets used in the game.
  */
 public class CreditScreen implements Screen {
 
@@ -28,7 +28,7 @@ public class CreditScreen implements Screen {
 
   /**
    * A scene2d window consisting of a title, a scrollable widget and an exit button. Credits are
-   * loaded from assets/Text/credits.txt and displayed in the scrollable widget Thus any changes to
+   * loaded from assets/Text/credits.txt and displayed in the scrollable widget, thus any changes to
    * assets or licenses must be reflected in credits.txt
    *
    * @param game           An instance of the HustleGame class
@@ -103,7 +103,7 @@ public class CreditScreen implements Screen {
   }
 
   /**
-   * Renders the credits window
+   * Renders the credits window.
    *
    * @param delta The time in seconds since the last render.
    */
@@ -124,8 +124,8 @@ public class CreditScreen implements Screen {
   /**
    * Correctly resizes the onscreen elements when the window is resized
    *
-   * @param width
-   * @param height
+   * @param width New width of the window.
+   * @param height New height of the window.
    */
   @Override
   public void resize(int width, int height) {

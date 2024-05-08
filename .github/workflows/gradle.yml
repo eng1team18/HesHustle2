@@ -60,12 +60,19 @@ jobs:
         fail-on-error: 'true'
         fail-on-empty: 'true'
 
-    - name: Upload Checkstyle report zip as a workflow artifact
+    - name: Upload core checkstyle report
       uses: actions/upload-artifact@v4
-      if: startsWith(matrix.os, 'windows')
+      if: startsWith(matrix.os, 'ubuntu')
       with:
-        name: checkstyle-report
+        name: core-checkstyle-report
         path: core/build/reports/checkstyle
+
+    - name: Upload tests checkstyle report
+      uses: actions/upload-artifact@v4
+      if: startsWith(matrix.os, 'ubuntu')
+      with:
+        name: tests-checkstyle-report
+        path: tests/build/reports/checkstyle
 
   dependency-submission:
     runs-on: windows-latest
