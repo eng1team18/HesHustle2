@@ -148,7 +148,7 @@ public class MenuScreen implements Screen {
       @Override
       public void changed(ChangeEvent event, Actor actor) {
         game.soundManager.playButton();
-        game.setScreen(new LeaderboardScreen(game));
+        game.setScreen(new LeaderboardScreenMain(game));
       }
     });
 
