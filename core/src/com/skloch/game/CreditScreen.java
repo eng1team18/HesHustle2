@@ -72,8 +72,7 @@ public class CreditScreen implements Screen {
     creditTable.add(scrollWindow).padTop(20).height(350);
     creditTable.row();
 
-    // Actual credits
-    // Credits are loaded when the game is initialised
+    // Actual credits are loaded when the game is initialised
     Label text = new Label(game.credits, game.skin, "interaction");
     text.setWrap(true);
     scrollTable.add(text).width(520f).padLeft(15);

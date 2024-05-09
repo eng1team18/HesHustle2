@@ -11,30 +11,38 @@ import com.badlogic.gdx.utils.Array;
 
 // Changes
 //
-// - Added running by implementing, running_speed, runningAnimation, new keybind checks for Shift key, and the new isRunning() function
+// - Added running by implementing, runningSpeed, runningAnimation, new keybind checks for Shift
+//   key, and the new isRunning() function
 //
 
 /**
  * A class handling everything needed to control and draw a player, including animation, movement
- * and collision
+ * and collision.
  */
 public class Player {
 
   // Hitboxes
-  public Rectangle sprite, feet, eventHitbox;
-  public float centreX, centreY;
+  public Rectangle sprite;
+  public Rectangle feet;
+  public Rectangle eventHitbox;
+  public float centreX;
+  public float centreY;
   public int direction = 2; // 0 = up, 1 = right, 2 = down, 3 = left (like a clock)
   private TextureRegion currentFrame;
   private float stateTime = 0;
-  private final Array<Animation<TextureRegion>> walkingAnimation, idleAnimation, runningAnimation;
+  private final Array<Animation<TextureRegion>> walkingAnimation;
+  private final Array<Animation<TextureRegion>> idleAnimation;
+  private final Array<Animation<TextureRegion>> runningAnimation;
   // Stats
   public float speed = 300f;
-  public float running_speed = 302f;
+  public float runningSpeed = 302f;
   public Array<GameObject> collidables;
   public int scale = 4;
   private Rectangle bounds;
   private GameObject closestObject;
-  public boolean frozen, moving, running;
+  public boolean frozen;
+  public boolean moving;
+  public boolean running;
 
   /**
    * A player character, contains methods to move the player and update animations, also includes
@@ -46,13 +54,13 @@ public class Player {
    *               character, player animations are packed in the player_sprites atlas
    */
   public Player(String avatar) {
-    // Load the player's textures from the atlas
-    TextureAtlas playerAtlas = new TextureAtlas(
-        Gdx.files.internal("Sprites/Player/player_sprites.atlas"));
-
     walkingAnimation = new Array<Animation<TextureRegion>>();
     idleAnimation = new Array<Animation<TextureRegion>>();
     runningAnimation = new Array<Animation<TextureRegion>>();
+
+    // Load the player's textures from the atlas
+    TextureAtlas playerAtlas = new TextureAtlas(
+        Gdx.files.internal("Sprites/Player/player_sprites.atlas"));
 
     // Load walking animation from Sprite atlas
     walkingAnimation.add(
@@ -109,9 +117,6 @@ public class Player {
    * Handles all the logic involved in moving the player given keyboard inputs If the player
    * encounters an object, they will not be alowed to move into the space, but will attempt to
    * 'slide' off of it. Also updates the player's animation
-   *
-   * <p></p>
-   * <p>
    * Also locates the nearest object after moving, which can be used to trigger events
    *
    * @param delta The time passed since the previous render
@@ -130,17 +135,16 @@ public class Player {
     // If not frozen, react to keyboard input presses
     if (!frozen) {
       // Move the player and their 2 other hitboxes
-      moving = false;
       running = false;
       if (Gdx.input.isKeyPressed(Input.Keys.LEFT) || Gdx.input.isKeyPressed(Input.Keys.A)) {
-        this.setX(sprite.getX() - speed
-            * delta); // Note: Setting all the values with a constant delta removes hitbox desyncing issues
+        // Note: Setting all the values with a constant delta removes hitbox desyncing issues
+        this.setX(sprite.getX() - speed * delta);
         direction = 3;
         moving = true;
         if (Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT) || Gdx.input.isKeyPressed(
             Input.Keys.SHIFT_RIGHT)) {
-          this.setX(sprite.getX() - running_speed
-              * delta); // Note: Setting all the values with a constant delta removes hitbox desyncing issues
+          // Note: Setting all the values with a constant delta removes hitbox desyncing issues
+          this.setX(sprite.getX() - runningSpeed * delta);
           running = true;
         }
       }
@@ -150,7 +154,7 @@ public class Player {
         moving = true;
         if (Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT) || Gdx.input.isKeyPressed(
             Input.Keys.SHIFT_RIGHT)) {
-          this.setX(sprite.getX() + running_speed * delta);
+          this.setX(sprite.getX() + runningSpeed * delta);
           running = true;
         }
       }
@@ -160,7 +164,7 @@ public class Player {
         moving = true;
         if (Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT) || Gdx.input.isKeyPressed(
             Input.Keys.SHIFT_RIGHT)) {
-          this.setY(sprite.getY() + running_speed * delta);
+          this.setY(sprite.getY() + runningSpeed * delta);
           running = true;
         }
       }
@@ -170,7 +174,7 @@ public class Player {
         moving = true;
         if (Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT) || Gdx.input.isKeyPressed(
             Input.Keys.SHIFT_RIGHT)) {
-          this.setY(sprite.getY() - running_speed * delta);
+          this.setY(sprite.getY() - runningSpeed * delta);
           running = true;
         }
       }
@@ -215,7 +219,7 @@ public class Player {
     }
 
     // Find the closest object to the player so they can interact with it
-    recalcCentre(); // Just recalculates the centre of the player now we have moved them
+    recalculateCentre(); // Just recalculates the centre of the player now we have moved them
     float distance = -1;
     closestObject = null;
     for (GameObject object : this.collidables) {
@@ -237,8 +241,8 @@ public class Player {
   }
 
   /**
-   * Advances the current animation based on the time since the last render The animation frame of
-   * the player can be grabbed with getCurrentFrame
+   * Advances the current animation based on the time since the last render. The animation frame of
+   * the player can be grabbed with getCurrentFrame.
    */
   public void updateAnimation() {
     stateTime += Gdx.graphics.getDeltaTime();
@@ -255,7 +259,7 @@ public class Player {
 
   /**
    * Returns whether the player's eventHitbox overlaps an object Call getClosestObject to get the
-   * nearest
+   * nearest.
    *
    * @return true if a player is near enough an object to interact with it
    */
@@ -264,7 +268,7 @@ public class Player {
   }
 
   /**
-   * Returns the object that is closest to the player, calculated during move()
+   * Returns the object that is closest to the player, calculated during move().
    *
    * @return A GameObject that is closest
    */
@@ -273,7 +277,7 @@ public class Player {
   }
 
   /**
-   * Returns if the player is moving or not
+   * Returns if the player is moving or not.
    *
    * @return true if the player is moving
    */
@@ -282,7 +286,7 @@ public class Player {
   }
 
   /**
-   * Returns if the player is running or not
+   * Returns if the player is running or not.
    *
    * @return true if the player is moving
    */
@@ -292,7 +296,7 @@ public class Player {
 
   /**
    * Sets the player's state to moving or not moving, a not moving character will just display an
-   * idle animation
+   * idle animation.
    *
    * @param moving The boolean to set moving to
    */
@@ -302,7 +306,7 @@ public class Player {
 
 
   /**
-   * Returns the current frame the player's animation is on
+   * Returns the current frame the player's animation is on.
    *
    * @return TextureRegion the frame of the player's animation
    */
@@ -312,7 +316,7 @@ public class Player {
   }
 
   /**
-   * Sets the objects the player cannot move into as an Array of GameObjects
+   * Sets the objects the player cannot move into as an Array of GameObjects.
    *
    * @param collidables An array of GameObjects that the player should collide with
    */
@@ -321,7 +325,7 @@ public class Player {
   }
 
   /**
-   * Adds a GameObeject to the player's list of collidable objects
+   * Adds a GameObject to the player's list of collidable objects.
    *
    * @param object a GameObject for the player to collide with
    */
@@ -370,26 +374,26 @@ public class Player {
 
   /**
    * Sets the x coordinate of the player, updating all 3 hitboxes at once as opposed to just the
-   * sprite rectangle
+   * sprite rectangle.
    */
   public void setX(float x) {
     this.sprite.setX(x);
     this.feet.setX(x + 4 * scale);
     this.eventHitbox.setX(
         this.sprite.getX() - (this.eventHitbox.getWidth() - sprite.getWidth()) / 2);
-    this.recalcCentre();
+    this.recalculateCentre();
   }
 
   /**
    * Sets the Y coordinate of the player, updating all 3 hitboxes at once as opposed to just the
-   * sprite rectangle
+   * sprite rectangle.
    */
   public void setY(float y) {
     this.sprite.setY(y);
     this.feet.setY(y);
     this.eventHitbox.setY(
         this.sprite.getY() - (this.eventHitbox.getHeight() - sprite.getHeight()) / 2);
-    this.recalcCentre();
+    this.recalculateCentre();
   }
 
   /**
@@ -402,7 +406,7 @@ public class Player {
   }
 
   /**
-   * Set a large rectangle that the player should be kept inside, set to null to set no bounds
+   * Set a large rectangle that the player should be kept inside, set to null to set no bounds.
    *
    * @param bounds The bounds of the playable map
    */
@@ -412,7 +416,7 @@ public class Player {
   }
 
   /**
-   * Returns the euclidian distance from a GameObject to the centre of the player
+   * Returns the Euclidean distance from a GameObject to the centre of the player.
    *
    * @param object The object to get the distance from
    * @return The distance from the object
@@ -423,15 +427,15 @@ public class Player {
   }
 
   /**
-   * Recalculates the centre of the player, useful after moving the player
+   * Recalculates the centre of the player, useful after moving the player.
    */
-  private void recalcCentre() {
+  private void recalculateCentre() {
     centreX = sprite.getX() + sprite.getWidth() / 2;
     centreY = sprite.getY() + sprite.getHeight() / 2;
   }
 
   /**
-   * Sets the player to frozen, a frozen player can be set to ignore keyboard inputs in render
+   * Sets the player to frozen, a frozen player can be set to ignore keyboard inputs in render.
    *
    * @param freeze The value to set frozen to
    */

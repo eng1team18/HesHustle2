@@ -18,13 +18,13 @@ public class GameObject extends Rectangle {
   // Create like a normal rectangle
 
   /**
-   * Creates an instance of a GameObject without MapProperties, functions similarily to just a
-   * normal rectangle
+   * Creates an instance of a GameObject without MapProperties, functions similarly to a
+   * normal rectangle.
    *
-   * @param x
-   * @param y
-   * @param width
-   * @param height
+   * @param x x-coordinate of the bottom-left corner of the rectangle
+   * @param y y-coordinate of the bottom-left corner of the rectangle
+   * @param width Width of the rectangle
+   * @param height Height of the rectangle
    */
   public GameObject(float x, float y, float width, float height) {
     super(x, y, width, height);
@@ -35,9 +35,9 @@ public class GameObject extends Rectangle {
   }
 
   /**
-   * Creates a GameObject using the MapProperties stored in a object when exported with the Tiled
+   * Creates a GameObject using the MapProperties stored in an object when exported with the Tiled
    * map editor Sets x, y, width and height, as well as loading all other properties which can be
-   * fetched with get()
+   * fetched with get().
    *
    * @param objectProperties An instance of MapProperties loaded from an object layer
    * @param scale            How much do scale the object's coordinates by, if the map is also
@@ -58,7 +58,7 @@ public class GameObject extends Rectangle {
 
 
   /**
-   * Puts an Object class into the GameObject's properties
+   * Puts an Object class into the GameObject's properties.
    *
    * @param key   The key of the object
    * @param value The object to pass
@@ -68,9 +68,9 @@ public class GameObject extends Rectangle {
   }
 
   /**
-   * Gets a property from a key
+   * Gets a property from a key.
    *
-   * @param key
+   * @param key Key to get properties from
    * @return The property as an object, needs to be cast
    */
   public Object get(String key) {
@@ -78,6 +78,8 @@ public class GameObject extends Rectangle {
   }
 
   /**
+   *
+   *
    * @param key A key to be checked in the object's properties
    * @return True if the object has a property with this key
    */
@@ -86,18 +88,18 @@ public class GameObject extends Rectangle {
   }
 
   /**
-   * Sets the new Y coordinate of the centre of the object
+   * Sets the new Y coordinate of the centre of the object.
    *
-   * @param y
+   * @param y Y-coordinate to be set
    */
   public void setCentreY(float y) {
     this.centreY = y;
   }
 
   /**
-   * Sets the new X coordinate of the centre of the object
+   * Sets the new X coordinate of the centre of the object.
    *
-   * @param x
+   * @param x X-coordinate to be set
    */
   public void setCentreX(float x) {
     this.centreX = x;

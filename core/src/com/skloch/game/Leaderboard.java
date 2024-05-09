@@ -2,8 +2,8 @@ package com.skloch.game;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
-import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.Json;
 
 public class Leaderboard {
 
@@ -19,7 +19,7 @@ public class Leaderboard {
   public void saveScore(String playerName, int score) {
     FileHandle file = Gdx.files.local(SCORE_FILE);
 
-    // Check if file exist and load if does
+    // Check if file exist and load if it does
     if (file.exists()) {
       String scoresJson = file.readString();
       scores = json.fromJson(Array.class, ScoreEntry.class, scoresJson);

@@ -15,12 +15,12 @@ import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
-import java.awt.*;
-
 // Changes
 //
-// - GameOverScreen no longer takes the hoursStudied, hoursRecreational, hoursSlept with Score as new replacement
-// - Line 60: GameOverScreen buttons height and padding has been modified to support the new Score, Achievements and Leaderboard button
+// - GameOverScreen no longer takes the hoursStudied, hoursRecreational, hoursSlept with Score
+//   as new replacement
+// - Line 60: GameOverScreen buttons height and padding has been modified to support the new
+//   Score, Achievements and Leaderboard button
 // - Achievements button added along with a listener component
 // - Leaderboard button added along with a listener component
 // - getTotalScore() functions get call from Score class to obtain the Final total score
@@ -42,9 +42,9 @@ public class GameOverScreen implements Screen {
   private final Score score;
 
   /**
-   * A screen to display a 'Game Over' screen when the player finishes their exams Currently does
-   * not calculate a score, just shows the player's stats to them, as requested in assessment 1
-   * Tracking them now will make win conditions easier to implement for assessment 2
+   * A screen to display a 'Game Over' screen when the player finishes their exams. Currently, does
+   * not calculate a score, just shows the player's stats to them, as requested in assessment 1.
+   * Tracking them now will make win conditions easier to implement for assessment 2.
    *
    * @param game An instance of HustleGame
    */
@@ -65,9 +65,6 @@ public class GameOverScreen implements Screen {
     Table gameOverTable = new Table();
     gameOverWindow.add(gameOverTable);
 
-    this.score = Score.getInstance();
-    int totalScore = score.getTotalScore();
-
     Table scoreTable = new Table();
     gameOverWindow.add(scoreTable).prefHeight(600);
 
@@ -78,7 +75,7 @@ public class GameOverScreen implements Screen {
     com.badlogic.gdx.scenes.scene2d.ui.ScrollPane scrollWindow = new ScrollPane(scrollTable,
         game.skin);
     scrollWindow.setFadeScrollBars(false);
-//        scrollWindow.setDebug(true);
+    // scrollWindow.setDebug(true);
 
     // scrollWindow.setFillParent(true);
     scoreTable.add(scrollWindow).padTop(5).height(530).width(550);
@@ -89,6 +86,9 @@ public class GameOverScreen implements Screen {
     scrollTable.row();
 
     // Display scores
+    this.score = Score.getInstance();
+    int totalScore = score.getTotalScore();
+
     scrollTable.add(new Label("Total Score", game.skin, "interaction")).padBottom(5);
     scrollTable.row();
     scrollTable.add(new Label(String.valueOf(totalScore), game.skin, "button")).padBottom(20);
@@ -152,7 +152,7 @@ public class GameOverScreen implements Screen {
 
 
   /**
-   * Renders the screen and the background each frame
+   * Renders the screen and the background each frame.
    *
    * @param delta The time in seconds since the last render.
    */
@@ -171,10 +171,10 @@ public class GameOverScreen implements Screen {
 
 
   /**
-   * Correctly resizes the onscreen elements when the window is resized
+   * Correctly resizes the onscreen elements when the window is resized.
    *
-   * @param width
-   * @param height
+   * @param width New width of window
+   * @param height New height of window
    */
   @Override
   public void resize(int width, int height) {

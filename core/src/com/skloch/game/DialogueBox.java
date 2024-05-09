@@ -15,7 +15,7 @@ public class DialogueBox {
   private Table dialogueTable;
   private Label textLabel;
   private Skin skin;
-  private int maxChars;
+  private int MAXCHARS;
   private SelectBox selectBox;
   private Array<String> textLines;
   private int linePointer = 0;
@@ -26,9 +26,9 @@ public class DialogueBox {
 
   public DialogueBox(Skin skin) {
     // Define some key values
-    int width = 800;
-    int height = 200;
-    maxChars = 35;
+    int WIDTH = 800;
+    int HEIGHT = 200;
+    MAXCHARS = 35;
     this.skin = skin;
 
     // Create the window for the dialogue box
@@ -42,11 +42,11 @@ public class DialogueBox {
     textLabel = new Label(
         "Are you sure you want to sleep at the Piazza? This will cost you 10 energy", skin,
         "dialogue");
-    dialogueTable.add(textLabel).expand().width(width - 80).top().padTop(40);
+    dialogueTable.add(textLabel).expand().width(WIDTH - 80).top().padTop(40);
     textLabel.setWrap(false);
 
-    dialogueWindow.setWidth(width);
-    dialogueWindow.setHeight(height);
+    dialogueWindow.setWidth(WIDTH);
+    dialogueWindow.setHeight(HEIGHT);
 
     // Create selection box to allow user to make choices when interacting with
     // objects (class defined below).
@@ -99,7 +99,8 @@ public class DialogueBox {
       optionPointers.clear();
 
       for (String option : options) {
-        // Add each pointer to an array so it can be shown/hidden later without searching the table
+        // Add each pointer to an array, so it can be shown/hidden later without searching the
+        // table
         Label pointer = new Label(">", skin, "dialogue");
         optionPointers.add(pointer);
         selectTable.add(pointer).padRight(10).padLeft(10);
@@ -268,7 +269,7 @@ public class DialogueBox {
   }
 
   /**
-   * Formats the text to be displayed on a label widget. Adds a newline character every maxChars
+   * Formats the text to be displayed on a label widget. Adds a newline character every MAXCHARS
    * num of characters accounts for any occurring linebreaks to take use of the size of the most
    * space possible. Stores the formatted text in 3 chunks, which are then queued up to be pushed
    * to the label whenever the user presses e.
@@ -283,14 +284,14 @@ public class DialogueBox {
     int totalIndex = 0;
 
     // Add newline characters where the length of a section between two linebreaks is
-    // greater than maxChars
+    // greater than MAXCHARS
     for (char c : text.toCharArray()) {
       // Account for any occurring linebreaks
       if (c == '\n') {
         index = 0;
       }
 
-      if (index >= maxChars) {
+      if (index >= MAXCHARS) {
         // If the current line is a space, just add a newline instead of a space
         if (c == ' ') {
           newString += "\n";
@@ -298,8 +299,8 @@ public class DialogueBox {
           index = 0;
         } else {
           // If not, Replace the last space with a linebreak and add the char
-          // If the last linebreak is 0 or greater than maxChars away, just add a break now
-          if (lastSpace == 0 || (totalIndex - lastSpace) >= maxChars) {
+          // If the last linebreak is 0 or greater than MAXCHARS away, just add a break now
+          if (lastSpace == 0 || (totalIndex - lastSpace) >= MAXCHARS) {
             newString += "\n";
             index = 0;
           } else {

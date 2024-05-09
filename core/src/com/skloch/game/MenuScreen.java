@@ -5,13 +5,20 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.scenes.scene2d.ui.*;
+import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.ui.TextField;
+import com.badlogic.gdx.scenes.scene2d.ui.Window;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.ScreenUtils;
-import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.FitViewport;
-import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
 // Changes
@@ -19,12 +26,13 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 // - Added a new nameInputTable for a new Screen that ask for the username for the Leaderboard
 // - Leaderboard button added along with a listener component
 // - Line 316/326: GameScreen() also sends the playerName
-// - Line 74: tutorialWindow redirect to nameInputTable instead and avatarSelectTable are shown afterwards
+// - Line 74: tutorialWindow redirect to nameInputTable instead and avatarSelectTable are shown
+//   afterward
 //
 
 /**
- * A screen to display the game menu to the player has the buttons "Start", "Settings", "Credits,
- * "Exit" ALso displays a tutorial window and an avatar select screen
+ * A screen to display the game menu to the player has the buttons "Start", "Settings", "Credits",
+ * "Exit". ALso displays a tutorial window and an avatar select screen.
  */
 public class MenuScreen implements Screen {
 
@@ -54,14 +62,15 @@ public class MenuScreen implements Screen {
     viewport = new FitViewport(game.WIDTH, game.HEIGHT, camera);
     camera.setToOrtho(false, game.WIDTH, game.HEIGHT);
 
-    // Set the size of the background to the viewport size, only need to do this once, this is then used by all
-    // screens as an easy way of having a blue background
+    // Set the size of the background to the viewport size, only need to do this once,
+    // this is then used by all screens as an easy way of having a blue background
     game.blueBackground.getRoot().findActor("blue image")
         .setSize(viewport.getWorldWidth(), viewport.getWorldHeight());
 
     // Title image
     titleImage = new Image(new Texture(Gdx.files.internal("Sprites/title.png")));
-    titleImage.setPosition((viewport.getWorldWidth() / 2f) - (titleImage.getWidth() / 2f), 550);
+    titleImage.setPosition((viewport.getWorldWidth() / 2f)
+        - (titleImage.getWidth() / 2f), 550);
     menuStage.addActor(titleImage);
 
     // Play menu music
@@ -87,8 +96,10 @@ public class MenuScreen implements Screen {
     buttonTable.setFillParent(true);
     menuStage.addActor(buttonTable);
 
+    // Old title, new uses a texture
+    //    Label title = new Label("Heslington Hustle", game.skin, "title");
+
     // Create the buttons
-//        Label title = new Label("Heslington Hustle", game.skin, "title"); // Old title, new uses a texture
     TextButton startButton = new TextButton("New Game", game.skin);
     TextButton settingsButton = new TextButton("Settings", game.skin);
     TextButton creditsButton = new TextButton("Credits", game.skin);
@@ -112,17 +123,16 @@ public class MenuScreen implements Screen {
 
     // START GAME BUTTON - Displays the tutorial window
     startButton.addListener(new ChangeListener() {
-                              @Override
-                              public void changed(ChangeEvent event, Actor actor) {
-                                game.soundManager.playButton();
-                                buttonTable.setVisible(false);
-                                titleImage.setVisible(false);
-                                tutorialWindow.setVisible(true);
-
-//                dispose();
-//                game.setScreen(new GameScreen(game));
-                              }
-                            }
+      @Override
+      public void changed(ChangeEvent event, Actor actor) {
+        game.soundManager.playButton();
+        buttonTable.setVisible(false);
+        titleImage.setVisible(false);
+        tutorialWindow.setVisible(true);
+        // dispose();
+        // game.setScreen(new GameScreen(game));
+      }
+    }
     );
 
     // SETTINGS BUTTON
@@ -154,14 +164,14 @@ public class MenuScreen implements Screen {
 
     // EXIT BUTTON
     exitButton.addListener(new ChangeListener() {
-                             @Override
-                             public void changed(ChangeEvent event, Actor actor) {
-                               game.soundManager.playButton();
-                               game.dispose();
-                               dispose();
-                               Gdx.app.exit();
-                             }
-                           }
+      @Override
+      public void changed(ChangeEvent event, Actor actor) {
+        game.soundManager.playButton();
+        game.dispose();
+        dispose();
+        Gdx.app.exit();
+      }
+    }
     );
 
     game.batch.setProjectionMatrix(camera.combined);
@@ -169,7 +179,7 @@ public class MenuScreen implements Screen {
   }
 
   /**
-   * Renders the main menu, and any windows that are displaying information
+   * Renders the main menu, and any windows that are displaying information.
    *
    * @param delta The time in seconds since the last render.
    */
@@ -190,10 +200,10 @@ public class MenuScreen implements Screen {
   }
 
   /**
-   * Correctly resizes the menu screen
+   * Correctly resizes the menu screen.
    *
-   * @param width
-   * @param height
+   * @param width New width of window
+   * @param height New width of window
    */
   @Override
   public void resize(int width, int height) {
@@ -214,11 +224,11 @@ public class MenuScreen implements Screen {
   public void pause() {
   }
 
-  @Override
   /**
-   * Correctly sizes the game when resuming it after a pause or switching screens
-   * Fixes a small graphical bug
+   * Correctly sizes the game when resuming it after a pause or switching screens.
+   * Fixes a small graphical bug.
    */
+  @Override
   public void resume() {
     Gdx.input.setInputProcessor(menuStage);
 
@@ -227,7 +237,7 @@ public class MenuScreen implements Screen {
   }
 
   /**
-   * Dispose of all menu assets
+   * Dispose of all menu assets.
    */
   @Override
   public void dispose() {
@@ -235,8 +245,8 @@ public class MenuScreen implements Screen {
   }
 
   /**
-   * Generates a window to teach the player how to play the game Displays the tutorial text shown in
-   * Text/tutorial_text.txt
+   * Generates a window to teach the player how to play the game. Displays the tutorial text shown
+   * in Text/tutorial_text.txt
    *
    * @return A small window to explain the game
    */
@@ -290,7 +300,7 @@ public class MenuScreen implements Screen {
 
 
   /**
-   * Creates an avatar selection screen, consisting of a label and two buttons
+   * Creates an avatar selection screen, consisting of a label and two buttons.
    *
    * @return A table containing UI elements
    */
@@ -377,8 +387,7 @@ public class MenuScreen implements Screen {
       public void changed(ChangeEvent event, Actor actor) {
         String inputText = nameField.getText();
 
-        if (inputText.isEmpty()) {
-        } else {
+        if (!inputText.isEmpty()) {
           game.soundManager.playButton();
           nameWindow.setVisible(false);
           nextTable.setVisible(true);

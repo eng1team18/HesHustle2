@@ -1,10 +1,14 @@
 package com.skloch.game;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
+import com.badlogic.gdx.InputMultiplexer;
+import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.maps.MapObjects;
 import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
@@ -12,27 +16,26 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.ui.Window;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.utils.ScreenUtils;
-import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import com.badlogic.gdx.Input;
-import com.badlogic.gdx.scenes.scene2d.ui.Window;
-import com.badlogic.gdx.InputMultiplexer;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 
 // Changes
 //
-// - Line 84: GameScreen buttons height and padding has been modified to support the new Leaderboard button
-// - Line 69: GameScreen now also takes String userInput, which stores the player name for the Leaderboard
-// - Line 753: Added leaderboard.saveScore(playerName, totalScore) to the GameOver() function to save the scores for the Leaderboard
+// - Line 84: GameScreen buttons height and padding has been modified to support the new
+//   Leaderboard button
+// - Line 69: GameScreen now also takes String userInput, which stores the player name for
+//   the Leaderboard
+// - Line 753: Added leaderboard.saveScore(playerName, totalScore) to the gameOver() function to
+//   save the scores for the Leaderboard
 // - Moved Energy from GameScreen to its own class
 //
 
@@ -44,10 +47,13 @@ public class GameScreen implements Screen {
 
   final HustleGame game;
   private OrthographicCamera camera;
-  private int hoursStudied, hoursRecreational, hoursSlept;
+  private int hoursStudied;
+  private int hoursRecreational;
+  private int hoursSlept;
   public float daySeconds = 0; // Current seconds elapsed in day
   public int day = 1; // What day the game is on
-  private Label timeLabel, dayLabel;
+  private Label timeLabel;
+  private Label dayLabel;
   public Player player;
   private Window escapeMenu;
   private Viewport viewport;
@@ -117,15 +123,15 @@ public class GameScreen implements Screen {
     // USER INTERFACE
 
     // Create and center the yes/no box that appears when interacting with objects
-//        optionDialogue = new OptionDialogue("", 400, this.game.skin, game.soundManager);
-//        Window optWin = optionDialogue.getWindow();
-//        optionDialogue.setPos(
-//                (viewport.getWorldWidth() / 2f) - (optWin.getWidth() / 2f),
-//                (viewport.getWorldHeight() / 2f) - (optWin.getHeight() / 2f) - 150
-//        );
-//        // Use addActor to add windows to the scene
-//        uiTable.addActor(optionDialogue.getWindow());
-//        optionDialogue.setVisible(false);
+    //        optionDialogue = new OptionDialogue("", 400, this.game.skin, game.soundManager);
+    //        Window optWin = optionDialogue.getWindow();
+    //        optionDialogue.setPos(
+    //                (viewport.getWorldWidth() / 2f) - (optWin.getWidth() / 2f),
+    //                (viewport.getWorldHeight() / 2f) - (optWin.getHeight() / 2f) - 150
+    //        );
+    //        // Use addActor to add windows to the scene
+    //        uiTable.addActor(optionDialogue.getWindow());
+    //        optionDialogue.setVisible(false);
 
     // Interaction label to prompt player
     interactionLabel = new Label("E - Interact", game.skin, "default");
@@ -168,8 +174,8 @@ public class GameScreen implements Screen {
 
     // Since we need to listen to inputs from the stage and from the keyboard
     // Use an input multiplexer to listen for one inputadapter and then the other
-    // inputMultiplexer needs to be established before hand since we reference it on resume() when going
-    // back to this screen from the settings menu
+    // inputMultiplexer needs to be established beforehand since we reference it
+    // on resume() when going back to this screen from the settings menu
     inputMultiplexer = new InputMultiplexer();
     inputMultiplexer.addProcessor(gameKeyBoardInput);
     inputMultiplexer.addProcessor(uiStage);
@@ -201,8 +207,8 @@ public class GameScreen implements Screen {
               ((float) properties.get("y")) * unitScale);
           camera.position.set(player.getPosAsVec3());
         } else {
-          // Make a new gameObject with these properties, passing along the scale the map is rendered
-          // at for accurate coordinates
+          // Make a new gameObject with these properties, passing along the scale the map is
+          // rendered at for accurate coordinates
           player.addCollidable(new GameObject(properties, unitScale));
         }
       }
@@ -230,8 +236,8 @@ public class GameScreen implements Screen {
   }
 
   /**
-   * Renders the player, updates sound, renders the map and updates any UI elements Called every
-   * frame
+   * Renders the player, updates sound, renders the map and updates any UI elements. Called every
+   * frame.
    *
    * @param delta The time in seconds since the last render.
    */
@@ -249,10 +255,11 @@ public class GameScreen implements Screen {
     game.soundManager.processTimers(delta);
 
     // Load timer bar - needs fixing and drawing
-    //TextureAtlas blueBar = new TextureAtlas(Gdx.files.internal("Interface/BlueTimeBar/BlueBar.atlas"));
-    //Skin blueSkin = new Skin(blueBar);
-    //ProgressBar timeBar = new ProgressBar(0, 200, 1, false, blueSkin);
-    //timeBar.act(delta);
+    // TextureAtlas blueBar = new TextureAtlas(Gdx.files.internal("Interface/BlueTimeBar/"
+    //    + "BlueBar.atlas"));
+    // Skin blueSkin = new Skin(blueBar);
+    // ProgressBar timeBar = new ProgressBar(0, 200, 1, false, blueSkin);
+    // timeBar.act(delta);
 
     timeLabel.setText(formatTime((int) daySeconds));
 
@@ -278,7 +285,7 @@ public class GameScreen implements Screen {
     }
 
     if (Gdx.input.isKeyPressed(Input.Keys.B)) {
-      GameOver();
+      gameOver();
     }
 
     if (Gdx.input.isKeyPressed(Input.Keys.G)) {
@@ -340,21 +347,21 @@ public class GameScreen implements Screen {
     );
 
     // Debug - Draw player hitboxes
-//         drawHitboxes();
+    //    drawHitboxes();
 
     // Debug - print the event value of the closest object to the player if there is one
-//        if (player.getClosestObject() != null) {
-//            System.out.println(player.getClosestObject().get("event"));
-//        }
+    //    if (player.getClosestObject() != null) {
+    //    System.out.println(player.getClosestObject().get("event"));
+    //     }
 
     camera.update();
   }
 
 
   /**
-   * Configures everything needed to display the escape menu window when the player presses 'escape'
-   * Doesn't return anything as the variable escapeMenu is used to store the window Takes a table
-   * already added to the uiStage
+   * Configures everything needed to display the escape menu window when the player
+   * presses 'escape'. Doesn't return anything as the variable escapeMenu is used to store the
+   * window takes a table already added to the uiStage
    *
    * @param interfaceStage The stage that the escapeMenu should be added to
    */
@@ -371,13 +378,12 @@ public class GameScreen implements Screen {
     escapeMenu.add(escapeTable);
 
     TextButton resumeButton = new TextButton("Resume", game.skin);
-    TextButton settingsButton = new TextButton("Settings", game.skin);
-    TextButton exitButton = new TextButton("Exit", game.skin);
-
     escapeTable.add(resumeButton).pad(60, 80, 10, 80).width(300);
     escapeTable.row();
+    TextButton settingsButton = new TextButton("Settings", game.skin);
     escapeTable.add(settingsButton).pad(10, 50, 10, 50).width(300);
     escapeTable.row();
+    TextButton exitButton = new TextButton("Exit", game.skin);
     escapeTable.add(exitButton).pad(10, 50, 60, 50).width(300);
 
     escapeMenu.pack();
@@ -443,19 +449,20 @@ public class GameScreen implements Screen {
   }
 
   /**
-   * Called when switching back to this gameScreen
+   * Called when switching back to this gameScreen.
    */
   @Override
   public void resume() {
     // Set the input multiplexer back to this stage
     Gdx.input.setInputProcessor(inputMultiplexer);
 
-    // I'm not sure why, but there's a small bug where exiting the settings menu doesn't make the previous
-    // button on the previous screen update, so it's stuck in the 'over' configuration until the
-    // user moves the mouse.
+    // I'm not sure why, but there's a small bug where exiting the settings menu doesn't make the
+    // previous button on the previous screen update, so it's stuck in the 'over' configuration
+    // until the user moves the mouse.
     // Uncomment the below line to bring the bug back
-    // It's an issue with changing screens, and I can't figure out why it happens, but setting the mouse position
-    // to exactly where it is seems to force the stage to update itself and fixes the visual issue.
+    // It's an issue with changing screens, and I can't figure out why it happens, but setting the
+    // mouse position to exactly where it is seems to force the stage to update itself and fixes
+    // the visual issue.
 
     Gdx.input.setCursorPosition(Gdx.input.getX(), Gdx.input.getY());
   }
@@ -465,7 +472,7 @@ public class GameScreen implements Screen {
   }
 
   /**
-   * Disposes of certain elements, called when the game is closed
+   * Disposes of certain elements, called when the game is closed.
    */
   @Override
   public void dispose() {
@@ -474,7 +481,7 @@ public class GameScreen implements Screen {
   }
 
   /**
-   * DEBUG - Draws the player's 3 hitboxes Uncomment use at the bottom of render to use
+   * DEBUG - Draws the player's 3 hitboxes Uncomment use at the bottom of render to use.
    */
   public void drawHitboxes() {
     game.shapeRenderer.setProjectionMatrix(camera.combined);
@@ -495,7 +502,7 @@ public class GameScreen implements Screen {
 
 
   /**
-   * Add a number of seconds to the time elapsed in the day
+   * Add a number of seconds to the time elapsed in the day.
    *
    * @param delta The time in seconds to add
    */
@@ -508,12 +515,12 @@ public class GameScreen implements Screen {
     }
 
     if (day >= 8) {
-      GameOver();
+      gameOver();
     }
   }
 
   /**
-   * Takes a time in seconds and formats it a time in the format HH:MMam/pm
+   * Takes a time in seconds and formats it a time in the format HH:MMam/pm.
    *
    * @param seconds The seconds elapsed in a day
    * @return A formatted time on a 12 hour clock
@@ -537,7 +544,7 @@ public class GameScreen implements Screen {
 
 
   /**
-   * Generates an InputAdapter to handle game specific keyboard inputs
+   * Generates an InputAdapter to handle game specific keyboard inputs.
    *
    * @return An InputAdapter for keyboard inputs
    */
@@ -619,7 +626,7 @@ public class GameScreen implements Screen {
   // Functions related to game score and requirements
 
   /**
-   * Adds an amount of hours studied to the total hours studied
+   * Adds an amount of hours studied to the total hours studied.
    *
    * @param hours The amount of hours to add
    */
@@ -628,7 +635,7 @@ public class GameScreen implements Screen {
   }
 
   /**
-   * Adds an amount of recreational hours to the total amount for the current day
+   * Adds an amount of recreational hours to the total amount for the current day.
    *
    * @param hours The amount of hours to add
    */
@@ -637,7 +644,7 @@ public class GameScreen implements Screen {
   }
 
   /**
-   * @return Returns 'breakfast', 'lunch' or 'dinner' depending on the time of day
+   * @return Returns 'breakfast', 'lunch' or 'dinner' depending on the time of day.
    */
   public String getMeal() {
     int hours = Math.floorDiv((int) daySeconds, 60);
@@ -657,16 +664,17 @@ public class GameScreen implements Screen {
   }
 
   /**
-   * @return A wake up message based on the time left until the exam
+   * @return A wake-up message based on the time left until the exam.
    */
   public String getWakeUpMessage() {
     int daysLeft = 8 - day;
     if (daysLeft != 1) {
       return String.format(
-          "You have %d days left until your exam!\nRemember to eat, study and have fun, but don't overwork yourself!",
-          daysLeft);
+          "You have %d days left until your exam!\nRemember to eat, study and have fun, "
+              + "but don't overwork yourself!", daysLeft);
     } else {
-      return "Your exam is tomorrow! I hope you've been studying! Remember not to overwork yourself and get enough sleep!";
+      return "Your exam is tomorrow! I hope you've been studying! Remember not to overwork "
+          + "yourself and get enough sleep!";
     }
   }
 
@@ -712,9 +720,9 @@ public class GameScreen implements Screen {
   }
 
   /**
-   * Ends the game, called at the end of the 7th day, switches to a screen that displays a score
+   * Ends the game, called at the end of the 7th day, switches to a screen that displays a score.
    */
-  public void GameOver() {
+  public void gameOver() {
     game.setScreen(new GameOverScreen(game));
     int totalScore = score.getTotalScore();
     leaderboard.saveScore(playerName, totalScore);

@@ -6,7 +6,11 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.*;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.ui.Window;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.FitViewport;
@@ -93,10 +97,11 @@ public abstract class LeaderboardScreen implements Screen {
   }
 
   protected abstract void onExitPressed();
+
   protected abstract String getExitButtonText();
 
   /**
-   * Renders the Leaderboard window
+   * Renders the Leaderboard window.
    *
    * @param delta The time in seconds since the last render.
    */
@@ -115,10 +120,10 @@ public abstract class LeaderboardScreen implements Screen {
 
 
   /**
-   * Correctly resizes the onscreen elements when the window is resized
+   * Correctly resizes the onscreen elements when the window is resized.
    *
-   * @param width
-   * @param height
+   * @param width New width of the window
+   * @param height New height of the window
    */
   @Override
   public void resize(int width, int height) {

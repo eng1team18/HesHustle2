@@ -9,13 +9,14 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
+import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.scenes.scene2d.Stage;
 
 // Changes
 //
-// - Line 67: Added a new Skin for the Text Field component use for TextField when player select a name
+// - Line 67: Added a new Skin for the Text Field component use for TextField when player select a
+//   name
 //
 
 /**
@@ -31,13 +32,16 @@ public class HustleGame extends Game {
   public Skin skin;
   public Skin skin2;
   public TiledMap map;
-  public String credits, tutorialText;
+  public String credits;
+  public String tutorialText;
   public GameScreen gameScreen;
   public MenuScreen menuScreen;
   public ShapeRenderer shapeRenderer;
   public SoundManager soundManager;
   public Stage blueBackground;
-  public int[] backgroundLayers, foregroundLayers, objectLayers;
+  public int[] backgroundLayers;
+  public int[] foregroundLayers;
+  public int[] objectLayers;
   public int mapSquareSize;
   public float mapScale;
   public MapProperties mapProperties;
@@ -45,7 +49,7 @@ public class HustleGame extends Game {
 
   /**
    * A class to initialise a lot of the assets required for the game, including the map, sound and
-   * UI skin. A instance of this object should be shared to most screens to allow resources to be
+   * UI skin. An instance of this object should be shared to most screens to allow resources to be
    * shared and disposed of correctly. Should be created in DesktopLauncher,
    *
    * @param width  Width of the window
@@ -97,7 +101,7 @@ public class HustleGame extends Game {
   }
 
   /**
-   * Very important, renders the game, remove super.render() to get a black screen
+   * Very important, renders the game, remove super.render() to get a black screen.
    */
   @Override
   public void render() {
@@ -105,7 +109,7 @@ public class HustleGame extends Game {
   }
 
   /**
-   * Disposes of elements that are loaded at the start of the game
+   * Disposes of elements that are loaded at the start of the game.
    */
   @Override
   public void dispose() {
@@ -118,7 +122,7 @@ public class HustleGame extends Game {
   }
 
   /**
-   * Reads and returns text read from the provided text file path
+   * Reads and returns text read from the provided text file path.
    *
    * @param filepath The path to the text file
    * @return The contents of the file as a String

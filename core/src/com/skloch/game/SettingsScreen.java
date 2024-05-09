@@ -4,18 +4,20 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.*;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Slider;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.ui.Window;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
 
 /**
- * A screen to display settings to the player, lets the player adjust sound and music volume
+ * A screen to display settings to the player, lets the player adjust sound and music volume.
  */
 public class SettingsScreen implements Screen {
 
@@ -30,10 +32,10 @@ public class SettingsScreen implements Screen {
 
 
   /**
-   * Handles the configuration of Music and Sound effect volume using two sliders
+   * Handles the configuration of Music and Sound effect volume using two sliders.
    *
    * @param game           An instance of HustleGame
-   * @param previousScreen The previous screen to return to when the exit button is rpessed
+   * @param previousScreen The previous screen to return to when the exit button is pressed
    */
   public SettingsScreen(final HustleGame game, Screen previousScreen) {
     // An option screen to let the player adjust the volume of music and sound effects
@@ -107,7 +109,7 @@ public class SettingsScreen implements Screen {
 
 
   /**
-   * Renders a settings screen to let the player configure music and sound volume
+   * Renders a settings screen to let the player configure music and sound volume.
    *
    * @param delta The time in seconds since the last render.
    */
@@ -132,10 +134,10 @@ public class SettingsScreen implements Screen {
 
 
   /**
-   * Correctly resizes the settings screen
+   * Correctly resizes the settings screen.
    *
-   * @param width
-   * @param height
+   * @param width New width of the window
+   * @param height New height of the window
    */
   @Override
   public void resize(int width, int height) {
@@ -161,7 +163,7 @@ public class SettingsScreen implements Screen {
   }
 
   /**
-   * Disposes of the option settings stage
+   * Disposes of the option settings stage.
    */
   @Override
   public void dispose() {

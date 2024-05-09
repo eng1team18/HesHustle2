@@ -99,7 +99,7 @@ public class AchievementScreen implements Screen {
   }
 
   /**
-   * Renders the achievments window.
+   * Renders the achievements window.
    *
    * @param delta The time in seconds since the last render.
    */

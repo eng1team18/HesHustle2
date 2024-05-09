@@ -81,7 +81,7 @@ public class EventManager {
     } else if (args[0] == "fadetoblack") {
       fadeToBlack();
     } else if (args[0] == "gameover") {
-      game.GameOver();
+      game.gameOver();
     }
 
     // Events related to objects
@@ -154,7 +154,7 @@ public class EventManager {
   }
 
   /**
-   * Sets the text when talking to an object without a dedicated function
+   * Sets the text when talking to an object without a dedicated function.
    */
   public void objectEvent(String object) {
     game.dialogueBox.hideSelectBox();
@@ -194,11 +194,12 @@ public class EventManager {
   }
 
   /**
+   * Generates and returns an array of random topics.
+   *
    * @param amount The amount of topics to return
-   * @return An array of x random topics the player can chat about
+   * @return An array of 'amount' random topics the player can chat about
    */
   private String[] randomTopics(int amount) {
-    // Returns an array of 3 random topics
     Array<String> topics = new Array<String>(amount);
 
     for (int i = 0; i < amount; i++) {
@@ -215,8 +216,8 @@ public class EventManager {
   }
 
   /**
-   * The event to be run when interacting with the computer science building Gives the player the
-   * option to study for 2, 3 or 4 hours
+   * The event to be run when interacting with the Ron Cooke building. Gives the player the
+   * option to study for 2, 3 or 4 hours.
    *
    * @param args
    */
@@ -238,9 +239,8 @@ public class EventManager {
       // If the player does not have enough energy for the selected hours
       if (energyBar.getEnergy() < energyCost) {
         game.dialogueBox.setText("You don't have the energy to study for this long!");
-      }
-      // New stuff/changes made
-      else if (!studiedToday) {
+      } else if (!studiedToday) {
+        // New stuff/changes made
         // If they do have the energy to study and haven't studied today
         studiedToday = true;
         dayLastStudied = game.day;
@@ -265,7 +265,8 @@ public class EventManager {
         score.incrementTotalScore(2, 3); //slightly lower score for catch up
 
       } else {
-        // This should catch the cases where a user tries to study but either already has today or already used their catchup session
+        // This should catch the cases where a user tries to study but either already
+        // has today or already used their catchup session
         game.dialogueBox.setText("You've already studied as much as you can for today!");
       }
     }
@@ -273,8 +274,8 @@ public class EventManager {
 
 
   /**
-   * The event to be run when the player interacts with the ron cooke hub Gives the player the
-   * choice to eat breakfast, lunch or dinner depending on the time of day
+   * The event to be run when the player interacts with the ron cooke hub. Gives the player the
+   * choice to eat breakfast, lunch or dinner depending on the time of day.
    *
    * @param args
    */
@@ -284,7 +285,8 @@ public class EventManager {
       game.dialogueBox.setText("You are too tired to eat right now!");
     } else {
       game.dialogueBox.setText(
-              String.format("You took an hour to eat %s at the Piazza Building!\nYou lost %d energy!",
+              String.format("You took an hour to eat %s at the Piazza Building!\nYou lost %d "
+                      + "energy!",
                       game.getMeal(), energyCost));
       energyBar.decreaseEnergy(energyCost);
       score.incrementTotalScore(1, score.hungerScore(Math.round(game.daySeconds), timeLastEat));
@@ -295,7 +297,7 @@ public class EventManager {
 
   /**
    * Lets the player go to sleep, fades the screen to black then shows a dialogue about the amount
-   * of sleep the player gets Then queues up fadeFromBlack to be called when this dialogue closes
+   * of sleep the player gets. Then queues up fadeFromBlack to be called when this dialogue closes.
    *
    * @param args Unused currently
    * @see GameScreen fadeToBlack function
@@ -395,14 +397,14 @@ public class EventManager {
 
 
   /**
-   * Fades the screen to black
+   * Fades the screen to black.
    */
   public void fadeToBlack() {
     game.blackScreen.addAction(Actions.fadeIn(3f));
   }
 
   /**
-   * Fades the screen to black, then runs a runnable after it is done
+   * Fades the screen to black, then runs a runnable after it is done.
    *
    * @param runnable A runnable to execute after fading is finished
    */
@@ -412,7 +414,7 @@ public class EventManager {
 
   /**
    * Fades the screen back in from black, displays a good morning message if the player was
-   * sleeping
+   * sleeping.
    */
   public void fadeFromBlack() {
     // If the player is sleeping, queue up a message to be sent
