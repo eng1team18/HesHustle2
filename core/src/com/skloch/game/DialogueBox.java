@@ -15,7 +15,7 @@ public class DialogueBox {
   private Table dialogueTable;
   private Label textLabel;
   private Skin skin;
-  private final int MAXCHARS;
+  private int maxChars;
   private SelectBox selectBox;
   private Array<String> textLines;
   private int linePointer = 0;
@@ -26,9 +26,9 @@ public class DialogueBox {
 
   public DialogueBox(Skin skin) {
     // Define some key values
-    int WIDTH = 800;
-    int HEIGHT = 200;
-    MAXCHARS = 35;
+    int width = 800;
+    int height = 200;
+    maxChars = 35;
     this.skin = skin;
 
     // Create the window for the dialogue box
@@ -42,13 +42,14 @@ public class DialogueBox {
     textLabel = new Label(
         "Are you sure you want to sleep at the Piazza? This will cost you 10 energy", skin,
         "dialogue");
-    dialogueTable.add(textLabel).expand().width(WIDTH - 80).top().padTop(40);
+    dialogueTable.add(textLabel).expand().width(width - 80).top().padTop(40);
     textLabel.setWrap(false);
 
-    dialogueWindow.setWidth(WIDTH);
-    dialogueWindow.setHeight(HEIGHT);
+    dialogueWindow.setWidth(width);
+    dialogueWindow.setHeight(height);
 
-    // Create selection box to allow user to make choices when interacting with objects (class defined below)
+    // Create selection box to allow user to make choices when interacting with
+    // objects (class defined below).
     this.selectBox = new SelectBox();
     selectBox.setOptions(new String[]{"Yes", "No"}, new String[]{"piazza", "close"});
 
@@ -57,7 +58,7 @@ public class DialogueBox {
   }
 
   /**
-   * A class displaying a little selction box to the user when an input is needed in dialog
+   * A class displaying a selection box to the user when an input is needed in dialog.
    */
   class SelectBox {
 
@@ -83,7 +84,7 @@ public class DialogueBox {
 
     /**
      * Sets the options visible to the player when asking for a choice. Also sets which events to
-     * call from each option. Event strings are translated into events in EventManager
+     * call from each option. Event strings are translated into events in EventManager.
      *
      * @param options The options available to the player e.g. "Yes" and "No"
      * @param events  The events called to the option of the same index E.g. "piazza" and
@@ -128,8 +129,8 @@ public class DialogueBox {
     }
 
     /**
-     * Moves the player's choice up one selection Also hides the pointer at the old index, and shows
-     * the pointer at the new index
+     * Moves the player's choice up one selection. Also hides the pointer at the old index, and
+     * shows the pointer at the new index.
      */
     public void choiceUp() {
       optionPointers.get(choiceIndex).setVisible(false);
@@ -143,7 +144,7 @@ public class DialogueBox {
     }
 
     /**
-     * The same as choiceUp but in the opposite direction
+     * The same as choiceUp but in the opposite direction.
      */
     public void choiceDown() {
       optionPointers.get(choiceIndex).setVisible(false);
@@ -156,8 +157,8 @@ public class DialogueBox {
     }
 
     /**
-     * Returns the event string associated with the selected choice Call hide() afterwards to close
-     * the menu
+     * Returns the event string associated with the selected choice Call hide() afterward to close
+     * the menu.
      *
      * @return An event string to be passed to EventManager
      */
@@ -167,30 +168,30 @@ public class DialogueBox {
     }
 
     /**
-     * Gets the window of the select box
+     * Gets the window of the selectbox.
      *
-     * @return The window of the select box
+     * @return The window of the selectbox
      */
     public Window getWindow() {
       return selectWindow;
     }
 
     /**
-     * Hides the selection widget
+     * Hides the selection widget.
      */
     public void hide() {
       selectWindow.setVisible(false);
     }
 
     /**
-     * Shows the selection widget
+     * Shows the selection widget.
      */
     public void show() {
       selectWindow.setVisible(true);
     }
 
     /**
-     * Returns whether the selection box is visible or not
+     * Returns whether the selection box is visible or not.
      *
      * @return true if the selection box is visible
      */
@@ -199,7 +200,7 @@ public class DialogueBox {
     }
 
     /**
-     * Sets the player's choice to a specific value, used to default to "No" for most options
+     * Sets the player's choice to a specific value, used to default to "No" for most options.
      *
      * @param index The new choice index
      */
@@ -215,7 +216,7 @@ public class DialogueBox {
 
 
   /**
-   * Sets the dialogue box and all its elements to a position onscreen
+   * Sets the dialogue box and all its elements to a position onscreen.
    *
    * @param x The x coordinate of the bottom left corner
    * @param y The y coordinate
@@ -230,9 +231,9 @@ public class DialogueBox {
   }
 
   /**
-   * Sets the text to be displayed on the dialogue box, automatically wraps it correctly
+   * Sets the text to be displayed on the dialogue box, automatically wraps it correctly.
    *
-   * @param text
+   * @param text Text to be displayed.
    */
   public void setText(String text) {
     initialiseLabelText(text);
@@ -241,10 +242,10 @@ public class DialogueBox {
   }
 
   /**
-   * Sets the text to be displayed on the dialogue box, automatically wraps it correctly
-   * Additionally, schedules an event to be called after the text is done displaying
+   * Sets the text to be displayed on the dialogue box, automatically wraps it correctly.
+   * Additionally, schedules an event to be called after the text is done displaying.
    *
-   * @param text     THe text to display
+   * @param text     The text to display
    * @param eventKey The event key to be triggered
    */
   public void setText(String text, String eventKey) {
@@ -267,10 +268,10 @@ public class DialogueBox {
   }
 
   /**
-   * Formats the text to be displayed on a label widget. Adds a newline character every MAXCHARS num
-   * of characters accounts for any occuring linebreaks to take use of the size of the most space
-   * possible. Stores the formatted text in 3 chunks, which are then queued up to be pushed to the
-   * label whenever the user presses e.
+   * Formats the text to be displayed on a label widget. Adds a newline character every maxChars
+   * num of characters accounts for any occurring linebreaks to take use of the size of the most
+   * space possible. Stores the formatted text in 3 chunks, which are then queued up to be pushed
+   * to the label whenever the user presses e.
    *
    * @param text The text to format and push to the label
    */
@@ -281,35 +282,36 @@ public class DialogueBox {
     int index = 0;
     int totalIndex = 0;
 
-    // Add newline characters where the length of a section between two linebreaks is greater than MAXCHARS
+    // Add newline characters where the length of a section between two linebreaks is
+    // greater than maxChars
     for (char c : text.toCharArray()) {
-      // Account for any occuring linebreaks
+      // Account for any occurring linebreaks
       if (c == '\n') {
         index = 0;
       }
 
-      if (index >= MAXCHARS) {
+      if (index >= maxChars) {
         // If the current line is a space, just add a newline instead of a space
         if (c == ' ') {
-          newString = newString + "\n";
+          newString += "\n";
           totalIndex += 1;
           index = 0;
         } else {
           // If not, Replace the last space with a linebreak and add the char
-          // If the last linebreak is 0 or greater than MAXCHARS away, just add a break now
-          if (lastSpace == 0 || (totalIndex - lastSpace) >= MAXCHARS) {
-            newString = newString + "\n";
+          // If the last linebreak is 0 or greater than maxChars away, just add a break now
+          if (lastSpace == 0 || (totalIndex - lastSpace) >= maxChars) {
+            newString += "\n";
             index = 0;
           } else {
             newString =
                 newString.substring(0, lastSpace) + "\n" + newString.substring(lastSpace + 1);
-            newString = newString + c;
+            newString += c;
             index = totalIndex - lastSpace;
             totalIndex += 1;
           }
         }
       } else {
-        newString = newString + c;
+        newString += c;
         if (c == ' ') {
           lastSpace = totalIndex;
         }
@@ -344,14 +346,14 @@ public class DialogueBox {
   }
 
   /**
-   * Makes the dialogue box visible, along with any elements that need to be shown
+   * Makes the dialogue box visible, along with any elements that need to be shown.
    */
   public void show() {
     dialogueWindow.setVisible(true);
   }
 
   /**
-   * Hides the dialogue box and all of its elements
+   * Hides the dialogue box and all of its elements.
    */
   public void hide() {
     dialogueWindow.setVisible(false);
@@ -360,7 +362,7 @@ public class DialogueBox {
 
   /**
    * Pressing 'confirm' on the dialogue box Either selects the choice if the selectbox is open, or
-   * advances text if not
+   * advances text if not.
    */
   public void enter(EventManager eventManager) {
     if (selectBox.isVisible()) {
@@ -372,7 +374,7 @@ public class DialogueBox {
   }
 
   /**
-   * Continues on to the next bit of text, or closes the window if the end is reached
+   * Continues on to the next bit of text, or closes the window if the end is reached.
    */
   private void advanceText(EventManager eventManager) {
     if (scrollingText) {
@@ -393,20 +395,20 @@ public class DialogueBox {
       } else {
         textCounter = 0;
         scrollingText = true;
-//            textLabel.setText(textLines.get(linePointer));
+        // textLabel.setText(textLines.get(linePointer));
       }
     }
   }
 
   /**
-   * Hides just the selectbox window
+   * Hides just the selectbox window.
    */
   public void hideSelectBox() {
     selectBox.hide();
   }
 
   /**
-   * Checks if the main dialogue box is visible
+   * Checks if the main dialogue box is visible.
    *
    * @return true if it is visible, false otherwise
    */
@@ -415,7 +417,7 @@ public class DialogueBox {
   }
 
   /**
-   * Gets the window widget of the dialogue box
+   * Gets the window widget of the dialogue box.
    *
    * @return A window widget
    */
@@ -424,7 +426,7 @@ public class DialogueBox {
   }
 
   /**
-   * Returns the width of the main dialogue screen widget
+   * Returns the width of the main dialogue screen widget.
    *
    * @return The width
    */
@@ -434,7 +436,7 @@ public class DialogueBox {
   }
 
   /**
-   * Returns the height of the main dialogue screen widget
+   * Returns the height of the main dialogue screen widget.
    *
    * @return The height
    */
@@ -443,7 +445,7 @@ public class DialogueBox {
   }
 
   /**
-   * Returns the created selectbox class
+   * Returns the created selectbox class.
    *
    * @return A SelectBox class
    */

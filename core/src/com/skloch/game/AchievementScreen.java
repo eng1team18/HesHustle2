@@ -6,9 +6,10 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Window;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.ScreenUtils;
@@ -62,7 +63,7 @@ public class AchievementScreen implements Screen {
     // Scrollable widget
     ScrollPane scrollWindow = new ScrollPane(scrollTable, game.skin);
     scrollWindow.setFadeScrollBars(false);
-//         scrollWindow.setDebug(true);
+    // scrollWindow.setDebug(true);
 
     // scrollWindow.setFillParent(true);
     achievementTable.add(scrollWindow).padTop(20).height(350);
@@ -98,7 +99,7 @@ public class AchievementScreen implements Screen {
   }
 
   /**
-   * Renders the achievments window
+   * Renders the achievments window.
    *
    * @param delta The time in seconds since the last render.
    */
@@ -117,10 +118,10 @@ public class AchievementScreen implements Screen {
 
 
   /**
-   * Correctly resizes the onscreen elements when the window is resized
+   * Correctly resizes the onscreen elements when the window is resized.
    *
-   * @param width
-   * @param height
+   * @param width Window's new width.
+   * @param height Window's new height.
    */
   @Override
   public void resize(int width, int height) {

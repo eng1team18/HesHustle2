@@ -3,13 +3,13 @@ package com.skloch.game;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.actions.RunnableAction;
 import com.badlogic.gdx.utils.Array;
-
 import java.util.HashMap;
 import java.util.concurrent.ThreadLocalRandom;
 
 // Changes
 //
-// - Time check for piazzaEvent, compSciEvent, ronCookeEvent was remove to support the no time ticking change
+// - Time check for piazzaEvent, compSciEvent, ronCookeEvent was remove to support the
+//   no time ticking change
 // - Energy now use the Energy class instead of GameScreen
 //
 
@@ -68,7 +68,7 @@ public class EventManager {
 
     // Some random topics that can be chatted about
     String[] topics = {"Dogs", "Cats", "Exams", "Celebrities", "Flatmates", "Video games", "Sports",
-            "Food", "Fashion"};
+        "Food", "Fashion"};
     talkTopics = new Array<String>(topics);
   }
 
@@ -88,9 +88,6 @@ public class EventManager {
     switch (args[0]) {
       case "tree":
         treeEvent();
-        break;
-      case "chest":
-        chestEvent();
         break;
       case "friends":
         friendsEvent(args);
@@ -120,15 +117,13 @@ public class EventManager {
       default:
         objectEvent(eventKey);
         break;
-
     }
-
   }
 
   /**
-   * Gets the interaction text associated with each object via a key
+   * Gets the interaction text associated with each object via a key.
    *
-   * @param key
+   * @param key The key string used to find the associated interaction text
    * @return The object interaction text
    */
   public String getObjectInteraction(String key) {
@@ -140,14 +135,14 @@ public class EventManager {
   }
 
   /**
-   * @return True if the object has some custom text to display that isn't just "This is an x!"
+   * @return True if the object has some custom text to display that isn't just "This is an x!".
    */
   public boolean hasCustomObjectInteraction(String key) {
     return objectInteractions.containsKey(key);
   }
 
   /**
-   * Sets the text when talking to a tree
+   * Sets the text when talking to a tree.
    */
   public void treeEvent() {
     game.dialogueBox.hideSelectBox();
@@ -156,14 +151,6 @@ public class EventManager {
       Achievement.getInstance().giveAchievement(1);
       score.incrementTotalScore(5, 100);
     }
-  }
-
-
-  public void chestEvent() {
-    game.dialogueBox.hideSelectBox();
-    game.dialogueBox.setText(
-            "Wow! This chest is full of so many magical items! I wonder how they will help you out on your journey! Boy, this is an awfully long piece of text, I wonder if someone is testing something?\n...\n...\n...\nHow cool!");
-
   }
 
   /**

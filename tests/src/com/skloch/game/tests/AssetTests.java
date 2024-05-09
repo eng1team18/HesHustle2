@@ -3,10 +3,14 @@ package com.skloch.game.tests;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+
 import com.badlogic.gdx.Gdx;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+/**
+ * Runs tests to ensure no assets are missing.
+ */
 @RunWith(GdxTestRunner.class)
 public class AssetTests {
 
