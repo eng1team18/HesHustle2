@@ -115,7 +115,7 @@ public class Player {
 
   /**
    * Handles all the logic involved in moving the player given keyboard inputs If the player
-   * encounters an object, they will not be alowed to move into the space, but will attempt to
+   * encounters an object, they will not be allowed to move into the space, but will attempt to
    * 'slide' off of it. Also updates the player's animation
    * Also locates the nearest object after moving, which can be used to trigger events
    *

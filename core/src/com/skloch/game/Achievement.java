@@ -13,6 +13,9 @@ public class Achievement {
   public Achievement() {
     achievements = new HashMap<>();
     addAchievement(1, "Tree?", "Talk to the mysterious tree");
+    addAchievement(2, "Temporary", "Achievement that were added for testing");
+    addAchievement(3, "Temporary2", "Feel free to replace these whenever");
+    addAchievement(4, "Temporary3", "The test should still work no matter what");
   }
 
   public static Achievement getInstance() {
