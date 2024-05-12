@@ -50,7 +50,6 @@ public class AchievementTests {
   @Test
   public void testGetUserAchievements() {
     achievements.giveAchievement(1);
-    System.out.println(achievements.getUserAchievements());
     assertEquals(achievements.getUserAchievements(),
         "- Tree? +100: Talk to the mysterious tree\n");
   }

@@ -7,19 +7,24 @@ import static org.mockito.Mockito.mock;
 
 import com.skloch.game.HustleGame;
 import com.skloch.game.LeaderboardScreenGame;
+import com.skloch.game.Player;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+/**
+ * Runs unit tests on the core Player class.
+ */
 @RunWith(GdxTestRunner.class)
-public class LeaderboardScreenGameTests {
-  //HustleGame game = new HustleGame(600, 400);
-  //game.setScreen(new LeaderboardScreenGame(game));
-  HustleGame game = mock(HustleGame.class);
-  //game.setScreen(new LeaderboardScreenGame(game));
+public class PlayerTests {
+  Player player = new Player("avatar1");
 
   @Test
-  public void testGetExitButtonText() {
-    //leadScreen.getExitButtonText();
-    assertTrue(true);
+  public void testGetX() {
+    assertEquals(player.getX(), 0f, 1e-15);
+  }
+
+  @Test
+  public void testGetY() {
+    assertEquals(player.getY(), 0f, 1e-15);
   }
 }
