@@ -45,6 +45,10 @@ public class Leaderboard {
     return new Array<>();
   }
 
+  public String returnFileName(){
+    return SCORE_FILE;
+  }
+
   public String getFormattedTopScores() {
     StringBuilder sb = new StringBuilder();
     Array<ScoreEntry> topScores = getTopScores();
