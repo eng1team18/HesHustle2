@@ -37,6 +37,8 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 public class MenuScreen implements Screen {
 
   final HustleGame game;
+
+  private Time time;
   private Stage menuStage;
   OrthographicCamera camera;
   private Viewport viewport;

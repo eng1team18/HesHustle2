@@ -19,6 +19,7 @@ import java.util.concurrent.ThreadLocalRandom;
 public class EventManager {
 
   private final GameScreen game;
+  private final Time time;
   public HashMap<String, Integer> activityEnergies;
   private final HashMap<String, String> objectInteractions;
   private final Array<String> talkTopics;
@@ -40,8 +41,9 @@ public class EventManager {
    *
    * @param game An instance of the GameScreen containing a player and dialogue box
    */
-  public EventManager(GameScreen game, Energy energyBar) {
+  public EventManager(GameScreen game, Energy energyBar, Time time) {
     this.game = game;
+    this.time = time;
     this.energyBar = energyBar;
 
     // How much energy an hour of each activity should take
@@ -128,7 +130,7 @@ public class EventManager {
    */
   public String getObjectInteraction(String key) {
     if (key.equals("piazza")) {
-      return String.format("Eat %s at the Piazza Building?", game.getMeal());
+      return String.format("Eat %s at the Piazza Building?", time.getMeal());
     } else {
       return objectInteractions.get(key);
     }
@@ -186,10 +188,10 @@ public class EventManager {
       game.dialogueBox.setText(
               String.format("You talked about %s for %d hours!", args[1].toLowerCase(), hours));
       //New
-      score.incrementTotalScore(3, score.activityScore(0, game.day));
+      score.incrementTotalScore(3, score.activityScore(0, time.day));
       energyBar.decreaseEnergy(energyCost * hours);
-      game.passTime(hours * 60); // in seconds
-      game.addRecreationalHours(hours);
+      time.passTime(hours * 60); // in seconds
+      time.addRecreationalHours(hours);
     }
   }
 
@@ -223,10 +225,10 @@ public class EventManager {
    */
   public void ronCookeEvent(String[] args) {
     //New
-    if (dayLastStudied < game.day) {
+    if (dayLastStudied < time.day) {
       studiedToday = false;
     }
-    if (game.day - dayLastStudied > 1) {
+    if (time.day - dayLastStudied > 1) {
       missedDay = true;
     }
     int energyCost = activityEnergies.get("studying");
@@ -243,24 +245,24 @@ public class EventManager {
         // New stuff/changes made
         // If they do have the energy to study and haven't studied today
         studiedToday = true;
-        dayLastStudied = game.day;
+        dayLastStudied = time.day;
         game.dialogueBox.setText(
                 String.format("You studied for 3 hours!\nYou lost %d energy",
                         energyCost));
         energyBar.decreaseEnergy(energyCost);
-        game.addStudyHours(3);
-        game.passTime(3 * 60); // in seconds
+        time.addStudyHours(3);
+        time.passTime(3 * 60); // in seconds
         score.incrementTotalScore(2, 5);
       } else if (missedDay && !catchUpUsed) {
         // If you have missed a day, this code should only ever be able to be called once
         catchUpUsed = true;
-        dayLastStudied = game.day;
+        dayLastStudied = time.day;
         game.dialogueBox.setText(
                 String.format("You caught up for 3 hours!\nYou lost %d energy",
                         energyCost));
         energyBar.decreaseEnergy(energyCost);
-        game.addStudyHours(3);
-        game.passTime(
+        time.addStudyHours(3);
+        time.passTime(
                 3 * 60); // in seconds   POSSIBLY make longer/ shorter as a catchup session?
         score.incrementTotalScore(2, 3); //slightly lower score for catch up
 
@@ -287,10 +289,10 @@ public class EventManager {
       game.dialogueBox.setText(
               String.format("You took an hour to eat %s at the Piazza Building!\nYou lost %d "
                       + "energy!",
-                      game.getMeal(), energyCost));
+                      time.getMeal(), energyCost));
       energyBar.decreaseEnergy(energyCost);
-      score.incrementTotalScore(1, score.hungerScore(Math.round(game.daySeconds), timeLastEat));
-      game.passTime(60); // in seconds
+      score.incrementTotalScore(1, score.hungerScore(Math.round(time.daySeconds), timeLastEat));
+      time.passTime(60); // in seconds
     }
 
   }
@@ -309,11 +311,11 @@ public class EventManager {
     // Calculate the hours slept to the nearest hour
     // Wakes the player up at 8am
     float secondsSlept;
-    if (game.getSeconds() < 60 * 8) {
-      secondsSlept = (60 * 8 - game.getSeconds());
+    if (time.getSeconds() < 60 * 8) {
+      secondsSlept = (60 * 8 - time.getSeconds());
     } else {
       // Account for the wakeup time being in the next day
-      secondsSlept = (((60 * 8) + 1440) - game.getSeconds());
+      secondsSlept = (((60 * 8) + 1440) - time.getSeconds());
     }
     int hoursSlept = Math.round(secondsSlept / 60f);
 
@@ -330,8 +332,8 @@ public class EventManager {
           energyBar.setEnergy(hoursSlept * 13);
           //New
           score.incrementTotalScore(4, Math.min(hoursSlept * 13, 100));
-          game.passTime(secondsSlept);
-          game.addSleptHours(hoursSlept);
+          time.passTime(secondsSlept);
+          time.addSleptHours(hoursSlept);
         }
       }
     });
@@ -357,8 +359,8 @@ public class EventManager {
                   String.format("You went on a walk for 2 hours!\nYou recovered %d energy!",
                           energyCost), "fadefromblack");
           energyBar.decreaseEnergy(energyCost);
-          score.incrementTotalScore(3, score.activityScore(2, game.day));
-          game.passTime(2 * 60);
+          score.incrementTotalScore(3, score.activityScore(2, time.day));
+          time.passTime(2 * 60);
         }
       });
       fadeToBlack(setTextAction);
@@ -375,8 +377,8 @@ public class EventManager {
       game.dialogueBox.setText(
               String.format("You went into town for 2 hours!\nYou lost %d energy!", energyCost));
       energyBar.decreaseEnergy(energyCost);
-      score.incrementTotalScore(3, score.activityScore(3, game.day));
-      game.passTime(2 * 60); // in seconds
+      score.incrementTotalScore(3, score.activityScore(3, time.day));
+      time.passTime(2 * 60); // in seconds
     }
   }
 
@@ -390,8 +392,8 @@ public class EventManager {
       game.dialogueBox.setText(
               String.format("You fed the ducks for 1 hour!\nYou lost %d energy!", energyCost));
       energyBar.decreaseEnergy(energyCost);
-      score.incrementTotalScore(3, score.activityScore(3, game.day));
-      game.passTime(2 * 60); // in seconds
+      score.incrementTotalScore(3, score.activityScore(3, time.day));
+      time.passTime(2 * 60); // in seconds
     }
   }
 
@@ -426,7 +428,7 @@ public class EventManager {
           if (game.getSleeping()) {
             game.dialogueBox.show();
             // Show a text displaying how many days they have left in the game
-            game.dialogueBox.setText(game.getWakeUpMessage());
+            game.dialogueBox.setText(time.getWakeUpMessage());
             game.setSleeping(false);
           }
         }
