@@ -99,6 +99,8 @@ public class Score {
     return activities.containsKey(id) ? activities.get(id).getScore() : 0;
   }
 
+  public Map getActivities(){return activities;}
+
   public class ScoreActivity {
 
     private String name;
