@@ -393,7 +393,7 @@ public class EventManager {
               String.format("You fed the ducks for 1 hour!\nYou lost %d energy!", energyCost));
       energyBar.decreaseEnergy(energyCost);
       score.incrementTotalScore(3, score.activityScore(3, time.day));
-      time.passTime(2 * 60); // in seconds
+      time.passTime(60); // in seconds
     }
   }
 
