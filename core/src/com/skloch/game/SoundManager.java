@@ -21,7 +21,7 @@ public class SoundManager implements Disposable {
   private Sound footstep1;
   private Sound footstep2;
   public boolean footstepBool;
-  private float footstepTimer;
+  public float footstepTimer;
   private float sfxVolume = 0.8f;
   private float musicVolume = 0.8f;
   private Sound pauseSound;

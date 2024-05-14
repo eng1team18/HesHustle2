@@ -13,7 +13,7 @@ public class Time {
   public int hoursStudied;
   public int hoursRecreational;
   public int hoursSlept;
-  private GameScreen game;
+  private final GameScreen game;
 
   public Time(GameScreen game) {
     this.game = game;
@@ -26,7 +26,7 @@ public class Time {
    * @return A formatted time on a 12-hour clock
    */
   public static String formatTime(int seconds) {
-    // Takes a number of seconds and converts it into a 12 hour clock time
+    // Takes a number of seconds and converts it into a 12-hour clock time
     int hour = Math.floorDiv(seconds, 60);
     String minutes = String.format("%02d", (seconds - hour * 60));
 
