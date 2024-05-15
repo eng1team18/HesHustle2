@@ -93,7 +93,7 @@ public class GameScreen implements Screen {
 
     // Camera and viewport settings
     camera = new OrthographicCamera();
-    viewport = new FitViewport(game.WIDTH, game.HEIGHT, camera);
+    viewport = new FitViewport(game.WIDTH + 550, game.HEIGHT + 300, camera);
     Energy energyBar = new Energy(viewport);
     camera.setToOrtho(false, game.WIDTH, game.HEIGHT);
     game.shapeRenderer.setProjectionMatrix(camera.combined);
@@ -138,7 +138,7 @@ public class GameScreen implements Screen {
     // Dialogue box
     dialogueBox = new DialogueBox(game.skin);
     dialogueBox.setPos(
-        (viewport.getWorldWidth() - dialogueBox.getWidth()) / 2f,
+        ((viewport.getWorldWidth() - dialogueBox.getWidth()) / 2f) - 275,
         15f);
     dialogueBox.hide();
 
@@ -390,8 +390,8 @@ public class GameScreen implements Screen {
     // escapeMenu.setDebug(true);
 
     // Centre
-    escapeMenu.setX((viewport.getWorldWidth() / 2) - (escapeMenu.getWidth() / 2));
-    escapeMenu.setY((viewport.getWorldHeight() / 2) - (escapeMenu.getHeight() / 2));
+    escapeMenu.setX(((viewport.getWorldWidth() / 2) - (escapeMenu.getWidth() / 2)) - 275);
+    escapeMenu.setY(((viewport.getWorldHeight() / 2) - (escapeMenu.getHeight() / 2)) - 150);
 
     // Create button listeners
 

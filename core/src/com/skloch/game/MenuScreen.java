@@ -269,16 +269,18 @@ public class MenuScreen implements Screen {
     ScrollPane scrollWindow = new ScrollPane(scrollTable, game.skin);
     scrollWindow.setFadeScrollBars(false);
 
-    tutTable.add(scrollWindow).padTop(20).height(350).width(870);
+    tutTable.add(scrollWindow).padTop(20).height(400).width(870);
     tutTable.row();
 
     Label text = new Label(game.tutorialText, game.skin, "interaction");
     text.setWrap(true);
     scrollTable.add(text).width(820f).padLeft(20);
+    scrollTable.row();
+    TextButton continueButton = new TextButton("Continue", game.skin);
+    scrollTable.add(continueButton).bottom().width(300).padTop(10);
 
     // Exit button
-    TextButton continueButton = new TextButton("Continue", game.skin);
-    tutTable.add(continueButton).bottom().width(300).padTop(10);
+
 
     tutWindow.pack();
 
