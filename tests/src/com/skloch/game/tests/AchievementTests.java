@@ -42,7 +42,7 @@ public class AchievementTests {
     achievements.giveAchievement(3);
     achievements.giveAchievement(4);
     achievements.resetAllAchievements();
-    for (int i=1; i<=4; i++) {
+    for (int i = 1; i <= 4; i++) {
       assertFalse(achievements.checkAchievement(i));
     }
   }
