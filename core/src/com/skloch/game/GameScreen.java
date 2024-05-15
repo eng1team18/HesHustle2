@@ -61,13 +61,15 @@ public class GameScreen implements Screen {
   private Table uiTable;
   public DialogueBox dialogueBox;
   public final Image blackScreen;
-  private boolean sleeping = false;
-  private boolean fadeout = false;
+  public boolean sleeping = false;
+  public boolean fadeout = false;
 
   private Leaderboard leaderboard;
   private final Score score;
 
   private final Time time;
+
+  private CustomInputAdapter customInputAdapter;
 
   String playerName;
   private Energy energyBar;
@@ -87,6 +89,7 @@ public class GameScreen implements Screen {
     this.playerName = userInput;
 
     time = new Time(this);
+
 
     // Scores
     time.hoursStudied = time.hoursRecreational = time.hoursSlept = 0;
@@ -145,6 +148,7 @@ public class GameScreen implements Screen {
     // Set initial time
     time.daySeconds = (8 * 60); // 8:00 am
 
+
     // Table to display date and time
     Table timeTable = new Table();
     timeTable.setFillParent(true);
@@ -167,9 +171,12 @@ public class GameScreen implements Screen {
     // Start music
     game.soundManager.playOverworldMusic();
 
+    //Set InputAdapter
+    customInputAdapter = new CustomInputAdapter(this.game, dialogueBox, eventManager, player, escapeMenu, this);
+
     // Create the keyboard input adapter that defines events to be called based on
     // specific button presses
-    InputAdapter gameKeyBoardInput = makeInputAdapter();
+    InputAdapter gameKeyBoardInput = customInputAdapter.makeInputAdapter();
 
     // Since we need to listen to inputs from the stage and from the keyboard
     // Use an input multiplexer to listen for one inputadapter and then the other
@@ -497,86 +504,6 @@ public class GameScreen implements Screen {
     game.shapeRenderer.rect(player.eventHitbox.x, player.eventHitbox.y, player.eventHitbox.width,
         player.eventHitbox.height);
     game.shapeRenderer.end();
-  }
-
-  /**
-   * Generates an InputAdapter to handle game specific keyboard inputs.
-   *
-   * @return An InputAdapter for keyboard inputs
-   */
-  public InputAdapter makeInputAdapter() {
-    return new InputAdapter() {
-      @Override
-      public boolean keyDown(int keycode) {
-        // SHOW ESCAPE MENU CODE
-        if (keycode == Input.Keys.ESCAPE) {
-          if (escapeMenu.isVisible()) {
-            game.soundManager.playButton();
-            game.soundManager.playOverworldMusic();
-            escapeMenu.setVisible(false);
-          } else {
-            // game.soundManager.pauseOverworldMusic();
-            game.soundManager.playButton();
-            escapeMenu.setVisible(true);
-          }
-          // Return true to indicate the keydown event was handled
-          return true;
-        }
-
-        // SHOW OPTION MENU / ACT ON OPTION MENU CODE
-        if (keycode == Input.Keys.E || keycode == Input.Keys.ENTER || keycode == Input.Keys.SPACE) {
-          if (!escapeMenu.isVisible()) {
-            // If a dialogue box is visible, choose an option or advance text
-            if (dialogueBox.isVisible()) {
-              dialogueBox.enter(eventManager);
-              game.soundManager.playButton();
-
-            } else if (player.nearObject() && !sleeping && !fadeout) {
-              // If the object has an event associated with it
-              if (player.getClosestObject().get("event") != null) {
-                // Show a dialogue menu asking if they want to do an interaction with the object
-                dialogueBox.show();
-                dialogueBox.getSelectBox().setOptions(new String[]{"Yes", "No"},
-                    new String[]{(String) player.getClosestObject().get("event"), "exit"});
-                if (eventManager.hasCustomObjectInteraction(
-                    (String) player.getClosestObject().get("event"))) {
-                  dialogueBox.setText(eventManager.getObjectInteraction(
-                      (String) player.getClosestObject().get("event")));
-                } else {
-                  dialogueBox.setText(
-                      "Interact with " + player.getClosestObject().get("event") + "?");
-                }
-                dialogueBox.show();
-                dialogueBox.getSelectBox().show();
-                game.soundManager.playDialogueOpen();
-
-              } else if (player.getClosestObject().get("text") != null) {
-                // Otherwise, if it is a text object, just display its text
-                dialogueBox.show();
-                dialogueBox.setText((String) player.getClosestObject().get("text"));
-              }
-            }
-            return true;
-          }
-        }
-
-        // If an option dialogue is open it should soak up all keypresses
-        if (dialogueBox.isVisible() && dialogueBox.getSelectBox().isVisible()
-            && !escapeMenu.isVisible()) {
-          // Up or down
-          if (keycode == Input.Keys.W || keycode == Input.Keys.UP) {
-            dialogueBox.getSelectBox().choiceUp();
-          } else if (keycode == Input.Keys.S || keycode == Input.Keys.DOWN) {
-            dialogueBox.getSelectBox().choiceDown();
-          }
-
-          return true;
-
-        }
-
-        return false;
-      }
-    };
   }
 
   // Functions related to game score and requirements
