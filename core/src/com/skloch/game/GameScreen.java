@@ -37,6 +37,7 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 // - Line 753: Added leaderboard.saveScore(playerName, totalScore) to the gameOver() function to
 //   save the scores for the Leaderboard
 // - Moved Energy from GameScreen to its own class
+// - Line 97: Increases the viewport so more part of the map can be visible at once
 //
 
 /**
@@ -92,6 +93,7 @@ public class GameScreen implements Screen {
 
     // Camera and viewport settings
     camera = new OrthographicCamera();
+    // viewport = new FitViewport(game.width + 0, game.height + 0, camera);
     viewport = new FitViewport(game.width + 550, game.height + 300, camera);
     Energy energyBar = new Energy(viewport);
     camera.setToOrtho(false, game.width, game.height);

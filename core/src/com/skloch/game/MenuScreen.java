@@ -28,6 +28,8 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 // - Line 316/326: GameScreen() also sends the playerName
 // - Line 74: tutorialWindow redirect to nameInputTable instead and avatarSelectTable are shown
 //   afterward
+// - Moved Continue button inside of tutorial into the scroll bar to force users to read
+// - Added Controls to tutorial
 //
 
 /**
