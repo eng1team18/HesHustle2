@@ -27,8 +27,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 public class HustleGame extends Game {
 
   public SpriteBatch batch;
-  public int WIDTH;
-  public int HEIGHT;
+  public final int width;
+  public final int height;
   public Skin skin;
   public Skin skin2;
   public TiledMap map;
@@ -56,8 +56,8 @@ public class HustleGame extends Game {
    * @param height Height of the window
    */
   public HustleGame(int width, int height) {
-    WIDTH = width;
-    HEIGHT = height;
+    this.width = width;
+    this.height = height;
   }
 
   /**

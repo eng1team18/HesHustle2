@@ -27,7 +27,6 @@ import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import java.io.FileNotFoundException;
 
 // Changes
 //
@@ -38,6 +37,7 @@ import java.io.FileNotFoundException;
 // - Line 753: Added leaderboard.saveScore(playerName, totalScore) to the gameOver() function to
 //   save the scores for the Leaderboard
 // - Moved Energy from GameScreen to its own class
+// - Line 97: Increases the viewport so more part of the map can be visible at once
 //
 
 /**
@@ -96,15 +96,16 @@ public class GameScreen implements Screen {
 
     // Camera and viewport settings
     camera = new OrthographicCamera();
-    viewport = new FitViewport(game.WIDTH, game.HEIGHT, camera);
+    // viewport = new FitViewport(game.width + 0, game.height + 0, camera);
+    viewport = new FitViewport(game.width + 550, game.height + 300, camera);
     Energy energyBar = new Energy(viewport);
-    camera.setToOrtho(false, game.WIDTH, game.HEIGHT);
+    camera.setToOrtho(false, game.width, game.height);
     game.shapeRenderer.setProjectionMatrix(camera.combined);
     eventManager = new EventManager(this, energyBar, time);
     leaderboard = new Leaderboard();
 
     // Create a stage for the user interface to be on
-    uiStage = new Stage(new FitViewport(game.WIDTH, game.HEIGHT));
+    uiStage = new Stage(new FitViewport(game.width, game.height));
     // Add a black image over everything first
     blackScreen = new Image(new Texture(Gdx.files.internal("Sprites/black_square.png")));
     blackScreen.setSize(viewport.getWorldWidth(), viewport.getWorldHeight());
@@ -112,7 +113,7 @@ public class GameScreen implements Screen {
 
     // UI table to put everything in
     uiTable = new Table();
-    uiTable.setSize(game.WIDTH, game.HEIGHT);
+    uiTable.setSize(game.width, game.height);
     uiStage.addActor(uiTable);
 
     // Create a player class
@@ -141,7 +142,7 @@ public class GameScreen implements Screen {
     // Dialogue box
     dialogueBox = new DialogueBox(game.skin);
     dialogueBox.setPos(
-        (viewport.getWorldWidth() - dialogueBox.getWidth()) / 2f,
+        ((viewport.getWorldWidth() - dialogueBox.getWidth()) / 2f) - 275,
         15f);
     dialogueBox.hide();
 
@@ -397,8 +398,8 @@ public class GameScreen implements Screen {
     // escapeMenu.setDebug(true);
 
     // Centre
-    escapeMenu.setX((viewport.getWorldWidth() / 2) - (escapeMenu.getWidth() / 2));
-    escapeMenu.setY((viewport.getWorldHeight() / 2) - (escapeMenu.getHeight() / 2));
+    escapeMenu.setX(((viewport.getWorldWidth() / 2) - (escapeMenu.getWidth() / 2)) - 275);
+    escapeMenu.setY(((viewport.getWorldHeight() / 2) - (escapeMenu.getHeight() / 2)) - 150);
 
     // Create button listeners
 

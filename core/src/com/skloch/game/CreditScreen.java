@@ -39,12 +39,12 @@ public class CreditScreen implements Screen {
 
     // Basically all the same code as the settings menu
     this.game = game;
-    creditStage = new Stage(new FitViewport(game.WIDTH, game.HEIGHT));
+    creditStage = new Stage(new FitViewport(game.width, game.height));
     Gdx.input.setInputProcessor(creditStage);
 
     camera = new OrthographicCamera();
-    viewport = new FitViewport(game.WIDTH, game.HEIGHT, camera);
-    camera.setToOrtho(false, game.WIDTH, game.HEIGHT);
+    viewport = new FitViewport(game.width, game.height, camera);
+    camera.setToOrtho(false, game.width, game.height);
 
     // Create the window
     Window creditMenu = new Window("", game.skin);

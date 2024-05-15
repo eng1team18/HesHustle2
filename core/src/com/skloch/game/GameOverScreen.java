@@ -50,12 +50,12 @@ public class GameOverScreen implements Screen {
    */
   public GameOverScreen(final HustleGame game) {
     this.game = game;
-    gameOverStage = new Stage(new FitViewport(game.WIDTH, game.HEIGHT));
+    gameOverStage = new Stage(new FitViewport(game.width, game.height));
     Gdx.input.setInputProcessor(gameOverStage);
 
     camera = new OrthographicCamera();
-    viewport = new FitViewport(game.WIDTH, game.HEIGHT, camera);
-    camera.setToOrtho(false, game.WIDTH, game.HEIGHT);
+    viewport = new FitViewport(game.width, game.height, camera);
+    camera.setToOrtho(false, game.width, game.height);
 
     // Create the window
     Window gameOverWindow = new Window("", game.skin);

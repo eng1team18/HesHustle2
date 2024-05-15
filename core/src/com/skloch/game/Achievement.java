@@ -12,10 +12,10 @@ public class Achievement {
 
   public Achievement() {
     achievements = new HashMap<>();
-    addAchievement(1, "Tree?", "Talk to the mysterious tree");
-    addAchievement(2, "Temporary", "Achievement that were added for testing");
-    addAchievement(3, "Temporary2", "Feel free to replace these whenever");
-    addAchievement(4, "Temporary3", "The test should still work no matter what");
+    addAchievement(1, "Tree?", "Talk to the mysterious tree.");
+    addAchievement(2, "Bookworm", "Study at least 4 times this week.");
+    addAchievement(3, "Duck duck go!", "Feed the ducks at least 6 times.");
+    addAchievement(4, "Jogger", "Goes for a walk every day during the week");
   }
 
   public static Achievement getInstance() {
@@ -51,6 +51,36 @@ public class Achievement {
     AchievementEntry achievement = achievements.get(id);
     if (achievement != null) {
       return achievement.isAchieved();
+    }
+    return false;
+  }
+
+  public boolean BookwormAchievement(int studyCount) {
+    if (studyCount >= 4) {
+      if (!Achievement.getInstance().checkAchievement(2)) {
+        Achievement.getInstance().giveAchievement(2);
+        return true;
+      }
+    }
+    return false;
+  }
+
+  public boolean DuckDuckGoAchievement(int duckCount) {
+    if (duckCount >= 6) {
+      if (!Achievement.getInstance().checkAchievement(3)) {
+        Achievement.getInstance().giveAchievement(3);
+        return true;
+      }
+    }
+    return false;
+  }
+
+  public boolean JoggerAchievement(int walkCount) {
+    if (walkCount >= 7) {
+      if (!Achievement.getInstance().checkAchievement(4)) {
+        Achievement.getInstance().giveAchievement(4);
+        return true;
+      }
     }
     return false;
   }

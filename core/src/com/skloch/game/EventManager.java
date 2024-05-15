@@ -11,6 +11,7 @@ import java.util.concurrent.ThreadLocalRandom;
 // - Time check for piazzaEvent, compSciEvent, ronCookeEvent was remove to support the
 //   no time ticking change
 // - Energy now use the Energy class instead of GameScreen
+// - Added Achievement Systems currently to the tree, study and duck events
 //
 
 /**
@@ -28,9 +29,11 @@ public class EventManager {
 
   // New Stuff
   private boolean studiedToday = false;
+  private boolean walkedToday = false;
   private boolean catchUpUsed = false;
   private boolean missedDay = false;
   private int dayLastStudied = 0;
+  private int dayLastWalked = 0;
   private int timeLastEat = 0;
 
   /**
@@ -253,6 +256,10 @@ public class EventManager {
         time.addStudyHours(3);
         time.passTime(3 * 60); // in seconds
         score.incrementTotalScore(2, 5);
+        score.incrementNumStudying();
+        if (Achievement.getInstance().BookwormAchievement(score.getNumStudying())) {
+          score.incrementTotalScore(5, 100);
+        };
       } else if (missedDay && !catchUpUsed) {
         // If you have missed a day, this code should only ever be able to be called once
         catchUpUsed = true;
@@ -265,6 +272,10 @@ public class EventManager {
         time.passTime(
                 3 * 60); // in seconds   POSSIBLY make longer/ shorter as a catchup session?
         score.incrementTotalScore(2, 3); //slightly lower score for catch up
+        score.incrementNumStudying();
+        if (Achievement.getInstance().BookwormAchievement(score.getNumStudying())) {
+          score.incrementTotalScore(5, 100);
+        };
 
       } else {
         // This should catch the cases where a user tries to study but either already
@@ -292,6 +303,7 @@ public class EventManager {
                       time.getMeal(), energyCost));
       energyBar.decreaseEnergy(energyCost);
       score.incrementTotalScore(1, score.hungerScore(Math.round(time.daySeconds), timeLastEat));
+      score.incrementNumEating();
       time.passTime(60); // in seconds
     }
 
@@ -334,6 +346,7 @@ public class EventManager {
           score.incrementTotalScore(4, Math.min(hoursSlept * 13, 100));
           time.passTime(secondsSlept);
           time.addSleptHours(hoursSlept);
+          score.incrementNumSleeping();
         }
       }
     });
@@ -343,6 +356,9 @@ public class EventManager {
 
   //NEW CODE
   public void walk(String[] args) {
+    if (dayLastWalked < time.day) {
+      walkedToday = false;
+    }
     game.setFadeout(true);
     game.dialogueBox.hide();
     int energyCost = activityEnergies.get("walk");
@@ -361,6 +377,14 @@ public class EventManager {
           energyBar.decreaseEnergy(energyCost);
           score.incrementTotalScore(3, score.activityScore(2, time.day));
           time.passTime(2 * 60);
+          if (!walkedToday) {
+            walkedToday = true;
+            dayLastWalked = time.day;
+            score.incrementNumRecreationalWalk();
+            if (Achievement.getInstance().JoggerAchievement(score.getNumRecreationalWalk())) {
+              score.incrementTotalScore(5, 100);
+            };
+          }
         }
       });
       fadeToBlack(setTextAction);
@@ -393,6 +417,10 @@ public class EventManager {
               String.format("You fed the ducks for 1 hour!\nYou lost %d energy!", energyCost));
       energyBar.decreaseEnergy(energyCost);
       score.incrementTotalScore(3, score.activityScore(3, time.day));
+      score.incrementNumRecreationalDuck();
+      if (Achievement.getInstance().DuckDuckGoAchievement(score.getNumRecreationalDuck())) {
+        score.incrementTotalScore(5, 100);
+      };
       time.passTime(60); // in seconds
     }
   }

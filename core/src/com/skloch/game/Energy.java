@@ -31,7 +31,7 @@ public class Energy extends Group {
     energyBar = new Image(energyTexture);
     energyBarOutline = new Image(outlineTexture);
 
-    energyBarOutline.setPosition(viewport.getWorldWidth() - energyBarOutline.getWidth() - 15, 15);
+    energyBarOutline.setPosition((viewport.getWorldWidth() - 550) - energyBarOutline.getWidth() - 15, 15);
     energyBar.setPosition(energyBarOutline.getX() + 16, energyBarOutline.getY() + 16);
 
     maxEnergyWidth = energyBar.getWidth();

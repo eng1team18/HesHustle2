@@ -28,6 +28,8 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 // - Line 316/326: GameScreen() also sends the playerName
 // - Line 74: tutorialWindow redirect to nameInputTable instead and avatarSelectTable are shown
 //   afterward
+// - Moved Continue button inside of tutorial into the scroll bar to force users to read
+// - Added Controls to tutorial
 //
 
 /**
@@ -57,12 +59,12 @@ public class MenuScreen implements Screen {
     this.game = game;
     this.game.menuScreen = this;
     // Create stage to draw UI on
-    menuStage = new Stage(new FitViewport(game.WIDTH, game.HEIGHT));
+    menuStage = new Stage(new FitViewport(game.width, game.height));
     Gdx.input.setInputProcessor(menuStage);
 
     camera = new OrthographicCamera();
-    viewport = new FitViewport(game.WIDTH, game.HEIGHT, camera);
-    camera.setToOrtho(false, game.WIDTH, game.HEIGHT);
+    viewport = new FitViewport(game.width, game.height, camera);
+    camera.setToOrtho(false, game.width, game.height);
 
     // Set the size of the background to the viewport size, only need to do this once,
     // this is then used by all screens as an easy way of having a blue background
@@ -101,27 +103,26 @@ public class MenuScreen implements Screen {
     // Old title, new uses a texture
     //    Label title = new Label("Heslington Hustle", game.skin, "title");
 
-    // Create the buttons
-    TextButton startButton = new TextButton("New Game", game.skin);
-    TextButton settingsButton = new TextButton("Settings", game.skin);
-    TextButton creditsButton = new TextButton("Credits", game.skin);
-    TextButton leaderboardButton = new TextButton("Leaderboard", game.skin);
-    TextButton exitButton = new TextButton("Exit", game.skin);
 
-    // Add everything to the table using row() to go to a new line
+    // Create the buttons and add everything to the table using row() to go to a new line
     int buttonWidth = 340;
+    TextButton startButton = new TextButton("New Game", game.skin);
     buttonTable.add(startButton).uniformX().width(buttonWidth).padBottom(10).padTop(210);
     buttonTable.row();
+    TextButton settingsButton = new TextButton("Settings", game.skin);
     buttonTable.add(settingsButton).uniformX().width(buttonWidth).padBottom(10);
     buttonTable.row();
+    TextButton creditsButton = new TextButton("Credits", game.skin);
     buttonTable.add(creditsButton).uniformX().width(buttonWidth).padBottom(10);
     buttonTable.row();
+    TextButton leaderboardButton = new TextButton("Leaderboard", game.skin);
     buttonTable.add(leaderboardButton).uniformX().width(buttonWidth).padBottom(20);
     buttonTable.row();
+    TextButton exitButton = new TextButton("Exit", game.skin);
     buttonTable.add(exitButton).uniformX().width(buttonWidth);
     buttonTable.top();
 
-    // Add listeners to the buttons so they do things when pressed
+    // Add listeners to the buttons, so that they do things when pressed.
 
     // START GAME BUTTON - Displays the tutorial window
     startButton.addListener(new ChangeListener() {
@@ -269,16 +270,18 @@ public class MenuScreen implements Screen {
     ScrollPane scrollWindow = new ScrollPane(scrollTable, game.skin);
     scrollWindow.setFadeScrollBars(false);
 
-    tutTable.add(scrollWindow).padTop(20).height(350).width(870);
+    tutTable.add(scrollWindow).padTop(20).height(400).width(870);
     tutTable.row();
 
     Label text = new Label(game.tutorialText, game.skin, "interaction");
     text.setWrap(true);
     scrollTable.add(text).width(820f).padLeft(20);
+    scrollTable.row();
+    TextButton continueButton = new TextButton("Continue", game.skin);
+    scrollTable.add(continueButton).bottom().width(300).padTop(10);
 
     // Exit button
-    TextButton continueButton = new TextButton("Continue", game.skin);
-    tutTable.add(continueButton).bottom().width(300).padTop(10);
+
 
     tutWindow.pack();
 

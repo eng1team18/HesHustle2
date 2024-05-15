@@ -11,6 +11,11 @@ import java.util.stream.Collectors;
 public class Score {
 
   private int totalScore;
+  public int numEating;
+  public int numStudying;
+  public int numRecreationalWalk;
+  public int numRecreationalDuck;
+  public int numSleeping;
   private Map<Integer, ScoreActivity> activities;
 
   private static final Score instance = new Score();
@@ -70,6 +75,21 @@ public class Score {
   public int getTotalScore() {
     return totalScore;
   }
+  public int getNumEating() {
+    return numEating;
+  }
+  public int getNumRecreationalWalk() {
+    return numRecreationalWalk;
+  }
+  public int getNumRecreationalDuck() {
+    return numRecreationalDuck;
+  }
+  public int getNumStudying() {
+    return numStudying;
+  }
+  public int getNumSleeping() {
+    return numSleeping;
+  }
 
   public void incrementTotalScore(int id, int scoreToAdd) {
     this.totalScore += scoreToAdd;
@@ -78,6 +98,11 @@ public class Score {
       activity.addScore(scoreToAdd);
     }
   }
+  public void incrementNumEating() {this.numEating += 1;}
+  public void incrementNumRecreationalWalk() {this.numRecreationalWalk += 1;}
+  public void incrementNumRecreationalDuck() {this.numRecreationalDuck += 1;}
+  public void incrementNumStudying() {this.numStudying += 1;}
+  public void incrementNumSleeping() {this.numSleeping += 1;}
 
   public void setTotalScore(int value) {
     this.totalScore = value;
@@ -85,6 +110,11 @@ public class Score {
 
   public void resetScores() {
     totalScore = 0;
+    numEating = 0;
+    numRecreationalWalk = 0;
+    numRecreationalDuck = 0;
+    numStudying = 0;
+    numSleeping = 0;
     activities.values().forEach(ScoreActivity::resetScore);
   }
 
@@ -99,7 +129,9 @@ public class Score {
     return activities.containsKey(id) ? activities.get(id).getScore() : 0;
   }
 
-  public Map getActivities(){return activities;}
+  public Map getActivities() {
+    return activities;
+  }
 
   public class ScoreActivity {
 
