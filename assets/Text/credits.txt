@@ -1,4 +1,7 @@
-Made By:
+Improvements Made By:
+ENG1 Group 2-18
+
+Originally Made By:
 ENG1 Group 2-16
 
 Game Engine:
