@@ -37,14 +37,13 @@ public class DialogueBox {
     dialogueTable.setFillParent(true);
 
     int width = 800;
-    int height = 200;
-
     textLabel = new Label(
         "Are you sure you want to sleep at the Piazza? This will cost you 10 energy", skin,
         "dialogue");
     dialogueTable.add(textLabel).expand().width(width - 80).top().padTop(40);
     textLabel.setWrap(false);
 
+    int height = 200;
     dialogueWindow.setWidth(width);
     dialogueWindow.setHeight(height);
 

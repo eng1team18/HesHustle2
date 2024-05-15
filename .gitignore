@@ -114,3 +114,4 @@ Thumbs.db
 /ios/IOSLauncher.app.dSYM
 assets/leaderboard.json
 tests/build/
+tests/leaderboard.json
