@@ -45,7 +45,7 @@ public class Leaderboard {
     return new Array<>();
   }
 
-  public String returnFileName(){
+  public String returnFileName() {
     return SCORE_FILE;
   }
 

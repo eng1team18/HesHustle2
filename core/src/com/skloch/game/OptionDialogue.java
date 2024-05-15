@@ -1,16 +1,16 @@
 package com.skloch.game;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.Window;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.utils.Align;
 
 /**
- * @deprecated Creates a small window to recieve a yes/no response from the player No longer used,
- * but the code may still be useful
+ * @deprecated Creates a small window to receive a yes/no response from the player. No longer used,
+ * but the code may still be useful.
  */
 public class OptionDialogue {
 

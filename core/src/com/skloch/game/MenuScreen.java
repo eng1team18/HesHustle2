@@ -101,27 +101,26 @@ public class MenuScreen implements Screen {
     // Old title, new uses a texture
     //    Label title = new Label("Heslington Hustle", game.skin, "title");
 
-    // Create the buttons
-    TextButton startButton = new TextButton("New Game", game.skin);
-    TextButton settingsButton = new TextButton("Settings", game.skin);
-    TextButton creditsButton = new TextButton("Credits", game.skin);
-    TextButton leaderboardButton = new TextButton("Leaderboard", game.skin);
-    TextButton exitButton = new TextButton("Exit", game.skin);
 
-    // Add everything to the table using row() to go to a new line
+    // Create the buttons and add everything to the table using row() to go to a new line
     int buttonWidth = 340;
+    TextButton startButton = new TextButton("New Game", game.skin);
     buttonTable.add(startButton).uniformX().width(buttonWidth).padBottom(10).padTop(210);
     buttonTable.row();
+    TextButton settingsButton = new TextButton("Settings", game.skin);
     buttonTable.add(settingsButton).uniformX().width(buttonWidth).padBottom(10);
     buttonTable.row();
+    TextButton creditsButton = new TextButton("Credits", game.skin);
     buttonTable.add(creditsButton).uniformX().width(buttonWidth).padBottom(10);
     buttonTable.row();
+    TextButton leaderboardButton = new TextButton("Leaderboard", game.skin);
     buttonTable.add(leaderboardButton).uniformX().width(buttonWidth).padBottom(20);
     buttonTable.row();
+    TextButton exitButton = new TextButton("Exit", game.skin);
     buttonTable.add(exitButton).uniformX().width(buttonWidth);
     buttonTable.top();
 
-    // Add listeners to the buttons so they do things when pressed
+    // Add listeners to the buttons, so that they do things when pressed.
 
     // START GAME BUTTON - Displays the tutorial window
     startButton.addListener(new ChangeListener() {
