@@ -27,7 +27,6 @@ import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import java.io.FileNotFoundException;
 
 // Changes
 //
@@ -93,15 +92,15 @@ public class GameScreen implements Screen {
 
     // Camera and viewport settings
     camera = new OrthographicCamera();
-    viewport = new FitViewport(game.WIDTH + 550, game.HEIGHT + 300, camera);
+    viewport = new FitViewport(game.width + 550, game.height + 300, camera);
     Energy energyBar = new Energy(viewport);
-    camera.setToOrtho(false, game.WIDTH, game.HEIGHT);
+    camera.setToOrtho(false, game.width, game.height);
     game.shapeRenderer.setProjectionMatrix(camera.combined);
     eventManager = new EventManager(this, energyBar, time);
     leaderboard = new Leaderboard();
 
     // Create a stage for the user interface to be on
-    uiStage = new Stage(new FitViewport(game.WIDTH, game.HEIGHT));
+    uiStage = new Stage(new FitViewport(game.width, game.height));
     // Add a black image over everything first
     blackScreen = new Image(new Texture(Gdx.files.internal("Sprites/black_square.png")));
     blackScreen.setSize(viewport.getWorldWidth(), viewport.getWorldHeight());
@@ -109,7 +108,7 @@ public class GameScreen implements Screen {
 
     // UI table to put everything in
     uiTable = new Table();
-    uiTable.setSize(game.WIDTH, game.HEIGHT);
+    uiTable.setSize(game.width, game.height);
     uiStage.addActor(uiTable);
 
     // Create a player class

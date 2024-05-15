@@ -37,12 +37,12 @@ public abstract class LeaderboardScreen implements Screen {
 
     // Basically all the same code as the settings menu
     this.game = game;
-    leaderboardStage = new Stage(new FitViewport(game.WIDTH, game.HEIGHT));
+    leaderboardStage = new Stage(new FitViewport(game.width, game.height));
     Gdx.input.setInputProcessor(leaderboardStage);
 
     camera = new OrthographicCamera();
-    viewport = new FitViewport(game.WIDTH, game.HEIGHT, camera);
-    camera.setToOrtho(false, game.WIDTH, game.HEIGHT);
+    viewport = new FitViewport(game.width, game.height, camera);
+    camera.setToOrtho(false, game.width, game.height);
 
     // Create the window
     Window leaderboardMenu = new Window("", game.skin);

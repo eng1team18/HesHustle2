@@ -57,12 +57,12 @@ public class MenuScreen implements Screen {
     this.game = game;
     this.game.menuScreen = this;
     // Create stage to draw UI on
-    menuStage = new Stage(new FitViewport(game.WIDTH, game.HEIGHT));
+    menuStage = new Stage(new FitViewport(game.width, game.height));
     Gdx.input.setInputProcessor(menuStage);
 
     camera = new OrthographicCamera();
-    viewport = new FitViewport(game.WIDTH, game.HEIGHT, camera);
-    camera.setToOrtho(false, game.WIDTH, game.HEIGHT);
+    viewport = new FitViewport(game.width, game.height, camera);
+    camera.setToOrtho(false, game.width, game.height);
 
     // Set the size of the background to the viewport size, only need to do this once,
     // this is then used by all screens as an easy way of having a blue background

@@ -41,12 +41,12 @@ public class SettingsScreen implements Screen {
     // An option screen to let the player adjust the volume of music and sound effects
     this.game = game;
     this.previousScreen = previousScreen;
-    optionStage = new Stage(new FitViewport(game.WIDTH, game.HEIGHT));
+    optionStage = new Stage(new FitViewport(game.width, game.height));
     Gdx.input.setInputProcessor(optionStage);
 
     camera = new OrthographicCamera();
-    viewport = new FitViewport(game.WIDTH, game.HEIGHT, camera);
-    camera.setToOrtho(false, game.WIDTH, game.HEIGHT);
+    viewport = new FitViewport(game.width, game.height, camera);
+    camera.setToOrtho(false, game.width, game.height);
 
     // Create the window
     optionMenu = new Window("", game.skin);
