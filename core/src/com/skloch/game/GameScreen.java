@@ -50,7 +50,8 @@ public class GameScreen implements Screen {
   private OrthographicCamera camera;
 
   public Player player;
-  private Window escapeMenu;
+  private EscapeMenu escapeMenu;
+  private EscapeMenu escapeMenuSetup;
   private Viewport viewport;
   public OrthogonalTiledMapRenderer mapRenderer;
   public Stage uiStage;
@@ -167,13 +168,13 @@ public class GameScreen implements Screen {
     uiStage.addActor(blackScreen);
     uiStage.addActor(dialogueBox.getWindow());
     uiStage.addActor(dialogueBox.getSelectBox().getWindow());
-    setupEscapeMenu(uiStage);
+    escapeMenu = new EscapeMenu(this.game, viewport, this, uiStage);
 
     // Start music
     game.soundManager.playOverworldMusic();
 
     //Set InputAdapter
-    customInputAdapter = new CustomInputAdapter(this.game, dialogueBox, eventManager, player, escapeMenu, this);
+    customInputAdapter = new CustomInputAdapter(this.game, dialogueBox, eventManager, player, EscapeMenu.escapeMenu, this);
 
     // Create the keyboard input adapter that defines events to be called based on
     // specific button presses
@@ -271,7 +272,7 @@ public class GameScreen implements Screen {
     time.timeLabel.setText(Time.formatTime((int) time.daySeconds));
 
     // Freeze the player's movement for this frame if any menus are visible
-    if (escapeMenu.isVisible() || dialogueBox.isVisible() || sleeping || fadeout) {
+    if (EscapeMenu.escapeMenu.isVisible() || dialogueBox.isVisible() || sleeping || fadeout) {
       player.setFrozen(true);
     } else {
       player.setFrozen(false);
@@ -324,7 +325,7 @@ public class GameScreen implements Screen {
 
     // Check if the interaction (press e to use) label needs to be drawn
     interactionLabel.setVisible(false);
-    if (!dialogueBox.isVisible() && !escapeMenu.isVisible() && !sleeping  && !fadeout) {
+    if (!dialogueBox.isVisible() && !EscapeMenu.escapeMenu.isVisible() && !sleeping  && !fadeout) {
       if (player.nearObject()) {
         interactionLabel.setVisible(true);
         // Change text whether pressing E will interact or just read text
@@ -363,87 +364,6 @@ public class GameScreen implements Screen {
 
     camera.update();
   }
-
-
-  /**
-   * Configures everything needed to display the escape menu window when the player
-   * presses 'escape'. Doesn't return anything as the variable escapeMenu is used to store the
-   * window takes a table already added to the uiStage
-   *
-   * @param interfaceStage The stage that the escapeMenu should be added to
-   */
-  public void setupEscapeMenu(Stage interfaceStage) {
-    // Configures an escape menu to display when hitting 'esc'
-    // Escape menu
-    escapeMenu = new Window("", game.skin);
-    interfaceStage.addActor(escapeMenu);
-    escapeMenu.setModal(true);
-
-    Table escapeTable = new Table();
-    escapeTable.setFillParent(true);
-
-    escapeMenu.add(escapeTable);
-
-    TextButton resumeButton = new TextButton("Resume", game.skin);
-    escapeTable.add(resumeButton).pad(60, 80, 10, 80).width(300);
-    escapeTable.row();
-    TextButton settingsButton = new TextButton("Settings", game.skin);
-    escapeTable.add(settingsButton).pad(10, 50, 10, 50).width(300);
-    escapeTable.row();
-    TextButton exitButton = new TextButton("Exit", game.skin);
-    escapeTable.add(exitButton).pad(10, 50, 60, 50).width(300);
-
-    escapeMenu.pack();
-
-    // escapeMenu.setDebug(true);
-
-    // Centre
-    escapeMenu.setX(((viewport.getWorldWidth() / 2) - (escapeMenu.getWidth() / 2)) - 275);
-    escapeMenu.setY(((viewport.getWorldHeight() / 2) - (escapeMenu.getHeight() / 2)) - 150);
-
-    // Create button listeners
-
-    resumeButton.addListener(new ChangeListener() {
-      @Override
-      public void changed(ChangeEvent event, Actor actor) {
-        if (escapeMenu.isVisible()) {
-          game.soundManager.playButton();
-          game.soundManager.playOverworldMusic();
-          escapeMenu.setVisible(false);
-        }
-      }
-    });
-
-    // SETTINGS BUTTON
-    // I assign this object to a new var 'thisScreen' since the changeListener overrides 'this'
-    // I wasn't sure of a better solution
-    Screen thisScreen = this;
-    settingsButton.addListener(new ChangeListener() {
-      @Override
-      public void changed(ChangeEvent event, Actor actor) {
-        if (escapeMenu.isVisible()) {
-          game.soundManager.playButton();
-          game.setScreen(new SettingsScreen(game, thisScreen));
-        }
-      }
-    });
-
-    exitButton.addListener(new ChangeListener() {
-      @Override
-      public void changed(ChangeEvent event, Actor actor) {
-        if (escapeMenu.isVisible()) {
-          game.soundManager.playButton();
-          game.soundManager.stopOverworldMusic();
-          dispose();
-          game.setScreen(new MenuScreen(game));
-        }
-      }
-    });
-
-    escapeMenu.setVisible(false);
-
-  }
-
 
   @Override
   public void resize(int width, int height) {
@@ -487,28 +407,7 @@ public class GameScreen implements Screen {
     mapRenderer.dispose();
   }
 
-  /**
-   * DEBUG - Draws the player's 3 hitboxes Uncomment use at the bottom of render to use.
-   */
-  public void drawHitboxes() {
-    game.shapeRenderer.setProjectionMatrix(camera.combined);
-    game.shapeRenderer.begin(ShapeType.Line);
-    // Sprite
-    game.shapeRenderer.setColor(1, 0, 0, 1);
-    game.shapeRenderer.rect(player.sprite.x, player.sprite.y, player.sprite.width,
-        player.sprite.height);
-    // Feet hitbox
-    game.shapeRenderer.setColor(0, 0, 1, 1);
-    game.shapeRenderer.rect(player.feet.x, player.feet.y, player.feet.width, player.feet.height);
-    // Event hitbox
-    game.shapeRenderer.setColor(0, 1, 0, 1);
-    game.shapeRenderer.rect(player.eventHitbox.x, player.eventHitbox.y, player.eventHitbox.width,
-        player.eventHitbox.height);
-    game.shapeRenderer.end();
-  }
-
   // Functions related to game score and requirements
-
   /**
    * @param sleeping Sets the value of sleeping
    */
