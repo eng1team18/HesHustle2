@@ -7,7 +7,7 @@ import com.badlogic.gdx.utils.Json;
 
 public class Leaderboard {
 
-  private static final String SCORE_FILE = "leaderboard.json";
+  public static final String SCORE_FILE = "leaderboard.json";
   private Json json = new Json();
   private Array<ScoreEntry> scores = new Array<>();
   private static final Leaderboard instance = new Leaderboard();
