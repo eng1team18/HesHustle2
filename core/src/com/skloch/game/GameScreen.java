@@ -67,6 +67,8 @@ public class GameScreen implements Screen {
   public float[] campusSpawn = new float[2];
   public float[] townSpawn;
 
+  public NPC npc1;
+
   private Leaderboard leaderboard;
   private final Score score;
 
@@ -99,6 +101,10 @@ public class GameScreen implements Screen {
     } else {
       player = new Player("avatar2");
     }
+
+    // New code
+    // NPCs
+    npc1 = new NPC("avatar1");
 
     // Scores
     time.hoursStudied = time.hoursRecreational = time.hoursSlept = 0;
@@ -183,7 +189,7 @@ public class GameScreen implements Screen {
     InputAdapter gameKeyBoardInput = customInputAdapter.makeInputAdapter();
 
     // Since we need to listen to inputs from the stage and from the keyboard
-    // Use an input multiplexer to listen for one inputadapter and then the other
+    // Use an input multiplexer to listen for one input adapter and then the other
     // inputMultiplexer needs to be established beforehand since we reference it
     // on resume() when going back to this screen from the settings menu
     inputMultiplexer = new InputMultiplexer();
@@ -199,6 +205,7 @@ public class GameScreen implements Screen {
     // Get the dimensions of the top layer
     TiledMapTileLayer layer0 = (TiledMapTileLayer) game.map.getLayers().get(0);
     player.setPos(layer0.getWidth() * game.mapScale / 2f, layer0.getHeight() * game.mapScale / 2f);
+    npc1.setPos(layer0.getWidth() * game.mapScale / 2f, layer0.getHeight() * game.mapScale / 2f);
     // Put camera on player
     camera.position.set(player.getCentreX(), player.getCentreY(), 0);
 
@@ -211,12 +218,20 @@ public class GameScreen implements Screen {
       for (int i = 0; i < objects.getCount(); i++) {
         // Get the properties of each object
         MapProperties properties = objects.get(i).getProperties();
+
+        // New code
+        // Check if object is NPC
+        if (properties.get("npc1") != null) {
+          npc1.setPos(((float) properties.get("x")) * unitScale,
+                  ((float) properties.get("y")) * unitScale);
+        }
+
         // If this is the spawn object, move the player there and don't collide
         if (properties.get("spawn") != null) {
           player.setPos(((float) properties.get("x")) * unitScale,
                   ((float) properties.get("y")) * unitScale);
           camera.position.set(player.getPosAsVec3());
-          //New code
+          // New code
           // Define spawn locations for bus stops
         } else if (properties.get("spawnCampus") != null) {
             campusSpawn = new float[]{(float) properties.get("x") * unitScale,
@@ -326,6 +341,16 @@ public class GameScreen implements Screen {
         0, 0,
         player.sprite.width, player.sprite.height,
         1f, 1f, 1
+    );
+
+    // New code
+    // Draw NPCs
+    game.batch.draw(
+            npc1.getCurrentFrame(),
+            npc1.sprite.x, npc1.sprite.y,
+            0, 0,
+            npc1.sprite.width, npc1.sprite.height,
+            1f, 1f, 1
     );
 
     game.batch.end();
