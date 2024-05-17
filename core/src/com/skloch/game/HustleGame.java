@@ -34,8 +34,6 @@ public class HustleGame extends Game {
   public TiledMap map;
   public String credits;
   public String tutorialText;
-  public GameScreen gameScreen;
-  public MenuScreen menuScreen;
   public ShapeRenderer shapeRenderer;
   public SoundManager soundManager;
   public Stage blueBackground;

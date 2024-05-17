@@ -85,7 +85,7 @@ public class GameScreen implements Screen {
   public GameScreen(final HustleGame game, int avatarChoice, String userInput) {
     // Important game variables
     this.game = game;
-    this.game.gameScreen = this;
+    //this.game.gameScreen = this;
     this.score = Score.getInstance();
     this.playerName = userInput;
 
