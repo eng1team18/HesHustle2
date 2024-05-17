@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="60" height="40" tilewidth="32" tileheight="32" infinite="0" nextlayerid="11" nextobjectid="2">
- <tileset firstgid="1" source="Tilemaps/City.tsx"/>
+ <tileset firstgid="1" source="Tilemaps/City tiles.tsx"/>
  <tileset firstgid="1441" source="Tilemaps/City preview.tsx"/>
  <layer id="4" name="Ground" width="60" height="40">
   <data encoding="csv">

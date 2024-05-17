@@ -15,6 +15,8 @@ public class Score {
   public int numStudying;
   public int numRecreationalWalk;
   public int numRecreationalDuck;
+  private int numRecreationalBar;
+
   public int numSleeping;
   private Map<Integer, ScoreActivity> activities;
 
@@ -101,6 +103,7 @@ public class Score {
   public void incrementNumEating() {this.numEating += 1;}
   public void incrementNumRecreationalWalk() {this.numRecreationalWalk += 1;}
   public void incrementNumRecreationalDuck() {this.numRecreationalDuck += 1;}
+  public void incrementNumRecreationalBar() {this.numRecreationalBar += 1;}
   public void incrementNumStudying() {this.numStudying += 1;}
   public void incrementNumSleeping() {this.numSleeping += 1;}
 

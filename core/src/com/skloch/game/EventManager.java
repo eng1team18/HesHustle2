@@ -21,6 +21,7 @@ public class EventManager {
 
   private final GameScreen game;
   private final Time time;
+  private final Player player;
   public HashMap<String, Integer> activityEnergies;
   private final HashMap<String, String> objectInteractions;
   private final Array<String> talkTopics;
@@ -44,12 +45,13 @@ public class EventManager {
    *
    * @param game An instance of the GameScreen containing a player and dialogue box
    */
-  public EventManager(GameScreen game, Energy energyBar, Time time) {
+  public EventManager(GameScreen game, Energy energyBar, Time time, Player player) {
     this.game = game;
     this.time = time;
     this.energyBar = energyBar;
+    this.player = player;
 
-    // How much energy an hour of each activity should take
+      // How much energy an hour of each activity should take
     activityEnergies = new HashMap<String, Integer>();
     activityEnergies.put("studying", 30);
     activityEnergies.put("meet_friends", 10);
@@ -57,6 +59,7 @@ public class EventManager {
     activityEnergies.put("ducks", 10);
     activityEnergies.put("bus", 10);
     activityEnergies.put("eating", 10);
+    activityEnergies.put("bar", 10);
 
     // Define what to say when interacting with an object whose text won't change
     objectInteractions = new HashMap<String, String>();
@@ -69,7 +72,11 @@ public class EventManager {
     objectInteractions.put("tree", "Speak to the tree?");
     objectInteractions.put("walk", "Go on a walk in the woods?");
     objectInteractions.put("ducks", "Feed the ducks?");
-    objectInteractions.put("bus", "Get the bus to town?");
+    objectInteractions.put("busCampus", "Get the bus to town?");
+    objectInteractions.put("busTown", "Get the bus back to campus?");
+    objectInteractions.put("library", "Study at the library?");
+    objectInteractions.put("restaurant", "Eat at the restaurant?");
+    objectInteractions.put("bar", "Play pool at the bar with your friends?");
 
     // Some random topics that can be chatted about
     String[] topics = {"Dogs", "Cats", "Exams", "Celebrities", "Flatmates", "Video games", "Sports",
@@ -112,8 +119,20 @@ public class EventManager {
       case "ducks":
         ducks(args);
         break;
-      case "bus":
-        bus(args);
+      case "busCampus":
+        busCampus(args);
+        break;
+      case "busTown":
+        busTown(args);
+        break;
+      case "library":
+        ronCookeEvent(args);
+        break;
+      case "restaurant":
+        piazzaEvent(args);
+        break;
+      case "bar":
+        bar(args);
         break;
       case "exit":
         // Should do nothing and just close the dialogue menu
@@ -298,7 +317,7 @@ public class EventManager {
       game.dialogueBox.setText("You are too tired to eat right now!");
     } else {
       game.dialogueBox.setText(
-              String.format("You took an hour to eat %s at the Piazza Building!\nYou lost %d "
+              String.format("You took an hour to eat %s!\nYou lost %d "
                       + "energy!",
                       time.getMeal(), energyCost));
       energyBar.decreaseEnergy(energyCost);
@@ -372,7 +391,7 @@ public class EventManager {
         public void run() {
           game.dialogueBox.show();
           game.dialogueBox.setText(
-                  String.format("You went on a walk for 2 hours!\nYou recovered %d energy!",
+                  String.format("You went on a walk for 2 hours!\nYou lost %d energy!",
                           energyCost), "fadefromblack");
           energyBar.decreaseEnergy(energyCost);
           score.incrementTotalScore(3, score.activityScore(2, time.day));
@@ -391,19 +410,36 @@ public class EventManager {
     }
   }
 
-  public void bus(String[] args) {
-    int energyCost = activityEnergies.get("bus");
-    // If the player is too tired to meet friends
-    if (energyBar.getEnergy() < energyCost) {
-      game.dialogueBox.setText("You are too tired to into town right now!");
-    } else {
-      game.dialogueBox.show();
-      game.dialogueBox.setText(
-              String.format("You went into town for 2 hours!\nYou lost %d energy!", energyCost));
-      energyBar.decreaseEnergy(energyCost);
-      score.incrementTotalScore(3, score.activityScore(3, time.day));
-      time.passTime(2 * 60); // in seconds
-    }
+  public void busCampus(String[] args) {
+
+    RunnableAction setTextAction = new RunnableAction();
+    setTextAction.setRunnable(new Runnable() {
+      @Override
+      public void run() {
+        game.dialogueBox.show();
+        game.dialogueBox.setText(
+                String.format("You got the bus into town, which took 30 minutes!"), "fadefromblack");
+        time.passTime(30);
+        player.setPos(game.townSpawn[0], game.townSpawn[1]);
+      }
+    });
+    fadeToBlack(setTextAction);
+  }
+
+  public void busTown(String[] args) {
+
+    RunnableAction setTextAction = new RunnableAction();
+    setTextAction.setRunnable(new Runnable() {
+      @Override
+      public void run() {
+        game.dialogueBox.show();
+        game.dialogueBox.setText(
+                String.format("You got the bus to campus, which took 30 minutes!"), "fadefromblack");
+        time.passTime(30);
+        player.setPos(game.campusSpawn[0], game.campusSpawn[1]);
+      }
+    });
+    fadeToBlack(setTextAction);
   }
 
   public void ducks(String[] args) {
@@ -421,6 +457,22 @@ public class EventManager {
       if (Achievement.getInstance().DuckDuckGoAchievement(score.getNumRecreationalDuck())) {
         score.incrementTotalScore(5, 100);
       };
+      time.passTime(60); // in seconds
+    }
+  }
+
+  public void bar(String[] args) {
+    int energyCost = activityEnergies.get("bar");
+    // If the player is too tired to meet friends
+    if (energyBar.getEnergy() < energyCost) {
+      game.dialogueBox.setText("You are too tired to play pool right now!");
+    } else {
+      game.dialogueBox.show();
+      game.dialogueBox.setText(
+              String.format("You played pool for 1 hour!\nYou lost %d energy!", energyCost));
+      energyBar.decreaseEnergy(energyCost);
+      score.incrementTotalScore(3, score.activityScore(3, time.day));
+      score.incrementNumRecreationalBar();
       time.passTime(60); // in seconds
     }
   }

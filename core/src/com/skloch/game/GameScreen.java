@@ -64,6 +64,8 @@ public class GameScreen implements Screen {
   public final Image blackScreen;
   public boolean sleeping = false;
   public boolean fadeout = false;
+  public float[] campusSpawn = new float[2];
+  public float[] townSpawn;
 
   private Leaderboard leaderboard;
   private final Score score;
@@ -91,6 +93,12 @@ public class GameScreen implements Screen {
 
     time = new Time(this);
 
+    // Create a player class
+    if (avatarChoice == 1) {
+      player = new Player("avatar1");
+    } else {
+      player = new Player("avatar2");
+    }
 
     // Scores
     time.hoursStudied = time.hoursRecreational = time.hoursSlept = 0;
@@ -102,7 +110,7 @@ public class GameScreen implements Screen {
     Energy energyBar = new Energy(viewport);
     camera.setToOrtho(false, game.width, game.height);
     game.shapeRenderer.setProjectionMatrix(camera.combined);
-    eventManager = new EventManager(this, energyBar, time);
+    eventManager = new EventManager(this, energyBar, time, player);
     leaderboard = new Leaderboard();
 
     // Create a stage for the user interface to be on
@@ -117,12 +125,6 @@ public class GameScreen implements Screen {
     uiTable.setSize(game.width, game.height);
     uiStage.addActor(uiTable);
 
-    // Create a player class
-    if (avatarChoice == 1) {
-      player = new Player("avatar1");
-    } else {
-      player = new Player("avatar2");
-    }
 
     // USER INTERFACE
 
@@ -212,8 +214,16 @@ public class GameScreen implements Screen {
         // If this is the spawn object, move the player there and don't collide
         if (properties.get("spawn") != null) {
           player.setPos(((float) properties.get("x")) * unitScale,
-              ((float) properties.get("y")) * unitScale);
+                  ((float) properties.get("y")) * unitScale);
           camera.position.set(player.getPosAsVec3());
+          //New code
+          // Define spawn locations for bus stops
+        } else if (properties.get("spawnCampus") != null) {
+            campusSpawn = new float[]{(float) properties.get("x") * unitScale,
+                    (float) properties.get("y") * unitScale};
+        } else if (properties.get("spawnTown") != null) {
+          townSpawn = new float[]{(float) properties.get("x") * unitScale,
+                  (float) properties.get("y") * unitScale};
         } else {
           // Make a new gameObject with these properties, passing along the scale the map is
           // rendered at for accurate coordinates
