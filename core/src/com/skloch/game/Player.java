@@ -304,6 +304,16 @@ public class Player {
     this.moving = moving;
   }
 
+  /**
+   * Sets the player's state to running or not running, a not moving character will just display an
+   * idle animation.
+   *
+   * @param running The boolean to set running to
+   */
+  public void setRunning(boolean running) {
+    this.running = running;
+  }
+
 
   /**
    * Returns the current frame the player's animation is on.

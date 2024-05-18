@@ -147,7 +147,7 @@ public class GameScreen implements Screen {
     interactionLabel = new Label("E - Interact", game.skin, "default");
 
     // Dialogue box
-    dialogueBox = new DialogueBox(game.skin);
+    dialogueBox = new DialogueBox(game.skin, player);
     dialogueBox.setPos(
         ((viewport.getWorldWidth() - dialogueBox.getWidth()) / 2f) - 275,
         15f);

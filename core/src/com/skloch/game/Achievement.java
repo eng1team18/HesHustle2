@@ -15,7 +15,7 @@ public class Achievement {
     addAchievement(1, "Tree?", "Talk to the mysterious tree.");
     addAchievement(2, "Bookworm", "Study at least 4 times this week.");
     addAchievement(3, "Duck duck go!", "Feed the ducks at least 6 times.");
-    addAchievement(4, "Jogger", "Goes for a walk every day during the week");
+    addAchievement(4, "Jogger", "Go for a walk every day during the week");
   }
 
   public static Achievement getInstance() {

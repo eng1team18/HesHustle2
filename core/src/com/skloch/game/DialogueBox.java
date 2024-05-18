@@ -23,10 +23,15 @@ public class DialogueBox {
   private float textCounter = 0;
   private boolean scrollingText = false;
 
+  // New code
+  private final Player player;
 
-  public DialogueBox(Skin skin) {
+
+  public DialogueBox(Skin skin, Player player) {
     // Define some key values
     this.skin = skin;
+    // New code
+    this.player = player;
 
     // Create the window for the dialogue box
     dialogueWindow = new Window("", skin);
@@ -188,6 +193,9 @@ public class DialogueBox {
      */
     public void show() {
       selectWindow.setVisible(true);
+      // New code
+      player.setMoving(false);
+      player.setRunning(false);
     }
 
     /**
@@ -350,6 +358,8 @@ public class DialogueBox {
    */
   public void show() {
     dialogueWindow.setVisible(true);
+    player.setMoving(false);
+    player.setRunning(false);
   }
 
   /**

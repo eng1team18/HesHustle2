@@ -16,6 +16,7 @@ public class Score {
   public int numRecreationalWalk;
   public int numRecreationalDuck;
   private int numRecreationalBar;
+  private int numRecreationalFriends;
 
   public int numSleeping;
   private Map<Integer, ScoreActivity> activities;
@@ -35,7 +36,7 @@ public class Score {
   private int lastDay = 0;
   // pos 0 is piazza
   // pos 1 TBD and so forth
-  private int[] recActivityLog = {0, 0, 0, 0, 0};
+  private int[] recActivityLog = {0, 0, 0, 0};
   // Add more based on number of different rec activities
 
   private void initializeActivities() {
@@ -80,12 +81,10 @@ public class Score {
   public int getNumEating() {
     return numEating;
   }
-  public int getNumRecreationalWalk() {
-    return numRecreationalWalk;
-  }
-  public int getNumRecreationalDuck() {
-    return numRecreationalDuck;
-  }
+  public int getNumRecreationalWalk(){ return numRecreationalWalk; }
+  public int getNumRecreationalBar(){ return numRecreationalBar; }
+  public int getNumRecreationalFriends(){ return numRecreationalFriends; }
+  public int getNumRecreationalDuck(){ return numRecreationalDuck; }
   public int getNumStudying() {
     return numStudying;
   }
@@ -104,6 +103,7 @@ public class Score {
   public void incrementNumRecreationalWalk() {this.numRecreationalWalk += 1;}
   public void incrementNumRecreationalDuck() {this.numRecreationalDuck += 1;}
   public void incrementNumRecreationalBar() {this.numRecreationalBar += 1;}
+  public void incrementNumRecreationalFriends() {this.numRecreationalFriends += 1;}
   public void incrementNumStudying() {this.numStudying += 1;}
   public void incrementNumSleeping() {this.numSleeping += 1;}
 
@@ -116,6 +116,8 @@ public class Score {
     numEating = 0;
     numRecreationalWalk = 0;
     numRecreationalDuck = 0;
+    numRecreationalBar = 0;
+    numRecreationalFriends = 0;
     numStudying = 0;
     numSleeping = 0;
     activities.values().forEach(ScoreActivity::resetScore);
