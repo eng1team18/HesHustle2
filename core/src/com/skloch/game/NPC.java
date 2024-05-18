@@ -14,7 +14,7 @@ public class NPC {
     public Rectangle sprite;
     public float centreX;
     public float centreY;
-    public int direction = 2; // 0 = up, 1 = right, 2 = down, 3 = left (like a clock)
+    public int direction; // 0 = up, 1 = right, 2 = down, 3 = left (like a clock)
     private TextureRegion currentFrame;
     private float stateTime = 0;
     private final Array<Animation<TextureRegion>> walkingAnimation;
@@ -22,11 +22,13 @@ public class NPC {
     // Stats
     public float speed = 300f;
     public int scale = 4;
-    public boolean moving;
+    public boolean moving = false;
 
-    public NPC(String avatar) {
+    public NPC(String avatar, int direction) {
         walkingAnimation = new Array<Animation<TextureRegion>>();
         idleAnimation = new Array<Animation<TextureRegion>>();
+
+        this.direction = direction;
 
         // Load the player's textures from the atlas
         TextureAtlas playerAtlas = new TextureAtlas(
@@ -130,6 +132,18 @@ public class NPC {
     public float getCentreY() {
         return centreY;
     }
+
+    /**
+     *
+     * @return The direction the NPC is facing, 0 = up, 1 = right, 2 = down, 3 = left (like a clock)
+     */
+    public int getDirection() { return direction; }
+
+    /**
+     *
+     * @param direction  the direction to set the NPC to, 0 = up, 1 = right, 2 = down, 3 = left (like a clock)
+     */
+    public void setDirection(int direction) { this.direction = direction; }
 
     /**
      * @return The Vector3 representation of the bottom left corner of the NPC's sprite hitbox

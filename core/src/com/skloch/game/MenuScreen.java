@@ -77,7 +77,7 @@ public class MenuScreen implements Screen {
     menuStage.addActor(titleImage);
 
     // Play menu music
-    game.soundManager.playMenuMusic();
+    //game.soundManager.playMenuMusic();
 
     // Make avatar select table
     Table avatarSelectTable = makeAvatarSelectTable();

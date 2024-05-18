@@ -28,6 +28,8 @@ import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
+import java.util.Arrays;
+
 // Changes
 //
 // - Line 84: GameScreen buttons height and padding has been modified to support the new
@@ -64,10 +66,10 @@ public class GameScreen implements Screen {
   public final Image blackScreen;
   public boolean sleeping = false;
   public boolean fadeout = false;
-  public float[] campusSpawn = new float[2];
+  public float[] campusSpawn;
   public float[] townSpawn;
 
-  public NPC npc1;
+  public NPC[] npcs = new NPC[0];
 
   private Leaderboard leaderboard;
   private final Score score;
@@ -101,10 +103,6 @@ public class GameScreen implements Screen {
     } else {
       player = new Player("avatar2");
     }
-
-    // New code
-    // NPCs
-    npc1 = new NPC("avatar1");
 
     // Scores
     time.hoursStudied = time.hoursRecreational = time.hoursSlept = 0;
@@ -179,7 +177,7 @@ public class GameScreen implements Screen {
     escapeMenu = new EscapeMenu(this.game, viewport, this, uiStage);
 
     // Start music
-    game.soundManager.playOverworldMusic();
+    //game.soundManager.playOverworldMusic();
 
     //Set InputAdapter
     customInputAdapter = new CustomInputAdapter(this.game, dialogueBox, eventManager, player, EscapeMenu.escapeMenu, this);
@@ -205,7 +203,6 @@ public class GameScreen implements Screen {
     // Get the dimensions of the top layer
     TiledMapTileLayer layer0 = (TiledMapTileLayer) game.map.getLayers().get(0);
     player.setPos(layer0.getWidth() * game.mapScale / 2f, layer0.getHeight() * game.mapScale / 2f);
-    npc1.setPos(layer0.getWidth() * game.mapScale / 2f, layer0.getHeight() * game.mapScale / 2f);
     // Put camera on player
     camera.position.set(player.getCentreX(), player.getCentreY(), 0);
 
@@ -220,9 +217,14 @@ public class GameScreen implements Screen {
         MapProperties properties = objects.get(i).getProperties();
 
         // New code
-        // Check if object is NPC
-        if (properties.get("npc1") != null) {
-          npc1.setPos(((float) properties.get("x")) * unitScale,
+        // Check if object is NPC. If it is, expand size of NPC array and add NPC to it with defined properties
+        if (properties.get("npc") != null) {
+          String avatar = (String) properties.get("avatar");
+          int direction = (int) properties.get("direction");
+
+          npcs = Arrays.copyOf(npcs, npcs.length + 1);
+          npcs[npcs.length-1] = new NPC(avatar, direction);
+          npcs[npcs.length-1].setPos(((float) properties.get("x")) * unitScale,
                   ((float) properties.get("y")) * unitScale);
         }
 
@@ -334,6 +336,19 @@ public class GameScreen implements Screen {
     game.batch.setProjectionMatrix(camera.combined);
     game.batch.begin();
 
+    // New code
+    // Draw all NPCs
+    for(NPC npc : this.npcs){
+      npc.updateAnimation();
+      game.batch.draw(
+              npc.getCurrentFrame(),
+              npc.sprite.x, npc.sprite.y,
+              0, 0,
+              npc.sprite.width, npc.sprite.height,
+              1f, 1f, 1
+      );
+    }
+
     // Player, draw and scale
     game.batch.draw(
         player.getCurrentFrame(),
@@ -341,16 +356,6 @@ public class GameScreen implements Screen {
         0, 0,
         player.sprite.width, player.sprite.height,
         1f, 1f, 1
-    );
-
-    // New code
-    // Draw NPCs
-    game.batch.draw(
-            npc1.getCurrentFrame(),
-            npc1.sprite.x, npc1.sprite.y,
-            0, 0,
-            npc1.sprite.width, npc1.sprite.height,
-            1f, 1f, 1
     );
 
     game.batch.end();

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="left-up" width="250" height="150" tilewidth="24" tileheight="24" infinite="0" nextlayerid="19" nextobjectid="661">
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="left-up" width="250" height="150" tilewidth="24" tileheight="24" infinite="0" nextlayerid="19" nextobjectid="664">
  <tileset firstgid="1" source="Tilemaps/StarRealmsCozyForestPack24x24.tsx"/>
  <tileset firstgid="529" source="Tilemaps/Buildings east.tsx"/>
  <tileset firstgid="970" source="Tilemaps/Bus.tsx"/>
@@ -1693,10 +1693,18 @@
     <property name="spawnCampus" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="660" x="1886.26" y="1566.48" width="25.928" height="35.4349">
+  <object id="660" x="1880.93" y="1565.81" width="23.5947" height="32.4349">
    <properties>
-    <property name="npc1" type="bool" value="true"/>
-    <property name="text" value="Hi! this is a test omg"/>
+    <property name="avatar" value="avatar1"/>
+    <property name="direction" type="int" value="1"/>
+    <property name="npc" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="663" x="1904.7" y="1615.62" width="22.5947" height="32.1016">
+   <properties>
+    <property name="avatar" value="avatar2"/>
+    <property name="direction" type="int" value="0"/>
+    <property name="npc" type="bool" value="true"/>
    </properties>
   </object>
  </objectgroup>
