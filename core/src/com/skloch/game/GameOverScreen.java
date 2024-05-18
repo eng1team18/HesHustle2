@@ -27,6 +27,8 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 // - Line 71: Implement ScrollTable for Score breakdown
 // - Removed gameOverTable and replaced it with scrollable table and a button table
 // - Line 146: Changed gameOverWindow.setSize(1000, 600); from 600 > 1000
+// - Added scoreToPass which is the minimum score require to pass the exam (winning the game)
+// - Line 89: Added You passed/failed exam message depending on your score
 //
 
 /**
@@ -40,6 +42,7 @@ public class GameOverScreen implements Screen {
   Viewport viewport;
   OrthographicCamera camera;
   private final Score score;
+  private int scoreToPass = 1000;
 
   /**
    * A screen to display a 'Game Over' screen when the player finishes their exams. Currently, does
@@ -82,7 +85,15 @@ public class GameOverScreen implements Screen {
 
     // Title
     Label title = new Label("Game Over!", game.skin, "button");
+    Label winlose;
+    if (Score.getInstance().getTotalScore() >= scoreToPass) {
+      winlose = new Label("You passed the exam!", game.skin, "button");
+    } else {
+      winlose = new Label("You failed the exam :(", game.skin, "button");
+    }
     scrollTable.add(title).padTop(10);
+    scrollTable.row();
+    scrollTable.add(winlose).padTop(10);
     scrollTable.row();
 
     // Display scores
