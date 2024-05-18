@@ -177,7 +177,7 @@ public class GameScreen implements Screen {
     escapeMenu = new EscapeMenu(this.game, viewport, this, uiStage);
 
     // Start music
-    //game.soundManager.playOverworldMusic();
+    game.soundManager.playOverworldMusic();
 
     //Set InputAdapter
     customInputAdapter = new CustomInputAdapter(this.game, dialogueBox, eventManager, player, EscapeMenu.escapeMenu, this);

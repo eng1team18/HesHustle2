@@ -274,7 +274,7 @@ public class EventManager {
         energyBar.decreaseEnergy(energyCost);
         time.addStudyHours(6);
         time.passTime(6 * 60); // in seconds
-        score.incrementTotalScore(2, 5);
+        score.incrementTotalScore(2, 500);
         score.incrementNumStudying();
         if (Achievement.getInstance().BookwormAchievement(score.getNumStudying())) {
           score.incrementTotalScore(5, 100);
@@ -290,7 +290,7 @@ public class EventManager {
         time.addStudyHours(6);
         time.passTime(
                 6 * 60); // in seconds   POSSIBLY make longer/ shorter as a catchup session?
-        score.incrementTotalScore(2, 3); //slightly lower score for catch up
+        score.incrementTotalScore(2, 300); //slightly lower score for catch up
         score.incrementNumStudying();
         if (Achievement.getInstance().BookwormAchievement(score.getNumStudying())) {
           score.incrementTotalScore(5, 100);
