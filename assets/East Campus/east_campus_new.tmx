@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="left-up" width="250" height="150" tilewidth="24" tileheight="24" infinite="0" nextlayerid="19" nextobjectid="664">
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="left-up" width="250" height="150" tilewidth="24" tileheight="24" infinite="0" nextlayerid="19" nextobjectid="692">
  <tileset firstgid="1" source="Tilemaps/StarRealmsCozyForestPack24x24.tsx"/>
  <tileset firstgid="529" source="Tilemaps/Buildings east.tsx"/>
  <tileset firstgid="970" source="Tilemaps/Bus.tsx"/>
@@ -1515,7 +1515,11 @@
   </object>
   <object id="442" x="3424" y="1823.27" width="39.2727" height="23.8182"/>
   <object id="443" x="3520.91" y="1824" width="37.8182" height="23.8182"/>
-  <object id="444" x="3616.73" y="1823.64" width="38.3636" height="24.3636"/>
+  <object id="444" x="3616.73" y="1823.64" width="38.3636" height="24.3636">
+   <properties>
+    <property name="event" value="friends"/>
+   </properties>
+  </object>
   <object id="445" x="3424.73" y="1871.64" width="38.3636" height="24.1818"/>
   <object id="446" x="3520.73" y="1871.82" width="38.3636" height="24.5455"/>
   <object id="447" x="3617.27" y="1872" width="37.6364" height="23.6364"/>
@@ -1647,7 +1651,7 @@
     <property name="spawnTown" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="633" x="5595" y="805.667" width="125.333" height="61.4242">
+  <object id="633" x="5595" y="805.667" width="125.333" height="66.6969">
    <properties>
     <property name="event" value="busTown"/>
    </properties>
@@ -1693,16 +1697,199 @@
     <property name="spawnCampus" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="660" x="1880.93" y="1565.81" width="23.5947" height="32.4349">
+  <object id="660" x="1871.6" y="1521.48" width="23.5947" height="35.7682">
+   <properties>
+    <property name="avatar" value="avatar1"/>
+    <property name="direction" type="int" value="1"/>
+    <property name="npc" type="bool" value="true"/>
+    <property name="text" value="Some students say there's a tree around this forest that grants wisdom... sounds like crazy talk to me though..."/>
+   </properties>
+  </object>
+  <object id="665" x="2136.54" y="2282.78" width="23.5947" height="35.7682">
+   <properties>
+    <property name="avatar" value="avatar2"/>
+    <property name="direction" type="int" value="3"/>
+    <property name="npc" type="bool" value="true"/>
+    <property name="text" value="Sometimes I get bored of only studying in one place - I've found that my grades seem to get better if I mix up my study environment!"/>
+   </properties>
+  </object>
+  <object id="666" x="1439.54" y="2352.12" width="23.5947" height="35.7682">
+   <properties>
+    <property name="avatar" value="avatar1"/>
+    <property name="direction" type="int" value="2"/>
+    <property name="npc" type="bool" value="true"/>
+    <property name="text" value="We've been trying to find the walking trail in this forest for so long that we're already tired out! "/>
+   </properties>
+  </object>
+  <object id="667" x="1470.04" y="2383.7" width="23.5947" height="35.7682">
+   <properties>
+    <property name="avatar" value="avatar1"/>
+    <property name="direction" type="int" value="3"/>
+    <property name="npc" type="bool" value="true"/>
+    <property name="text" value="We've been trying to find the walking trail in this forest for so long that we're already tired out! "/>
+   </properties>
+  </object>
+  <object id="668" x="1175.87" y="1570.12" width="23.5947" height="35.7682">
+   <properties>
+    <property name="avatar" value="avatar2"/>
+    <property name="direction" type="int" value="3"/>
+    <property name="npc" type="bool" value="true"/>
+    <property name="text" value="I'm so tired... I went to bed too late last night, so I woke up with way less energy than I need..."/>
+   </properties>
+  </object>
+  <object id="669" x="1392.54" y="1787.12" width="23.5947" height="35.7682">
+   <properties>
+    <property name="avatar" value="avatar1"/>
+    <property name="direction" type="int" value="0"/>
+    <property name="npc" type="bool" value="true"/>
+    <property name="text" value="Its important to relax as well as study so you dont get burnt out! I just went on a walk on the trail south from here."/>
+   </properties>
+  </object>
+  <object id="670" x="2385.87" y="1860.45" width="23.5947" height="35.7682">
+   <properties>
+    <property name="avatar" value="avatar2"/>
+    <property name="direction" type="int" value="1"/>
+    <property name="npc" type="bool" value="true"/>
+    <property name="text" value="Don't you love the lake?  There's something different to do on every side!"/>
+   </properties>
+  </object>
+  <object id="671" x="2207.54" y="2867.78" width="23.5947" height="35.7682">
+   <properties>
+    <property name="avatar" value="avatar1"/>
+    <property name="direction" type="int" value="2"/>
+    <property name="npc" type="bool" value="true"/>
+    <property name="text" value="I missed two study days this week, but I only got a chance to catch-up on one of them. There's just too much work to do! Make sure catch-up if you miss a day, but don't miss too many!"/>
+   </properties>
+  </object>
+  <object id="672" x="2808.2" y="2410.45" width="23.5947" height="35.7682">
+   <properties>
+    <property name="avatar" value="avatar2"/>
+    <property name="direction" type="int" value="0"/>
+    <property name="npc" type="bool" value="true"/>
+    <property name="text" value="I love the ducks, they're so cute! But I couldn't sit here feeding them all day. That's why I make sure to do a mix of fun activities every day!"/>
+   </properties>
+  </object>
+  <object id="673" x="2447.87" y="2352.12" width="23.5947" height="35.7682">
+   <properties>
+    <property name="avatar" value="avatar1"/>
+    <property name="direction" type="int" value="2"/>
+    <property name="npc" type="bool" value="true"/>
+    <property name="text" value="quack."/>
+   </properties>
+  </object>
+  <object id="674" x="3622.2" y="1786.45" width="23.5947" height="35.7682">
+   <properties>
+    <property name="avatar" value="avatar1"/>
+    <property name="direction" type="int" value="2"/>
+    <property name="npc" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="675" x="3656.87" y="1811.45" width="23.5947" height="35.7682">
+   <properties>
+    <property name="avatar" value="avatar2"/>
+    <property name="direction" type="int" value="3"/>
+    <property name="npc" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="676" x="3627.2" y="1835.12" width="23.5947" height="35.7682">
+   <properties>
+    <property name="avatar" value="avatar1"/>
+    <property name="direction" type="int" value="0"/>
+    <property name="npc" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="677" x="3456.2" y="1959.12" width="23.5947" height="35.7682">
+   <properties>
+    <property name="avatar" value="avatar1"/>
+    <property name="direction" type="int" value="2"/>
+    <property name="npc" type="bool" value="true"/>
+    <property name="text" value="Its important to eat enough meals a day to get good grades, but if I eat too much, it doesn't really help me. That's why I always make sure to have food every few hours!"/>
+   </properties>
+  </object>
+  <object id="679" x="2952.87" y="1412.12" width="23.5947" height="35.7682">
+   <properties>
+    <property name="avatar" value="avatar2"/>
+    <property name="direction" type="int" value="1"/>
+    <property name="npc" type="bool" value="true"/>
+    <property name="text" value="Hey, want to go into town and play some pool? I could use some time off. The bus stop is just up ahead! "/>
+   </properties>
+  </object>
+  <object id="681" x="3479.54" y="1090.78" width="23.5947" height="35.7682">
+   <properties>
+    <property name="avatar" value="avatar1"/>
+    <property name="direction" type="int" value="2"/>
+    <property name="npc" type="bool" value="true"/>
+    <property name="text" value="I'm gonna take the next bus into town to study at the library. Its important to have a change of scenery!"/>
+   </properties>
+  </object>
+  <object id="682" x="5509.87" y="759.449" width="23.5947" height="35.7682">
+   <properties>
+    <property name="avatar" value="avatar2"/>
+    <property name="direction" type="int" value="3"/>
+    <property name="npc" type="bool" value="true"/>
+    <property name="text" value="Its nice to see you out and about! Doing different kinds of fun activites through the week is important, you don't want to do the same thing everyday and get bored!"/>
+   </properties>
+  </object>
+  <object id="683" x="4982.54" y="819.116" width="23.5947" height="35.7682">
+   <properties>
+    <property name="avatar" value="avatar1"/>
+    <property name="direction" type="int" value="1"/>
+    <property name="npc" type="bool" value="true"/>
+    <property name="text" value="There's nothing really fun that way, but I don't want to miss the bus, so I'm going to sprint with SHIFT to make it back!"/>
+   </properties>
+  </object>
+  <object id="684" x="5283.87" y="692.449" width="23.5947" height="35.7682">
+   <properties>
+    <property name="avatar" value="avatar1"/>
+    <property name="direction" type="int" value="2"/>
+    <property name="npc" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="685" x="5284.87" y="714.783" width="23.5947" height="35.7682">
+   <properties>
+    <property name="avatar" value="avatar2"/>
+    <property name="direction" type="int" value="0"/>
+    <property name="npc" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="686" x="5387.87" y="496.449" width="23.5947" height="35.7682">
+   <properties>
+    <property name="avatar" value="avatar2"/>
+    <property name="direction" type="int" value="3"/>
+    <property name="npc" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="687" x="5332.54" y="488.783" width="23.5947" height="35.7682">
    <properties>
     <property name="avatar" value="avatar1"/>
     <property name="direction" type="int" value="1"/>
     <property name="npc" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="663" x="1904.7" y="1615.62" width="22.5947" height="32.1016">
+  <object id="688" x="5362.54" y="456.116" width="23.5947" height="35.7682">
+   <properties>
+    <property name="avatar" value="avatar1"/>
+    <property name="direction" type="int" value="2"/>
+    <property name="npc" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="689" x="5653.2" y="700.616" width="23.5947" height="35.7682">
    <properties>
     <property name="avatar" value="avatar2"/>
+    <property name="direction" type="int" value="2"/>
+    <property name="npc" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="690" x="5684.7" y="724.616" width="23.5947" height="35.7682">
+   <properties>
+    <property name="avatar" value="avatar1"/>
+    <property name="direction" type="int" value="3"/>
+    <property name="npc" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="691" x="5655.2" y="754.616" width="23.5947" height="35.7682">
+   <properties>
+    <property name="avatar" value="avatar1"/>
     <property name="direction" type="int" value="0"/>
     <property name="npc" type="bool" value="true"/>
    </properties>

@@ -202,7 +202,7 @@ public class EventManager {
       String[] topics = randomTopics(3);
       game.dialogueBox.setText("What do you want to chat about?");
       game.dialogueBox.getSelectBox().setOptions(topics,
-              new String[]{"piazza-" + topics[0], "piazza-" + topics[1], "piazza-" + topics[2]});
+              new String[]{"friends-" + topics[0], "friends-" + topics[1], "friendsrea-" + topics[2]});
     } else {
       // Say that the player chatted about this topic for 1-3 hours
       // RNG factor adds a slight difficulty (may consume too much energy to study)

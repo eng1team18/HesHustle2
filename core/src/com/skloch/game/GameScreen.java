@@ -369,7 +369,9 @@ public class GameScreen implements Screen {
       if (player.nearObject()) {
         interactionLabel.setVisible(true);
         // Change text whether pressing E will interact or just read text
-        if (player.getClosestObject().get("event") != null) {
+        if (player.getClosestObject().get("npc") != null) {
+          interactionLabel.setText("E - Talk");
+        } else if (player.getClosestObject().get("event") != null) {
           interactionLabel.setText("E - Interact");
         } else if (player.getClosestObject().get("text") != null) {
           interactionLabel.setText("E - Read Sign");
