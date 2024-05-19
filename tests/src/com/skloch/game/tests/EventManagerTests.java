@@ -10,6 +10,7 @@ import com.skloch.game.Energy;
 import com.skloch.game.EventManager;
 import com.skloch.game.GameScreen;
 import com.skloch.game.HustleGame;
+import com.skloch.game.Player;
 import com.skloch.game.Time;
 import jdk.jfr.Event;
 import org.junit.Test;
@@ -23,7 +24,8 @@ public class EventManagerTests {
   GameScreen game = mock(GameScreen.class);
   Energy energy = mock(Energy.class);
   Time time = mock(Time.class);
-  EventManager eventManager = new EventManager(game, energy, time);
+  Player player = mock(Player.class);
+  EventManager eventManager = new EventManager(game, energy, time, player);
 
   @Test
   public void testCheckNonexistentAchievement() {

@@ -28,7 +28,7 @@ public class Player {
   public float centreX;
   public float centreY;
   public int direction = 2; // 0 = up, 1 = right, 2 = down, 3 = left (like a clock)
-  private TextureRegion currentFrame;
+  public TextureRegion currentFrame;
   private float stateTime = 0;
   private final Array<Animation<TextureRegion>> walkingAnimation;
   private final Array<Animation<TextureRegion>> idleAnimation;
@@ -38,7 +38,7 @@ public class Player {
   public float runningSpeed = 301f;
   public Array<GameObject> collidables;
   public int scale = 4;
-  private Rectangle bounds;
+  public Rectangle bounds;
   private GameObject closestObject;
   public boolean frozen;
   public boolean moving;
