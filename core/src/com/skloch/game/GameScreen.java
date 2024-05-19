@@ -484,4 +484,12 @@ public class GameScreen implements Screen {
     int totalScore = score.getTotalScore();
     leaderboard.saveScore(playerName, totalScore);
   }
+
+  public void hideDialogueSelectBox() {
+    dialogueBox.hideSelectBox();
+  }
+
+  public void setDialogueBoxText(String text) {
+    dialogueBox.setText(text);
+  }
 }

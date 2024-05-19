@@ -33,10 +33,9 @@ public class EventManagerTests {
 
   @Test
   public void testTreeEvent() {
-    //eventManager.event("tree");
-    //assertTrue(achievements.checkAchievement(1));
-    //eventManager.event("tree");
-    //assertEquals(score.getTotalScore(), 100);
-    ;
+    eventManager.event("tree");
+    assertTrue(achievements.checkAchievement(1));
+    eventManager.event("tree");
+    assertEquals(score.getTotalScore(), 100);
   }
 }
