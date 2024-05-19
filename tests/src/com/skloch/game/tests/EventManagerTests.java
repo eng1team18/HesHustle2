@@ -6,6 +6,7 @@ import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 
 import com.skloch.game.Achievement;
+import com.skloch.game.DialogueBox;
 import com.skloch.game.Energy;
 import com.skloch.game.EventManager;
 import com.skloch.game.GameScreen;

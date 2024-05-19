@@ -350,7 +350,7 @@ public class EventManager {
       @Override
       public void run() {
         if (game.getSleeping()) {
-          game.dialogueBox.show();
+          game.showDialogueBox();
           game.dialogueBox.setText(
                   String.format("You slept for %d hours!\nYou recovered %d energy!", hoursSlept,
                           Math.min(100, hoursSlept * 13)), "fadefromblack");
@@ -378,13 +378,13 @@ public class EventManager {
     int energyCost = activityEnergies.get("walk");
     // If the player is too tired to meet friends
     if (energyBar.getEnergy() < energyCost) {
-      game.dialogueBox.setText("You are too tired to go on a walk right now!");
+      game.setDialogueBoxText("You are too tired to go on a walk right now!");
     } else {
       RunnableAction setTextAction = new RunnableAction();
       setTextAction.setRunnable(new Runnable() {
         @Override
         public void run() {
-          game.dialogueBox.show();
+          game.showDialogueBox();
           game.dialogueBox.setText(
                   String.format("You went on a walk for 4 hours!\nYou lost %d energy!",
                           energyCost), "fadefromblack");
@@ -435,7 +435,7 @@ public class EventManager {
     setTextAction.setRunnable(new Runnable() {
       @Override
       public void run() {
-        game.dialogueBox.show();
+        game.showDialogueBox();
         game.dialogueBox.setText(
                 String.format("You got the bus to campus, which took an hour!"), "fadefromblack");
         time.passTime(60);
@@ -449,11 +449,11 @@ public class EventManager {
     int energyCost = activityEnergies.get("ducks");
     // If the player is too tired to meet friends
     if (energyBar.getEnergy() < energyCost) {
-      game.dialogueBox.setText("You are too tired to feed the ducks right now!");
+      game.setDialogueBoxText("You are too tired to feed the ducks right now!");
     } else {
-      game.dialogueBox.show();
-      game.dialogueBox.setText(
-              String.format("You fed the ducks for 3 hours!\nYou lost %d energy!", energyCost));
+      game.showDialogueBox();
+      game.setDialogueBoxText(String.format("You fed the ducks for 3 hours!\nYou lost %d energy!",
+          energyCost));
       energyBar.decreaseEnergy(energyCost);
       score.incrementTotalScore(3, score.activityScore(2, time.day));
       score.incrementNumRecreationalDuck();
@@ -468,11 +468,11 @@ public class EventManager {
     int energyCost = activityEnergies.get("bar");
     // If the player is too tired to meet friends
     if (energyBar.getEnergy() < energyCost) {
-      game.dialogueBox.setText("You are too tired to play pool right now!");
+      game.setDialogueBoxText("You are too tired to play pool right now!");
     } else {
-      game.dialogueBox.show();
-      game.dialogueBox.setText(
-              String.format("You played pool for 3 hours!\nYou lost %d energy!", energyCost));
+      game.showDialogueBox();
+      game.setDialogueBoxText(String.format("You played pool for 3 hours!\nYou lost %d energy!",
+          energyCost));
       energyBar.decreaseEnergy(energyCost);
       score.incrementTotalScore(3, score.activityScore(3, time.day));
       score.incrementNumRecreationalBar();
@@ -509,9 +509,9 @@ public class EventManager {
         @Override
         public void run() {
           if (game.getSleeping()) {
-            game.dialogueBox.show();
+            game.showDialogueBox();
             // Show a text displaying how many days they have left in the game
-            game.dialogueBox.setText(time.getWakeUpMessage());
+            game.setDialogueBoxText(time.getWakeUpMessage());
             game.setSleeping(false);
           }
         }

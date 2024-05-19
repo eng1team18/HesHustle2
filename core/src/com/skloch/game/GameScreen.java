@@ -489,6 +489,10 @@ public class GameScreen implements Screen {
     dialogueBox.hideSelectBox();
   }
 
+  public void showDialogueBox() {
+    dialogueBox.show();
+  }
+
   public void setDialogueBoxText(String text) {
     dialogueBox.setText(text);
   }
