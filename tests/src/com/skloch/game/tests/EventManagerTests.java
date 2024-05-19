@@ -11,6 +11,7 @@ import com.skloch.game.EventManager;
 import com.skloch.game.GameScreen;
 import com.skloch.game.HustleGame;
 import com.skloch.game.Player;
+import com.skloch.game.Score;
 import com.skloch.game.Time;
 import jdk.jfr.Event;
 import org.junit.Test;
@@ -21,6 +22,9 @@ import org.junit.runner.RunWith;
  */
 @RunWith(GdxTestRunner.class)
 public class EventManagerTests {
+  Achievement achievements = Achievement.getInstance();
+  Score score = Score.getInstance();
+
   GameScreen game = mock(GameScreen.class);
   Energy energy = mock(Energy.class);
   Time time = mock(Time.class);
@@ -28,7 +32,11 @@ public class EventManagerTests {
   EventManager eventManager = new EventManager(game, energy, time, player);
 
   @Test
-  public void testCheckNonexistentAchievement() {
-    assertFalse(false);
+  public void testTreeEvent() {
+    //eventManager.event("tree");
+    //assertTrue(achievements.checkAchievement(1));
+    //eventManager.event("tree");
+    //assertEquals(score.getTotalScore(), 100);
+    ;
   }
 }

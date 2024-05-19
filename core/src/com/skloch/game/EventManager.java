@@ -62,7 +62,6 @@ public class EventManager {
 
     // Define what to say when interacting with an object whose text won't change
     objectInteractions = new HashMap<String, String>();
-    objectInteractions.put("chest", "Open the chest?");
     objectInteractions.put("ron_cooke", "Study in the Ron Cooke building?");
     objectInteractions.put("friends", "Talk to your friends?");
     objectInteractions.put("accomodation",
