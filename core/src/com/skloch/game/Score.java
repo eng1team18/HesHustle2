@@ -13,10 +13,11 @@ public class Score {
   private int totalScore;
   public int numEating;
   public int numStudying;
+  public int numBus;
   public int numRecreationalWalk;
   public int numRecreationalDuck;
-  private int numRecreationalBar;
-  private int numRecreationalFriends;
+  public int numRecreationalBar;
+  public int numRecreationalFriends;
 
   public int numSleeping;
   private Map<Integer, ScoreActivity> activities;
@@ -81,6 +82,8 @@ public class Score {
   public int getNumEating() {
     return numEating;
   }
+  public int getNumBus() { return numBus;}
+
   public int getNumRecreationalWalk(){ return numRecreationalWalk; }
   public int getNumRecreationalBar(){ return numRecreationalBar; }
   public int getNumRecreationalFriends(){ return numRecreationalFriends; }
@@ -100,6 +103,8 @@ public class Score {
     }
   }
   public void incrementNumEating() {this.numEating += 1;}
+  public void incrementNumBus() {this.numBus += 1;}
+
   public void incrementNumRecreationalWalk() {this.numRecreationalWalk += 1;}
   public void incrementNumRecreationalDuck() {this.numRecreationalDuck += 1;}
   public void incrementNumRecreationalBar() {this.numRecreationalBar += 1;}
@@ -114,6 +119,7 @@ public class Score {
   public void resetScores() {
     totalScore = 0;
     numEating = 0;
+    numBus = 0;
     numRecreationalWalk = 0;
     numRecreationalDuck = 0;
     numRecreationalBar = 0;
@@ -121,6 +127,7 @@ public class Score {
     numStudying = 0;
     numSleeping = 0;
     activities.values().forEach(ScoreActivity::resetScore);
+    recActivityLog = new int[]{0, 0, 0, 0};
   }
 
   public String getUserScores() {

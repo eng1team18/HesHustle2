@@ -1758,7 +1758,7 @@
     <property name="avatar" value="avatar1"/>
     <property name="direction" type="int" value="2"/>
     <property name="npc" type="bool" value="true"/>
-    <property name="text" value="I missed two study days this week, but I only got a chance to catch-up on one of them. There's just too much work to do! Make sure catch-up if you miss a day, but don't miss too many!"/>
+    <property name="text" value="I missed two study days this week, but I only got a chance to catch-up on one of them. There's just too much work to do! Make sure to catch-up if you miss a day, but don't miss too many!"/>
    </properties>
   </object>
   <object id="672" x="2808.2" y="2410.45" width="23.5947" height="35.7682">
