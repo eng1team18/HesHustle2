@@ -34,8 +34,12 @@ public class EventManager {
   private boolean catchUpUsed = false;
   private boolean missedDay = false;
   private int dayLastStudied = 0;
+  private int dayLastBus = 0;
   private int dayLastWalked = 0;
   private int timeLastEat = 0;
+  public boolean ronCookePrevious = false;
+  public boolean ronCookeCurrent;
+
 
   /**
    * A class that maps Object's event strings to actual Java functions. To run a function call
@@ -103,6 +107,7 @@ public class EventManager {
         friendsEvent(args);
         break;
       case "ron_cooke":
+        ronCookeCurrent = true;
         ronCookeEvent(args);
         break;
       case "piazza":
@@ -124,6 +129,7 @@ public class EventManager {
         busTown(args);
         break;
       case "library":
+        ronCookeCurrent = false;
         ronCookeEvent(args);
         break;
       case "restaurant":
@@ -272,7 +278,25 @@ public class EventManager {
         energyBar.decreaseEnergy(energyCost);
         time.addStudyHours(6);
         time.passTime(6 * 60); // in seconds
-        score.incrementTotalScore(2, 500);
+
+        // Check if last study location was the same as current, and give fewer points if so
+        // If first day studying, give 500 points no matter what
+        if (ronCookeCurrent) { // Ron cooke was last study spot
+          if (!ronCookePrevious) {
+            score.incrementTotalScore(2, 500);
+          } else {
+            score.incrementTotalScore(2, 300);
+          }
+          ronCookePrevious = true;
+        } else { // Library was last study spot
+          if (ronCookePrevious || score.getNumStudying() == 0) {
+            score.incrementTotalScore(2, 500);
+          } else {
+            score.incrementTotalScore(2, 300);
+          }
+          ronCookePrevious = false;
+        }
+
         score.incrementNumStudying();
         if (Achievement.getInstance().BookwormAchievement(score.getNumStudying())) {
           score.incrementTotalScore(5, 100);
@@ -407,7 +431,7 @@ public class EventManager {
   }
 
   public void busCampus(String[] args) {
-    if (score.getNumBus() > 0) {
+    if (dayLastBus == time.day) {
       game.dialogueBox.setText("There are no more busses running today!");
     } else {
       score.incrementNumBus();
@@ -426,6 +450,7 @@ public class EventManager {
       });
       fadeToBlack(setTextAction);
     }
+    dayLastBus = time.day;
   }
 
   public void busTown(String[] args) {

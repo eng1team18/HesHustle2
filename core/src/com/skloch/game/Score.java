@@ -91,6 +91,7 @@ public class Score {
   public int getNumStudying() {
     return numStudying;
   }
+
   public int getNumSleeping() {
     return numSleeping;
   }
@@ -110,6 +111,7 @@ public class Score {
   public void incrementNumRecreationalBar() {this.numRecreationalBar += 1;}
   public void incrementNumRecreationalFriends() {this.numRecreationalFriends += 1;}
   public void incrementNumStudying() {this.numStudying += 1;}
+
   public void incrementNumSleeping() {this.numSleeping += 1;}
 
   public void setTotalScore(int value) {
