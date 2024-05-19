@@ -204,7 +204,7 @@ public class EventManager {
     } else {
       // Say that the player chatted about this topic for 1-4 hours
       // RNG factor adds a slight difficulty (may consume too much energy to study)
-      int hours = ThreadLocalRandom.current().nextInt(2, 5);
+      int hours = ThreadLocalRandom.current().nextInt(1, 4);
       game.setDialogueBoxText(
           String.format("You talked about %s for %d hours!", args[1].toLowerCase(), hours));
       //New
@@ -313,7 +313,7 @@ public class EventManager {
     if (energyBar.getEnergy() < energyCost) {
       game.setDialogueBoxText("You are too tired to eat right now!");
     } else {
-      game.setDialogueBoxText(String.format("You took 2 hours to eat %s!\nYou lost %d "
+      game.setDialogueBoxText(String.format("You took 1 hour to eat %s!\nYou lost %d "
               + "energy!", time.getMeal(), energyCost));
       energyBar.decreaseEnergy(energyCost);
       score.incrementTotalScore(1, score.hungerScore(Math.round(time.daySeconds), timeLastEat));
