@@ -51,10 +51,10 @@ public class EventManager {
     this.energyBar = energyBar;
     this.player = player;
 
-      // How much energy an hour of each activity should take
+      // How much energy each activity should take
     activityEnergies = new HashMap<String, Integer>();
     activityEnergies.put("studying", 40);
-    activityEnergies.put("meet_friends", 20);
+    activityEnergies.put("meet_friends", 10);
     activityEnergies.put("walk", 30);
     activityEnergies.put("ducks", 20);
     activityEnergies.put("eating", 10);
@@ -203,15 +203,15 @@ public class EventManager {
       game.dialogueBox.getSelectBox().setOptions(topics,
               new String[]{"friends-" + topics[0], "friends-" + topics[1], "friendsrea-" + topics[2]});
     } else {
-      // Say that the player chatted about this topic for 2-5 hours
+      // Say that the player chatted about this topic for 1-4 hours
       // RNG factor adds a slight difficulty (may consume too much energy to study)
-      int hours = ThreadLocalRandom.current().nextInt(2, 5);
+      int hours = ThreadLocalRandom.current().nextInt(1, 4);
       game.dialogueBox.setText(
               String.format("You talked about %s for %d hours!", args[1].toLowerCase(), hours));
       //New
       score.incrementNumRecreationalFriends();
       score.incrementTotalScore(3, score.activityScore(0, time.day));
-      energyBar.decreaseEnergy(energyCost);
+      energyBar.decreaseEnergy(energyCost * hours);
       time.passTime(hours * 60); // in seconds
       time.addRecreationalHours(hours);
     }
@@ -317,13 +317,13 @@ public class EventManager {
       game.dialogueBox.setText("You are too tired to eat right now!");
     } else {
       game.dialogueBox.setText(
-              String.format("You took 2 hours to eat %s!\nYou lost %d "
+              String.format("You took 1 hour to eat %s!\nYou lost %d "
                       + "energy!",
                       time.getMeal(), energyCost));
       energyBar.decreaseEnergy(energyCost);
       score.incrementTotalScore(1, score.hungerScore(Math.round(time.daySeconds), timeLastEat));
       score.incrementNumEating();
-      time.passTime(2 * 60); // in seconds
+      time.passTime(60); // in seconds
     }
 
   }
@@ -362,7 +362,7 @@ public class EventManager {
           // Restore energy and pass time
           energyBar.setEnergy(hoursSlept * 13);
           //New
-          score.incrementTotalScore(4, Math.min(hoursSlept * 13, 100));
+          score.incrementTotalScore(4, Math.min(hoursSlept * 50, 500));
           time.passTime(secondsSlept);
           time.addSleptHours(hoursSlept);
           score.incrementNumSleeping();
@@ -393,6 +393,7 @@ public class EventManager {
           game.dialogueBox.setText(
                   String.format("You went on a walk for 4 hours!\nYou lost %d energy!",
                           energyCost), "fadefromblack");
+
           energyBar.decreaseEnergy(energyCost);
           score.incrementTotalScore(3, score.activityScore(1, time.day));
           time.passTime(4 * 60);
@@ -411,30 +412,37 @@ public class EventManager {
   }
 
   public void busCampus(String[] args) {
-
-    RunnableAction setTextAction = new RunnableAction();
-    setTextAction.setRunnable(new Runnable() {
-      @Override
-      public void run() {
-        game.dialogueBox.show();
-        game.dialogueBox.setText(
-                String.format("You got the bus into town, which took an hour!"), "fadefromblack");
-        time.passTime(60);
-        player.setPos(game.townSpawn[0], game.townSpawn[1]);
-      }
-    });
-    fadeToBlack(setTextAction);
+    if (score.getNumBus() > 0) {
+      game.dialogueBox.setText("There are no more busses running today!");
+    } else {
+      score.incrementNumBus();
+      game.setFadeout(true);
+      game.dialogueBox.hide();
+      RunnableAction setTextAction = new RunnableAction();
+      setTextAction.setRunnable(new Runnable() {
+        @Override
+        public void run() {
+          game.dialogueBox.show();
+          game.dialogueBox.setText(
+                  String.format("You got the bus into town, which took an hour!"), "fadefromblack");
+          time.passTime(60);
+          player.setPos(game.townSpawn[0], game.townSpawn[1]);
+        }
+      });
+      fadeToBlack(setTextAction);
+    }
   }
 
   public void busTown(String[] args) {
-
+    game.setFadeout(true);
+    game.dialogueBox.hide();
     RunnableAction setTextAction = new RunnableAction();
     setTextAction.setRunnable(new Runnable() {
       @Override
       public void run() {
         game.dialogueBox.show();
         game.dialogueBox.setText(
-                String.format("You got the bus to campus, which took 30 an hour!"), "fadefromblack");
+                String.format("You got the bus to campus, which took an hour!"), "fadefromblack");
         time.passTime(60);
         player.setPos(game.campusSpawn[0], game.campusSpawn[1]);
       }

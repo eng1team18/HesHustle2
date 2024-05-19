@@ -42,7 +42,7 @@ public class GameOverScreen implements Screen {
   Viewport viewport;
   OrthographicCamera camera;
   private final Score score;
-  private int scoreToPass = 1000;
+  private int scoreToPass = 10000;
 
   /**
    * A screen to display a 'Game Over' screen when the player finishes their exams. Currently, does
