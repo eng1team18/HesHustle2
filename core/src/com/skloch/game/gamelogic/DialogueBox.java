@@ -64,7 +64,7 @@ public class DialogueBox {
   /**
    * A class displaying a selection box to the user when an input is needed in dialog.
    */
-  class SelectBox {
+  public class SelectBox {
 
     private Window selectWindow;
     private Table selectTable;
