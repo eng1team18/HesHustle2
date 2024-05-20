@@ -140,7 +140,7 @@ public class EventManager {
         break;
       case "exit":
         // Should do nothing and just close the dialogue menu
-        game.hideDialogueSelectBox();
+        game.hideDialogueBox();
         break;
       default:
         objectEvent(eventKey);
@@ -205,8 +205,8 @@ public class EventManager {
       // Ask the player to chat about something (makes no difference)
       String[] topics = randomTopics(3);
       game.setDialogueBoxText("What do you want to chat about?");
-      game.dialogueBox.getSelectBox().setOptions(topics,
-              new String[]{"friends-" + topics[0], "friends-" + topics[1], "friendsrea-" + topics[2]});
+      game.setDialogueBoxOptions(topics,
+          new String[]{"friends-" + topics[0], "friends-" + topics[1], "friendsrea-" + topics[2]});
     } else {
       // Say that the player chatted about this topic for 1-4 hours
       // RNG factor adds a slight difficulty (may consume too much energy to study)
@@ -356,7 +356,7 @@ public class EventManager {
    */
   public void accomEvent(String[] args) {
     game.setSleeping(true);
-    game.hideDialogueSelectBox();
+    game.hideDialogueBox();
 
     // Calculate the hours slept to the nearest hour
     // Wakes the player up at 8am
@@ -375,9 +375,8 @@ public class EventManager {
       public void run() {
         if (game.getSleeping()) {
           game.showDialogueBox();
-          game.dialogueBox.setText(
-                  String.format("You slept for %d hours!\nYou recovered %d energy!", hoursSlept,
-                          Math.min(100, hoursSlept * 13)), "fadefromblack");
+          game.setDialogueBoxText(String.format("You slept for %d hours!\nYou recovered %d energy!", hoursSlept,
+              Math.min(100, hoursSlept * 13)), "fadefromblack");
           // Restore energy and pass time
           energyBar.setEnergy(hoursSlept * 13);
           //New
@@ -398,7 +397,7 @@ public class EventManager {
       walkedToday = false;
     }
     game.setFadeout(true);
-    game.hideDialogueSelectBox();
+    game.hideDialogueBox();
     int energyCost = activityEnergies.get("walk");
     // If the player is too tired to meet friends
     if (energyBar.getEnergy() < energyCost) {
@@ -409,10 +408,8 @@ public class EventManager {
         @Override
         public void run() {
           game.showDialogueBox();
-          game.dialogueBox.setText(
-                  String.format("You went on a walk for 4 hours!\nYou lost %d energy!",
-                          energyCost), "fadefromblack");
-
+          game.setDialogueBoxText(String.format("You went on a walk for 4 hours!\nYou lost %d energy!",
+              energyCost), "fadefromblack");
           energyBar.decreaseEnergy(energyCost);
           score.incrementTotalScore(3, score.activityScore(1, time.day));
           time.passTime(4 * 60);
@@ -432,18 +429,18 @@ public class EventManager {
 
   public void busCampus(String[] args) {
     if (dayLastBus == time.day) {
-      game.dialogueBox.setText("There are no more busses running today!");
+      game.setDialogueBoxText("There are no more busses running today!");
     } else {
       score.incrementNumBus();
       game.setFadeout(true);
-      game.dialogueBox.hide();
+      game.hideDialogueBox();
       RunnableAction setTextAction = new RunnableAction();
       setTextAction.setRunnable(new Runnable() {
         @Override
         public void run() {
-          game.dialogueBox.show();
-          game.dialogueBox.setText(
-                  String.format("You got the bus into town, which took an hour!"), "fadefromblack");
+          game.showDialogueBox();
+          game.setDialogueBoxText(String.format("You got the bus into town, which took an hour!"),
+              "fadefromblack");
           time.passTime(60);
           player.setPos(game.townSpawn[0], game.townSpawn[1]);
         }
@@ -455,14 +452,14 @@ public class EventManager {
 
   public void busTown(String[] args) {
     game.setFadeout(true);
-    game.dialogueBox.hide();
+    game.hideDialogueBox();
     RunnableAction setTextAction = new RunnableAction();
     setTextAction.setRunnable(new Runnable() {
       @Override
       public void run() {
         game.showDialogueBox();
-        game.dialogueBox.setText(
-                String.format("You got the bus to campus, which took an hour!"), "fadefromblack");
+        game.setDialogueBoxText(String.format("You got the bus to campus, which took an hour!"),
+            "fadefromblack");
         time.passTime(60);
         player.setPos(game.campusSpawn[0], game.campusSpawn[1]);
       }
