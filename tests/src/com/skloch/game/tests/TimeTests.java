@@ -1,6 +1,8 @@
 package com.skloch.game.tests;
 
 
+import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.badlogic.gdx.utils.viewport.Viewport;
 import com.skloch.game.screens.GameScreen;
 import com.skloch.game.gamelogic.Time;
 import org.junit.Test;
@@ -9,13 +11,14 @@ import org.junit.runner.RunWith;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static org.mockito.Mockito.mock;
 
 /**
  * Runs unit tests on the core Time class.
  */
 @RunWith(GdxTestRunner.class)
 public class TimeTests {
-    private GameScreen game;
+    GameScreen game = mock(GameScreen.class);
     private final Time time = new Time(game);
 
     @Test
@@ -44,8 +47,8 @@ public class TimeTests {
         assertTrue(time.daySeconds == 100);
         time.passTime(800);
         //uncomment the line beneath to see the problem
-        //time.passTime(550);
-        //assertTrue(time.day == 2);
+        time.passTime(550);
+        assertTrue(time.day == 2);
         //assertTrue(time.daySeconds == );
     }
 }

@@ -520,4 +520,8 @@ public class GameScreen implements Screen {
   public void addActionToBlackscreen(Action action) {
     blackScreen.addAction(action);
   }
+
+  public void updateDay(Label label, String text) {
+    label.setText(text);
+  }
 }

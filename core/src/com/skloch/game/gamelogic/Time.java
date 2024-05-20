@@ -73,7 +73,7 @@ public class Time {
     while (daySeconds >= 1440) {
       daySeconds -= 1440;
       day += 1;
-      dayLabel.setText(String.format("Day %s", day));
+      game.updateDay(dayLabel, String.format("Day %s", day));
     }
 
     if (day >= 8) {
