@@ -1,4 +1,8 @@
-package com.skloch.game;
+package com.skloch.game.screens;
+
+import com.skloch.game.HustleGame;
+import com.skloch.game.screens.GameOverScreen;
+import com.skloch.game.screens.LeaderboardScreen;
 
 public class LeaderboardScreenGame extends LeaderboardScreen {
 

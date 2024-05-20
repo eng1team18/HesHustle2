@@ -1,4 +1,4 @@
-package com.skloch.game;
+package com.skloch.game.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
@@ -20,6 +20,8 @@ import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import com.skloch.game.HustleGame;
+import com.skloch.game.gamelogic.Time;
 
 // Changes
 //

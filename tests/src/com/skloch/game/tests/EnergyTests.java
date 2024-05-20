@@ -5,7 +5,7 @@ import static org.mockito.Mockito.mock;
 
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import com.skloch.game.Energy;
+import com.skloch.game.gamelogic.Energy;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 

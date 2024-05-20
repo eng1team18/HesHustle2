@@ -1,4 +1,4 @@
-package com.skloch.game;
+package com.skloch.game.scoring;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;

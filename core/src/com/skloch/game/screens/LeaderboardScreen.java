@@ -1,4 +1,4 @@
-package com.skloch.game;
+package com.skloch.game.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
@@ -15,47 +15,50 @@ import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import com.skloch.game.HustleGame;
+import com.skloch.game.scoring.Leaderboard;
 
 /**
  * A scene2d window consisting of a title, a scrollable widget and an exit button. Used to display
- * the assets used in the game
+ * the top 10 Leaderboard
  */
-public class AchievementScreen implements Screen {
+public abstract class LeaderboardScreen implements Screen {
 
-  private HustleGame game;
-  private Stage achievementStage;
-  private OrthographicCamera camera;
-  private Viewport viewport;
+  protected HustleGame game;
+  protected Stage leaderboardStage;
+  protected OrthographicCamera camera;
+  protected Viewport viewport;
 
   /**
-   * A scene2d window consisting of a title, a scrollable list of achievements and a back button.
+   * A scene2d window consisting of a title, a scrollable list of Top 10 Leaderboard and a main menu
+   * button.
    *
    * @param game An instance of the HustleGame class
    */
-  public AchievementScreen(final HustleGame game) {
+  public LeaderboardScreen(final HustleGame game) {
 
     // Basically all the same code as the settings menu
     this.game = game;
-    achievementStage = new Stage(new FitViewport(game.width, game.height));
-    Gdx.input.setInputProcessor(achievementStage);
+    leaderboardStage = new Stage(new FitViewport(game.width, game.height));
+    Gdx.input.setInputProcessor(leaderboardStage);
 
     camera = new OrthographicCamera();
     viewport = new FitViewport(game.width, game.height, camera);
     camera.setToOrtho(false, game.width, game.height);
 
     // Create the window
-    Window achievementMenu = new Window("", game.skin);
-    achievementStage.addActor(achievementMenu);
-    achievementMenu.setModal(true);
+    Window leaderboardMenu = new Window("", game.skin);
+    leaderboardStage.addActor(leaderboardMenu);
+    leaderboardMenu.setModal(true);
 
     // Table for UI elements in window
-    Table achievementTable = new Table();
-    achievementMenu.add(achievementTable).prefHeight(600);
+    Table leaderboardTable = new Table();
+    leaderboardMenu.add(leaderboardTable).prefHeight(600);
 
     // Title
-    Label title = new Label("Achievements", game.skin, "button");
-    achievementTable.add(title).padTop(10);
-    achievementTable.row();
+    Label title = new Label("Leaderboard", game.skin, "button");
+    leaderboardTable.add(title).padTop(10);
+    leaderboardTable.row();
 
     // Table for things inside the scrollable widget
     Table scrollTable = new Table();
@@ -66,40 +69,41 @@ public class AchievementScreen implements Screen {
     // scrollWindow.setDebug(true);
 
     // scrollWindow.setFillParent(true);
-    achievementTable.add(scrollWindow).padTop(20).height(350);
-    achievementTable.row();
+    leaderboardTable.add(scrollWindow).padTop(20).height(350);
+    leaderboardTable.row();
 
-    Label text = new Label(Achievement.getInstance().getUserAchievements(), game.skin,
+    Label text = new Label(Leaderboard.getInstance().getFormattedTopScores(), game.skin,
         "interaction");
     text.setWrap(true);
     scrollTable.add(text).width(520f).padLeft(15);
 
     // Exit button
-    TextButton exitButton = new TextButton("Back", game.skin);
-    achievementTable.add(exitButton).bottom().width(300).padTop(10);
+    TextButton exitButton = new TextButton(getExitButtonText(), game.skin);
+    leaderboardTable.add(exitButton).bottom().width(300).padTop(10);
 
-    achievementMenu.pack();
+    leaderboardMenu.pack();
 
-    achievementMenu.setSize(600, 600);
+    leaderboardMenu.setSize(600, 600);
 
     // Centre the window
-    achievementMenu.setX((viewport.getWorldWidth() / 2) - (achievementMenu.getWidth() / 2));
-    achievementMenu.setY((viewport.getWorldHeight() / 2) - (achievementMenu.getHeight() / 2));
+    leaderboardMenu.setX((viewport.getWorldWidth() / 2) - (leaderboardMenu.getWidth() / 2));
+    leaderboardMenu.setY((viewport.getWorldHeight() / 2) - (leaderboardMenu.getHeight() / 2));
 
     // Listener for the exit button
     exitButton.addListener(new ChangeListener() {
       @Override
       public void changed(ChangeEvent event, Actor actor) {
-        game.soundManager.playButton();
-        dispose();
-        game.setScreen(new GameOverScreen(game));
+        onExitPressed();
       }
     });
-
   }
 
+  protected abstract void onExitPressed();
+
+  protected abstract String getExitButtonText();
+
   /**
-   * Renders the achievements window.
+   * Renders the Leaderboard window.
    *
    * @param delta The time in seconds since the last render.
    */
@@ -110,8 +114,8 @@ public class AchievementScreen implements Screen {
 
     game.blueBackground.draw();
 
-    achievementStage.act(delta);
-    achievementStage.draw();
+    leaderboardStage.act(delta);
+    leaderboardStage.draw();
 
     camera.update();
   }
@@ -120,12 +124,12 @@ public class AchievementScreen implements Screen {
   /**
    * Correctly resizes the onscreen elements when the window is resized.
    *
-   * @param width Window's new width.
-   * @param height Window's new height.
+   * @param width New width of the window
+   * @param height New height of the window
    */
   @Override
   public void resize(int width, int height) {
-    achievementStage.getViewport().update(width, height);
+    leaderboardStage.getViewport().update(width, height);
     viewport.update(width, height);
   }
 

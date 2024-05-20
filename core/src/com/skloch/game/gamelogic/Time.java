@@ -1,6 +1,7 @@
-package com.skloch.game;
+package com.skloch.game.gamelogic;
 
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.skloch.game.screens.GameScreen;
 
 /**
  * NEEDS JAVADOC HERE

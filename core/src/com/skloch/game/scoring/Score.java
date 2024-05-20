@@ -1,4 +1,4 @@
-package com.skloch.game;
+package com.skloch.game.scoring;
 
 import java.util.HashMap;
 import java.util.Map;

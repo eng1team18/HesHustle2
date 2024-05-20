@@ -1,8 +1,11 @@
-package com.skloch.game;
+package com.skloch.game.gamelogic;
 
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.actions.RunnableAction;
 import com.badlogic.gdx.utils.Array;
+import com.skloch.game.scoring.Achievement;
+import com.skloch.game.scoring.Score;
+import com.skloch.game.screens.GameScreen;
 import java.util.HashMap;
 import java.util.concurrent.ThreadLocalRandom;
 

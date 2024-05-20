@@ -1,20 +1,14 @@
 package com.skloch.game.tests;
 
-import static com.badlogic.gdx.net.HttpRequestBuilder.json;
 import static java.nio.file.Files.deleteIfExists;
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.files.FileHandle;
-import com.badlogic.gdx.utils.Array;
-import com.skloch.game.Leaderboard;
-import com.skloch.game.Leaderboard.ScoreEntry;
+import com.skloch.game.scoring.Leaderboard;
 import java.io.IOException;
 import java.nio.file.Paths;
-import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.FixMethodOrder;
 import org.junit.Test;

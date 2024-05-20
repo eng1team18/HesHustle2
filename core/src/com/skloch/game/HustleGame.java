@@ -12,6 +12,8 @@ import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.skloch.game.screens.MenuScreen;
+import com.skloch.game.utility.SoundManager;
 
 // Changes
 //

@@ -1,4 +1,4 @@
-package com.skloch.game;
+package com.skloch.game.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
@@ -15,6 +15,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import com.skloch.game.HustleGame;
 
 /**
  * A scene2d window consisting of a title, a scrollable widget and an exit button. Used to display

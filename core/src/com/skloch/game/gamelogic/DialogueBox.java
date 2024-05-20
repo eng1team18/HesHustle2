@@ -1,4 +1,4 @@
-package com.skloch.game;
+package com.skloch.game.gamelogic;
 
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;

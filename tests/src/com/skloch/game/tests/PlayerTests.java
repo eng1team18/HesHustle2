@@ -1,6 +1,5 @@
 package com.skloch.game.tests;
 
-import static java.nio.file.Files.deleteIfExists;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
@@ -9,13 +8,8 @@ import static org.mockito.Mockito.mock;
 
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector3;
-import com.skloch.game.GameObject;
-import com.skloch.game.HustleGame;
-import com.skloch.game.LeaderboardScreenGame;
-import com.skloch.game.Player;
-import java.io.IOException;
-import java.nio.file.Paths;
-import org.junit.BeforeClass;
+import com.skloch.game.gamelogic.GameObject;
+import com.skloch.game.gamelogic.Player;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runner.RunWith;
