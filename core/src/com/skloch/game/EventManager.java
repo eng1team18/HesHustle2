@@ -507,7 +507,7 @@ public class EventManager {
    * Fades the screen to black.
    */
   public void fadeToBlack() {
-    game.blackScreen.addAction(Actions.fadeIn(3f));
+    game.addActionToBlackscreen(Actions.fadeIn(3f));
   }
 
   /**
@@ -516,7 +516,7 @@ public class EventManager {
    * @param runnable A runnable to execute after fading is finished
    */
   public void fadeToBlack(RunnableAction runnable) {
-    game.blackScreen.addAction(Actions.sequence(Actions.fadeIn(3f), runnable));
+    game.addActionToBlackscreen(Actions.sequence(Actions.fadeIn(3f), runnable));
   }
 
   /**
@@ -539,9 +539,9 @@ public class EventManager {
         }
       });
       // Queue up events
-      game.blackScreen.addAction(Actions.sequence(Actions.fadeOut(3f), setTextAction));
+      game.addActionToBlackscreen(Actions.sequence(Actions.fadeOut(3f), setTextAction));
     } else {
-      game.blackScreen.addAction(Actions.fadeOut(3f));
+      game.addActionToBlackscreen(Actions.fadeOut(3f));
     }
     game.setFadeout(false);
   }

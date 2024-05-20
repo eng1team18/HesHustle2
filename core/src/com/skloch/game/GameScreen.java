@@ -15,6 +15,7 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.scenes.scene2d.Action;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
@@ -507,5 +508,9 @@ public class GameScreen implements Screen {
 
   public void setDialogueBoxOptions(String[] options, String[] events) {
     dialogueBox.getSelectBox().setOptions(options, events);
+  }
+
+  public void addActionToBlackscreen(Action action) {
+    blackScreen.addAction(action);
   }
 }

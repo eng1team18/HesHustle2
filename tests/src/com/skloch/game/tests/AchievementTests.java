@@ -5,12 +5,14 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import com.skloch.game.Achievement;
+import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
 /**
  * Runs unit tests on the core Achievement class.
  */
+@FixMethodOrder
 @RunWith(GdxTestRunner.class)
 public class AchievementTests {
   Achievement achievements = Achievement.getInstance();
@@ -23,15 +25,15 @@ public class AchievementTests {
   @Test
   public void testGiveAchievement() {
     // First ensure that achievement 1 being unlocked is false by default.
-    assertFalse(achievements.checkAchievement(1));
+    assertFalse(achievements.checkAchievement(3));
 
     // Now check giving the achievement makes it true.
-    achievements.giveAchievement(1);
-    assertTrue(achievements.checkAchievement(1));
+    achievements.giveAchievement(3);
+    assertTrue(achievements.checkAchievement(3));
 
     // Additional verification that it doesn't raise an unexpected error to give an already
     // obtained achievement, or an achievement that doesn't exist.
-    achievements.giveAchievement(1);
+    achievements.giveAchievement(3);
     achievements.giveAchievement(99923);
   }
 
