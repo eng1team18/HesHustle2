@@ -8,9 +8,7 @@ import com.skloch.game.gamelogic.Time;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 import static org.mockito.Mockito.mock;
 
 /**
@@ -46,9 +44,22 @@ public class TimeTests {
         time.passTime(100);
         assertTrue(time.daySeconds == 100);
         time.passTime(800);
-        //uncomment the line beneath to see the problem
         time.passTime(550);
         assertTrue(time.day == 2);
-        //assertTrue(time.daySeconds == );
+        assertTrue(time.daySeconds == 10);
+    }
+
+    @Test
+    public void testGetters(){
+        assertTrue(time.getSeconds() == time.daySeconds);
+        time.hoursRecreational = 0;
+        time.addRecreationalHours(10);
+        assertTrue(time.hoursRecreational == 10);
+        time.hoursSlept = 0;
+        time.addSleptHours(10);
+        assertTrue(time.hoursSlept == 10);
+        time.hoursStudied = 0;
+        time.addStudyHours(10);
+        assertTrue(time.hoursStudied == 10);
     }
 }
