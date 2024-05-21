@@ -15,7 +15,7 @@ public class NPC {
     public float centreX;
     public float centreY;
     public int direction; // 0 = up, 1 = right, 2 = down, 3 = left (like a clock)
-    private TextureRegion currentFrame;
+    public TextureRegion currentFrame;
     private float stateTime = 0;
     private final Array<Animation<TextureRegion>> walkingAnimation;
     private final Array<Animation<TextureRegion>> idleAnimation;
