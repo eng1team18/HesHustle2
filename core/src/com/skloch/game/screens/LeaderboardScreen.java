@@ -19,6 +19,7 @@ import com.skloch.game.HustleGame;
 import com.skloch.game.scoring.Leaderboard;
 
 /**
+ * NEW CLASS FOR ASSESSMENT 2
  * A scene2d window consisting of a title, a scrollable widget and an exit button. Used to display
  * the top 10 Leaderboard
  */

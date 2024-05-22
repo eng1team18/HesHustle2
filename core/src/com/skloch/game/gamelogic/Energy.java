@@ -6,7 +6,7 @@ import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
-/**
+/** NEW CLASS FOR ASSESSMENT 2
  * A class handling everything needed to display the energy bar on the game's HUD, and calculate /
  * track energy use.
  */

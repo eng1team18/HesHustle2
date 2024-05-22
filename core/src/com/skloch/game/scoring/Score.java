@@ -5,6 +5,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
+ * NEW FOR ASSESSMENT 2
  * Counter to track your score when you perform various activities within the game. Each activity is
  * identified by an ID.
  */
@@ -24,11 +25,19 @@ public class Score {
 
   private static final Score instance = new Score();
 
+  /**
+   * The constructor for Score, which creates a hashmap of all activities.
+   */
   private Score() {
     activities = new HashMap<>();
     initializeActivities();
   }
 
+  /**
+   * Returns current instance of Score.
+   *
+   * @return the current instance of score
+   */
   public static Score getInstance() {
     return instance;
   }
@@ -40,6 +49,9 @@ public class Score {
   private int[] recActivityLog = {0, 0, 0, 0};
   // Add more based on number of different rec activities
 
+  /**
+   * Initialises the activity names with their IDs.
+   */
   private void initializeActivities() {
     // Initialize with some example activities
     addActivity(1, "Eating");
@@ -49,11 +61,25 @@ public class Score {
     addActivity(5, "Achievements");
   }
 
+  /**
+   * Add a new activity into the hashmap.
+   *
+   * @param id the unique ID of the activity
+   * @param name the name of the activity
+   */
   public void addActivity(int id, String name) {
     activities.put(id, new ScoreActivity(name));
   }
 
-  //New method
+  /**
+   * The algorithm for calculating score from eating activities. After eating, set points to
+   * minimum. Increase points along a sigmoid function as time passes up to a maximum. When
+   * you eat, give number of points that function is on and reset back to minimum.
+   *
+   * @param timeOfDay the current time of day
+   * @param timeLastEat the time player last ate
+   * @return the number of points the player receives for eating at that time
+   */
   public int hungerScore(int timeOfDay, int timeLastEat) {
     double x = timeOfDay - timeLastEat;
     //Multiplier, change to shorten wait time
@@ -65,6 +91,15 @@ public class Score {
     return (int) Math.round(maxScore * x);
   }
 
+  /**
+   * The algorithm for calculating score from recreational activities. If an activity is
+   * performed, add 1 to corresponding entry in the recActivityLog. If that activity is performed
+   * again on that day, reduce points given by a factor of its recActivityLog entry.
+   *
+   * @param activityType the type of recreational activity being performed
+   * @param currentDay the current game day
+   * @return the number of points the player receives for that activity
+   */
   //New
   public int activityScore(int activityType, int currentDay) {
     if (lastDay != currentDay) {
@@ -76,28 +111,17 @@ public class Score {
     return recreationScore / recActivityLog[activityType];
   }
 
+  /**
+   * Returns the total score the player currently has.
+   *
+   * @return the total score the player currently has
+   */
   public int getTotalScore() {
     return totalScore;
   }
 
-  public int getNumEating() {
-    return numEating;
-  }
-
-  public int getNumBus() {
-    return numBus;
-  }
-
   public int getNumRecreationalWalk() {
     return numRecreationalWalk;
-  }
-
-  public int getNumRecreationalBar() {
-    return numRecreationalBar;
-  }
-
-  public int getNumRecreationalFriends() {
-    return numRecreationalFriends;
   }
 
   public int getNumRecreationalDuck() {
@@ -112,6 +136,12 @@ public class Score {
     return numSleeping;
   }
 
+  /**
+   * Increment the total player score by the amount they should receive from the activity taken.
+   *
+   * @param id the ID of the activity completed
+   * @param scoreToAdd the amount of score they should receive from the activity
+   */
   public void incrementTotalScore(int id, int scoreToAdd) {
     this.totalScore += scoreToAdd;
     ScoreActivity activity = activities.get(id);
@@ -156,6 +186,9 @@ public class Score {
     this.totalScore = value;
   }
 
+  /**
+   * Reset the activity counts back to 0 for when a new game is started.
+   */
   public void resetScores() {
     totalScore = 0;
     numEating = 0;
@@ -170,6 +203,11 @@ public class Score {
     recActivityLog = new int[]{0, 0, 0, 0};
   }
 
+  /**
+   * Return the scores achieved for each activity by the player in a formatted string.
+   *
+   * @return a string of the scores achieved for each activity
+   */
   public String getUserScores() {
     return activities.values().stream()
         .map(activity -> activity.getName() + ": " + activity.getScore() + "\n")
@@ -185,6 +223,10 @@ public class Score {
     return activities;
   }
 
+  /**
+   * Class for the score breakdown screen. Stores amount of score earned for each type of
+   * activity, i.e. recreational, eating, sleeping, studying and achievements.
+   */
   public class ScoreActivity {
 
     private String name;

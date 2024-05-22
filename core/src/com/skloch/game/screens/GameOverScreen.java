@@ -18,21 +18,20 @@ import com.skloch.game.HustleGame;
 import com.skloch.game.scoring.Achievement;
 import com.skloch.game.scoring.Score;
 
-// Changes
-//
-// - GameOverScreen no longer takes the hoursStudied, hoursRecreational, hoursSlept with Score
-//   as new replacement
-// - Line 60: GameOverScreen buttons height and padding has been modified to support the new
-//   Score, Achievements and Leaderboard button
-// - Achievements button added along with a listener component
-// - Leaderboard button added along with a listener component
-// - getTotalScore() functions get call from Score class to obtain the Final total score
-// - Line 71: Implement ScrollTable for Score breakdown
-// - Removed gameOverTable and replaced it with scrollable table and a button table
-// - Line 146: Changed gameOverWindow.setSize(1000, 600); from 600 > 1000
-// - Added scoreToPass which is the minimum score require to pass the exam (winning the game)
-// - Line 89: Added You passed/failed exam message depending on your score
-//
+/* Changes
+- GameOverScreen no longer takes the hoursStudied, hoursRecreational, hoursSlept with Score
+  as new replacement
+- GameOverScreen buttons height and padding has been modified to support the new
+  Score, Achievements and Leaderboard button
+- Achievements button added along with a listener component
+- Leaderboard button added along with a listener component
+- getTotalScore() functions get call from Score class to obtain the Final total score
+- Implement ScrollTable for Score breakdown
+- Removed gameOverTable and replaced it with scrollable table and a button table
+- Changed gameOverWindow.setSize(1000, 600); from 600 > 1000
+- Added scoreToPass which is the minimum score require to pass the exam (winning the game)
+- Added You passed/failed exam message depending on your score
+*/
 
 /**
  * A screen that displays the player's stats at the end of the game. Currently doesn't calculate a

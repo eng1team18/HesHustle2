@@ -4,6 +4,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.skloch.game.screens.GameScreen;
 
 /**
+ * NEW CLASS FOR ASSESSMENT 2 - Refactored from GameScreen
  * A class that manages the in game time, and displays it on the games HUD.
  */
 public class Time {

@@ -5,11 +5,10 @@ import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.utils.Disposable;
 
-// Changes
-//
-// - Line 173: Added delay parameter to playFootstep, allowing sprinting to have
-//             quicker footstep sounds.
-//
+/* Changes
+- Added delay parameter to playFootstep, allowing sprinting to have
+  quicker footstep sounds.
+*/
 
 /**
  * A class handling loading, playing and disposing of sounds.

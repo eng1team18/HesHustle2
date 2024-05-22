@@ -37,17 +37,16 @@ import com.skloch.game.scoring.Score;
 import com.skloch.game.utility.CustomInputAdapter;
 import java.util.Arrays;
 
-// Changes
-//
-// - Line 84: GameScreen buttons height and padding has been modified to support the new
-//   Leaderboard button
-// - Line 69: GameScreen now also takes String userInput, which stores the player name for
-//   the Leaderboard
-// - Line 753: Added leaderboard.saveScore(playerName, totalScore) to the gameOver() function to
-//   save the scores for the Leaderboard
-// - Moved Energy from GameScreen to its own class
-// - Line 97: Increases the viewport so more part of the map can be visible at once
-//
+/* Changes
+- GameScreen buttons height and padding has been modified to support the new
+  Leaderboard button
+- GameScreen now also takes String userInput, which stores the player name for
+  the Leaderboard
+- Added leaderboard.saveScore(playerName, totalScore) to the gameOver() function to
+  save the scores for the Leaderboard
+- Moved Energy from GameScreen to its own class
+- Increases the viewport so more part of the map can be visible at once
+*/
 
 /**
  * Handles the majority of the game logic, rendering and user inputs of the game. Responsible for

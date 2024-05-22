@@ -6,6 +6,10 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.Window;
 import com.badlogic.gdx.utils.Array;
 
+/* ASSESSMENT 2 CHANGES
+- Added player instance into class
+ */
+
 /**
  * A class to display a dialogue box for text and options on the screen.
  */
@@ -22,10 +26,7 @@ public class DialogueBox {
   private String eventKey = null;
   private float textCounter = 0;
   private boolean scrollingText = false;
-
-  // ASSESSMENT 2 CHANGES
   private final Player player;
-  // END OF CHANGES
 
   /**
    * Constructor for dialogue box class. Will take input text and create a dialogue box, handles
@@ -38,9 +39,7 @@ public class DialogueBox {
     // Define some key values
     this.skin = skin;
 
-    // ASSESSMENT 2 CHANGES
     this.player = player;
-    // END OF CHANGES
 
     // Create the window for the dialogue box
     dialogueWindow = new Window("", skin);
@@ -205,7 +204,7 @@ public class DialogueBox {
      */
     public void show() {
       selectWindow.setVisible(true);
-      // New code
+
       player.setMoving(false);
       player.setRunning(false);
     }

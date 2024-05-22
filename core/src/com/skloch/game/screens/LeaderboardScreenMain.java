@@ -3,6 +3,7 @@ package com.skloch.game.screens;
 import com.skloch.game.HustleGame;
 
 /**
+ * NEW CLASS FOR ASSESSMENT 2
  * Creates the screen for leaderboard to be viewed from the main menu.
  */
 public class LeaderboardScreenMain extends LeaderboardScreen {
