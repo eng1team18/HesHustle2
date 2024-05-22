@@ -7,6 +7,7 @@ import com.skloch.game.screens.GameScreen;
  * NEEDS JAVADOC HERE
  */
 public class Time {
+
   public float daySeconds = 0; // Current seconds elapsed in day
   public int day = 1; // What day the game is on
   public Label timeLabel;

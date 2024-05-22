@@ -79,15 +79,31 @@ public class Score {
   public int getTotalScore() {
     return totalScore;
   }
+
   public int getNumEating() {
     return numEating;
   }
-  public int getNumBus() { return numBus;}
 
-  public int getNumRecreationalWalk(){ return numRecreationalWalk; }
-  public int getNumRecreationalBar(){ return numRecreationalBar; }
-  public int getNumRecreationalFriends(){ return numRecreationalFriends; }
-  public int getNumRecreationalDuck(){ return numRecreationalDuck; }
+  public int getNumBus() {
+    return numBus;
+  }
+
+  public int getNumRecreationalWalk() {
+    return numRecreationalWalk;
+  }
+
+  public int getNumRecreationalBar() {
+    return numRecreationalBar;
+  }
+
+  public int getNumRecreationalFriends() {
+    return numRecreationalFriends;
+  }
+
+  public int getNumRecreationalDuck() {
+    return numRecreationalDuck;
+  }
+
   public int getNumStudying() {
     return numStudying;
   }
@@ -103,16 +119,38 @@ public class Score {
       activity.addScore(scoreToAdd);
     }
   }
-  public void incrementNumEating() {this.numEating += 1;}
-  public void incrementNumBus() {this.numBus += 1;}
 
-  public void incrementNumRecreationalWalk() {this.numRecreationalWalk += 1;}
-  public void incrementNumRecreationalDuck() {this.numRecreationalDuck += 1;}
-  public void incrementNumRecreationalBar() {this.numRecreationalBar += 1;}
-  public void incrementNumRecreationalFriends() {this.numRecreationalFriends += 1;}
-  public void incrementNumStudying() {this.numStudying += 1;}
+  public void incrementNumEating() {
+    this.numEating += 1;
+  }
 
-  public void incrementNumSleeping() {this.numSleeping += 1;}
+  public void incrementNumBus() {
+    this.numBus += 1;
+  }
+
+  public void incrementNumRecreationalWalk() {
+    this.numRecreationalWalk += 1;
+  }
+
+  public void incrementNumRecreationalDuck() {
+    this.numRecreationalDuck += 1;
+  }
+
+  public void incrementNumRecreationalBar() {
+    this.numRecreationalBar += 1;
+  }
+
+  public void incrementNumRecreationalFriends() {
+    this.numRecreationalFriends += 1;
+  }
+
+  public void incrementNumStudying() {
+    this.numStudying += 1;
+  }
+
+  public void incrementNumSleeping() {
+    this.numSleeping += 1;
+  }
 
   public void setTotalScore(int value) {
     this.totalScore = value;

@@ -20,6 +20,7 @@ import org.junit.runner.RunWith;
 @FixMethodOrder
 @RunWith(GdxTestRunner.class)
 public class PlayerTests {
+
   Player player = new Player("avatar1");
 
   @Test
@@ -33,6 +34,7 @@ public class PlayerTests {
     Vector3 vector = new Vector3(20, 30, 0);
     assertEquals(vector, player.getPosAsVec3());
   }
+
   @Test
   public void testSetFrozen() {
     player.setFrozen(true);
@@ -69,7 +71,7 @@ public class PlayerTests {
     building.put("event", "ducks");
     player.addCollidable(building);
     player.setFrozen(false);
-    player.setPos(25,25);
+    player.setPos(25, 25);
     player.move(2f);
     assertNotNull(player.getClosestObject());
     assertTrue(player.nearObject());

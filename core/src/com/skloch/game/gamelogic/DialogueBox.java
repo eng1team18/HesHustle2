@@ -28,10 +28,10 @@ public class DialogueBox {
   // END OF CHANGES
 
   /**
-   * Constructor for dialogue box class. Will take input text and create a dialogue box,
-   * handles text overflow, options, user interactions and locks player inputs
+   * Constructor for dialogue box class. Will take input text and create a dialogue box, handles
+   * text overflow, options, user interactions and locks player inputs
    *
-   * @param skin a class containing the style of the dialogue box and assets
+   * @param skin   a class containing the style of the dialogue box and assets
    * @param player the player character, needed to read inputs and lock movement inputs
    */
   public DialogueBox(Skin skin, Player player) {
@@ -295,8 +295,8 @@ public class DialogueBox {
   /**
    * Formats the text to be displayed on a label widget. Adds a newline character every MAX_CHARS
    * num of characters accounts for any occurring linebreaks to take use of the size of the most
-   * space possible. Stores the formatted text in 3 chunks, which are then queued up to be pushed
-   * to the label whenever the user presses e.
+   * space possible. Stores the formatted text in 3 chunks, which are then queued up to be pushed to
+   * the label whenever the user presses e.
    *
    * @param text The text to format and push to the label
    */

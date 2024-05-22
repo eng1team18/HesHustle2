@@ -58,7 +58,7 @@ public class EventManager {
     this.energyBar = energyBar;
     this.player = player;
 
-      // How much energy each activity should take
+    // How much energy each activity should take
     activityEnergies = new HashMap<String, Integer>();
     activityEnergies.put("studying", 40);
     activityEnergies.put("meet_friends", 10);
@@ -72,7 +72,7 @@ public class EventManager {
     objectInteractions.put("ron_cooke", "Study in the Ron Cooke building?");
     objectInteractions.put("friends", "Talk to your friends?");
     objectInteractions.put("accomodation",
-            "Go to sleep for the night?\nYour alarm is set for 8am.");
+        "Go to sleep for the night?\nYour alarm is set for 8am.");
     objectInteractions.put("piazza", null); // Changes, dynamically returned in getObjectInteraction
     objectInteractions.put("tree", "Speak to the tree?");
     objectInteractions.put("walk", "Go on a walk in the woods?");
@@ -248,8 +248,8 @@ public class EventManager {
   }
 
   /**
-   * The event to be run when interacting with the Ron Cooke building. Gives the player the
-   * option to study for 2, 3 or 4 hours.
+   * The event to be run when interacting with the Ron Cooke building. Gives the player the option
+   * to study for 2, 3 or 4 hours.
    *
    * @param args
    */
@@ -303,7 +303,8 @@ public class EventManager {
         score.incrementNumStudying();
         if (Achievement.getInstance().BookwormAchievement(score.getNumStudying())) {
           score.incrementTotalScore(5, 100);
-        };
+        }
+        ;
       } else if (missedDay && !catchUpUsed) {
         // If you have missed a day, this code should only ever be able to be called once
         catchUpUsed = true;
@@ -313,12 +314,13 @@ public class EventManager {
         energyBar.decreaseEnergy(energyCost);
         time.addStudyHours(6);
         time.passTime(
-                6 * 60); // in seconds   POSSIBLY make longer/ shorter as a catchup session?
+            6 * 60); // in seconds   POSSIBLY make longer/ shorter as a catchup session?
         score.incrementTotalScore(2, 300); //slightly lower score for catch up
         score.incrementNumStudying();
         if (Achievement.getInstance().BookwormAchievement(score.getNumStudying())) {
           score.incrementTotalScore(5, 100);
-        };
+        }
+        ;
 
       } else {
         // This should catch the cases where a user tries to study but either already
@@ -341,7 +343,7 @@ public class EventManager {
       game.setDialogueBoxText("You are too tired to eat right now!");
     } else {
       game.setDialogueBoxText(String.format("You took 1 hour to eat %s!\nYou lost %d "
-              + "energy!", time.getMeal(), energyCost));
+          + "energy!", time.getMeal(), energyCost));
       energyBar.decreaseEnergy(energyCost);
       score.incrementTotalScore(1, score.hungerScore(Math.round(time.daySeconds), timeLastEat));
       score.incrementNumEating();
@@ -378,8 +380,9 @@ public class EventManager {
       public void run() {
         if (game.getSleeping()) {
           game.showDialogueBox();
-          game.setDialogueBoxText(String.format("You slept for %d hours!\nYou recovered %d energy!", hoursSlept,
-              Math.min(100, hoursSlept * 13)), "fadefromblack");
+          game.setDialogueBoxText(
+              String.format("You slept for %d hours!\nYou recovered %d energy!", hoursSlept,
+                  Math.min(100, hoursSlept * 13)), "fadefromblack");
           // Restore energy and pass time
           energyBar.setEnergy(hoursSlept * 13);
           //New
@@ -411,8 +414,9 @@ public class EventManager {
         @Override
         public void run() {
           game.showDialogueBox();
-          game.setDialogueBoxText(String.format("You went on a walk for 4 hours!\nYou lost %d energy!",
-              energyCost), "fadefromblack");
+          game.setDialogueBoxText(
+              String.format("You went on a walk for 4 hours!\nYou lost %d energy!",
+                  energyCost), "fadefromblack");
           energyBar.decreaseEnergy(energyCost);
           score.incrementTotalScore(3, score.activityScore(1, time.day));
           time.passTime(4 * 60);
@@ -422,7 +426,8 @@ public class EventManager {
             score.incrementNumRecreationalWalk();
             if (Achievement.getInstance().JoggerAchievement(score.getNumRecreationalWalk())) {
               score.incrementTotalScore(5, 100);
-            };
+            }
+            ;
           }
         }
       });
@@ -484,7 +489,8 @@ public class EventManager {
       score.incrementNumRecreationalDuck();
       if (Achievement.getInstance().DuckDuckGoAchievement(score.getNumRecreationalDuck())) {
         score.incrementTotalScore(5, 100);
-      };
+      }
+      ;
       time.passTime(3 * 60); // in seconds
     }
   }

@@ -172,8 +172,8 @@ public class SoundManager implements Disposable {
    * has hit zero. Uses two different SFX to sound more realistic and to allow the timing to be
    * configured.
    *
-   * @param delay Determines the delay until the next footstep sound can play. Increasing this
-   *              value would mean slower step sounds.
+   * @param delay Determines the delay until the next footstep sound can play. Increasing this value
+   *              would mean slower step sounds.
    */
   public void playFootstep(float delay) {
     // If it is time to play a footstep, play one

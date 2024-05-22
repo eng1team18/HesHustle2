@@ -20,6 +20,7 @@ import org.junit.runner.RunWith;
 @FixMethodOrder
 @RunWith(GdxTestRunner.class)
 public class LeaderboardTests {
+
   Leaderboard leaderboard = Leaderboard.getInstance();
 
   @BeforeClass

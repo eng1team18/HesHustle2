@@ -122,7 +122,7 @@ public class AchievementScreen implements Screen {
   /**
    * Correctly resizes the onscreen elements when the window is resized.
    *
-   * @param width Window's new width.
+   * @param width  Window's new width.
    * @param height Window's new height.
    */
   @Override

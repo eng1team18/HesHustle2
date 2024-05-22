@@ -137,7 +137,7 @@ public class SettingsScreen implements Screen {
   /**
    * Correctly resizes the settings screen.
    *
-   * @param width New width of the window
+   * @param width  New width of the window
    * @param height New height of the window
    */
   @Override

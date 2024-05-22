@@ -16,6 +16,7 @@ import org.junit.runner.RunWith;
 @RunWith(GdxTestRunner.class)
 @FixMethodOrder
 public class SoundManagerTests {
+
   SoundManager soundManager = new SoundManager();
 
   @Test

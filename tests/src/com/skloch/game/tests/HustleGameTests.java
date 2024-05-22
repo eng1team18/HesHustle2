@@ -17,6 +17,7 @@ import org.junit.runner.RunWith;
  */
 @RunWith(GdxTestRunner.class)
 public class HustleGameTests {
+
   HustleGame game = new HustleGame(800, 400);
 
   @Test

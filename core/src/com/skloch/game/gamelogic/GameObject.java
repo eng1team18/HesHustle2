@@ -18,12 +18,12 @@ public class GameObject extends Rectangle {
   // Create like a normal rectangle
 
   /**
-   * Creates an instance of a GameObject without MapProperties, functions similarly to a
-   * normal rectangle.
+   * Creates an instance of a GameObject without MapProperties, functions similarly to a normal
+   * rectangle.
    *
-   * @param x x-coordinate of the bottom-left corner of the rectangle
-   * @param y y-coordinate of the bottom-left corner of the rectangle
-   * @param width Width of the rectangle
+   * @param x      x-coordinate of the bottom-left corner of the rectangle
+   * @param y      y-coordinate of the bottom-left corner of the rectangle
+   * @param width  Width of the rectangle
    * @param height Height of the rectangle
    */
   public GameObject(float x, float y, float width, float height) {
@@ -78,8 +78,6 @@ public class GameObject extends Rectangle {
   }
 
   /**
-   *
-   *
    * @param key A key to be checked in the object's properties
    * @return True if the object has a property with this key
    */

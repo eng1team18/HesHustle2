@@ -137,7 +137,6 @@ public class GameScreen implements Screen {
     uiTable.setSize(game.width, game.height);
     uiStage.addActor(uiTable);
 
-
     // USER INTERFACE
 
     // Create and center the yes/no box that appears when interacting with objects
@@ -164,7 +163,6 @@ public class GameScreen implements Screen {
     // Set initial time
     time.daySeconds = (8 * 60); // 8:00 am
 
-
     // Table to display date and time
     Table timeTable = new Table();
     timeTable.setFillParent(true);
@@ -188,7 +186,8 @@ public class GameScreen implements Screen {
     game.soundManager.playOverworldMusic();
 
     //Set InputAdapter
-    customInputAdapter = new CustomInputAdapter(this.game, dialogueBox, eventManager, player, EscapeMenu.escapeMenu, this);
+    customInputAdapter = new CustomInputAdapter(this.game, dialogueBox, eventManager, player,
+        EscapeMenu.escapeMenu, this);
 
     // Create the keyboard input adapter that defines events to be called based on
     // specific button presses
@@ -231,24 +230,24 @@ public class GameScreen implements Screen {
           int direction = (int) properties.get("direction");
 
           npcs = Arrays.copyOf(npcs, npcs.length + 1);
-          npcs[npcs.length-1] = new NPC(avatar, direction);
-          npcs[npcs.length-1].setPos(((float) properties.get("x")) * unitScale,
-                  ((float) properties.get("y")) * unitScale);
+          npcs[npcs.length - 1] = new NPC(avatar, direction);
+          npcs[npcs.length - 1].setPos(((float) properties.get("x")) * unitScale,
+              ((float) properties.get("y")) * unitScale);
         }
 
         // If this is the spawn object, move the player there and don't collide
         if (properties.get("spawn") != null) {
           player.setPos(((float) properties.get("x")) * unitScale,
-                  ((float) properties.get("y")) * unitScale);
+              ((float) properties.get("y")) * unitScale);
           camera.position.set(player.getPosAsVec3());
           // New code
           // Define spawn locations for bus stops
         } else if (properties.get("spawnCampus") != null) {
-            campusSpawn = new float[]{(float) properties.get("x") * unitScale,
-                    (float) properties.get("y") * unitScale};
+          campusSpawn = new float[]{(float) properties.get("x") * unitScale,
+              (float) properties.get("y") * unitScale};
         } else if (properties.get("spawnTown") != null) {
           townSpawn = new float[]{(float) properties.get("x") * unitScale,
-                  (float) properties.get("y") * unitScale};
+              (float) properties.get("y") * unitScale};
         } else {
           // Make a new gameObject with these properties, passing along the scale the map is
           // rendered at for accurate coordinates
@@ -346,14 +345,14 @@ public class GameScreen implements Screen {
 
     // New code
     // Draw all NPCs
-    for(NPC npc : this.npcs){
+    for (NPC npc : this.npcs) {
       npc.updateAnimation();
       game.batch.draw(
-              npc.getCurrentFrame(),
-              npc.sprite.x, npc.sprite.y,
-              0, 0,
-              npc.sprite.width, npc.sprite.height,
-              1f, 1f, 1
+          npc.getCurrentFrame(),
+          npc.sprite.x, npc.sprite.y,
+          0, 0,
+          npc.sprite.width, npc.sprite.height,
+          1f, 1f, 1
       );
     }
 
@@ -373,7 +372,7 @@ public class GameScreen implements Screen {
 
     // Check if the interaction (press e to use) label needs to be drawn
     interactionLabel.setVisible(false);
-    if (!dialogueBox.isVisible() && !EscapeMenu.escapeMenu.isVisible() && !sleeping  && !fadeout) {
+    if (!dialogueBox.isVisible() && !EscapeMenu.escapeMenu.isVisible() && !sleeping && !fadeout) {
       if (player.nearObject()) {
         interactionLabel.setVisible(true);
         // Change text whether pressing E will interact or just read text
@@ -458,6 +457,7 @@ public class GameScreen implements Screen {
   }
 
   // Functions related to game score and requirements
+
   /**
    * @param sleeping Sets the value of sleeping
    */

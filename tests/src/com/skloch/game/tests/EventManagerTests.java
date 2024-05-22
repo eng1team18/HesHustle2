@@ -24,6 +24,7 @@ import org.junit.runner.RunWith;
 @FixMethodOrder
 @RunWith(GdxTestRunner.class)
 public class EventManagerTests {
+
   Achievement achievements = Achievement.getInstance();
   Score score = Score.getInstance();
 
@@ -47,15 +48,15 @@ public class EventManagerTests {
   }
 
   /**
-   * Tests that the friends event will not activate when the player doesn't have enough energy.
-   * This is tested by checking if the time moves.
+   * Tests that the friends event will not activate when the player doesn't have enough energy. This
+   * is tested by checking if the time moves.
    */
   @Test
   public void testFriendsEventNoEnergy() {
     energy.setEnergy(0);
     time.daySeconds = (8 * 60);
     eventManager.event("friends");
-    assertEquals(time.getSeconds(), 8*60, 1e-15);
+    assertEquals(time.getSeconds(), 8 * 60, 1e-15);
   }
 
   /**
@@ -68,7 +69,7 @@ public class EventManagerTests {
     time.daySeconds = (8 * 60);
     score.resetScores();
     eventManager.event("friends");
-    assertFalse(time.getSeconds() > 8*60);
+    assertFalse(time.getSeconds() > 8 * 60);
     assertFalse(energy.getEnergy() < 100);
     assertFalse(score.getTotalScore() > 0);
   }
@@ -83,7 +84,7 @@ public class EventManagerTests {
     time.daySeconds = (8 * 60);
     score.resetScores();
     eventManager.event("friends-exams");
-    assertTrue(time.getSeconds() > 8*60);
+    assertTrue(time.getSeconds() > 8 * 60);
     assertTrue(energy.getEnergy() < 100);
     assertTrue(score.getTotalScore() > 0);
   }
@@ -97,7 +98,7 @@ public class EventManagerTests {
     time.daySeconds = (8 * 60);
     score.resetScores();
     eventManager.event("ron_cooke");
-    assertTrue(time.getSeconds() > 8*60);
+    assertTrue(time.getSeconds() > 8 * 60);
     assertTrue(energy.getEnergy() < 100);
     assertTrue(score.getTotalScore() > 0);
   }
@@ -112,13 +113,13 @@ public class EventManagerTests {
     time.daySeconds = (8 * 60);
     score.resetScores();
     eventManager.event("ron_cooke");
-    assertFalse(time.getSeconds() > 8*60);
+    assertFalse(time.getSeconds() > 8 * 60);
     assertFalse(score.getTotalScore() > 0);
   }
 
   /**
-   * Tests that Piazza event will not activate if the player doesn't have enough energy. We do
-   * this by checking the time and score do not move.
+   * Tests that Piazza event will not activate if the player doesn't have enough energy. We do this
+   * by checking the time and score do not move.
    */
   @Test
   public void testPiazzaEventNoEnergy() {
@@ -126,7 +127,7 @@ public class EventManagerTests {
     time.daySeconds = (8 * 60);
     score.resetScores();
     eventManager.event("piazza");
-    assertFalse(time.getSeconds() > 8*60);
+    assertFalse(time.getSeconds() > 8 * 60);
     assertFalse(score.getTotalScore() > 0);
   }
 
@@ -139,7 +140,7 @@ public class EventManagerTests {
     time.daySeconds = (8 * 60);
     score.resetScores();
     eventManager.event("piazza");
-    assertTrue(time.getSeconds() > 8*60);
+    assertTrue(time.getSeconds() > 8 * 60);
     assertTrue(energy.getEnergy() < 100);
     assertTrue(score.getTotalScore() > 0);
   }
@@ -181,27 +182,27 @@ public class EventManagerTests {
   }
 
   /**
-   * Tests that the walk event will not activate when the player doesn't have enough energy.
-   * This is tested by checking if the time moves.
+   * Tests that the walk event will not activate when the player doesn't have enough energy. This is
+   * tested by checking if the time moves.
    */
   @Test
   public void testWalkNoEnergy() {
     energy.setEnergy(0);
     time.daySeconds = (8 * 60);
     eventManager.event("walk");
-    assertEquals(time.getSeconds(), 8*60, 1e-15);
+    assertEquals(time.getSeconds(), 8 * 60, 1e-15);
   }
 
   /**
-   * Tests that the ducks event will not activate when the player doesn't have enough energy.
-   * This is tested by checking if the time moves.
+   * Tests that the ducks event will not activate when the player doesn't have enough energy. This
+   * is tested by checking if the time moves.
    */
   @Test
   public void testDucksNoEnergy() {
     energy.setEnergy(0);
     time.daySeconds = (8 * 60);
     eventManager.event("ducks");
-    assertEquals(time.getSeconds(), 8*60, 1e-15);
+    assertEquals(time.getSeconds(), 8 * 60, 1e-15);
   }
 
   /**
@@ -213,21 +214,21 @@ public class EventManagerTests {
     time.daySeconds = (8 * 60);
     score.resetScores();
     eventManager.event("ducks");
-    assertTrue(time.getSeconds() > 8*60);
+    assertTrue(time.getSeconds() > 8 * 60);
     assertTrue(energy.getEnergy() < 100);
     assertTrue(score.getTotalScore() > 0);
   }
 
   /**
-   * Tests that the bar event will not activate when the player doesn't have enough energy.
-   * This is tested by checking if the time moves.
+   * Tests that the bar event will not activate when the player doesn't have enough energy. This is
+   * tested by checking if the time moves.
    */
   @Test
   public void testBarNoEnergy() {
     energy.setEnergy(0);
     time.daySeconds = (8 * 60);
     eventManager.event("bar");
-    assertEquals(time.getSeconds(), 8*60, 1e-15);
+    assertEquals(time.getSeconds(), 8 * 60, 1e-15);
   }
 
   /**
@@ -239,7 +240,7 @@ public class EventManagerTests {
     time.daySeconds = (8 * 60);
     score.resetScores();
     eventManager.event("bar");
-    assertTrue(time.getSeconds() > 8*60);
+    assertTrue(time.getSeconds() > 8 * 60);
     assertTrue(energy.getEnergy() < 100);
     assertTrue(score.getTotalScore() > 0);
   }

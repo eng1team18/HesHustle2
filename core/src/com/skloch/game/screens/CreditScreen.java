@@ -125,7 +125,7 @@ public class CreditScreen implements Screen {
   /**
    * Correctly resizes the onscreen elements when the window is resized.
    *
-   * @param width New width of the window.
+   * @param width  New width of the window.
    * @param height New height of the window.
    */
   @Override

@@ -104,7 +104,6 @@ public class MenuScreen implements Screen {
     // Old title, new uses a texture
     //    Label title = new Label("Heslington Hustle", game.skin, "title");
 
-
     // Create the buttons and add everything to the table using row() to go to a new line
     int buttonWidth = 340;
     TextButton startButton = new TextButton("New Game", game.skin);
@@ -127,16 +126,16 @@ public class MenuScreen implements Screen {
 
     // START GAME BUTTON - Displays the tutorial window
     startButton.addListener(new ChangeListener() {
-      @Override
-      public void changed(ChangeEvent event, Actor actor) {
-        game.soundManager.playButton();
-        buttonTable.setVisible(false);
-        titleImage.setVisible(false);
-        tutorialWindow.setVisible(true);
-        // dispose();
-        // game.setScreen(new GameScreen(game));
-      }
-    }
+                              @Override
+                              public void changed(ChangeEvent event, Actor actor) {
+                                game.soundManager.playButton();
+                                buttonTable.setVisible(false);
+                                titleImage.setVisible(false);
+                                tutorialWindow.setVisible(true);
+                                // dispose();
+                                // game.setScreen(new GameScreen(game));
+                              }
+                            }
     );
 
     // SETTINGS BUTTON
@@ -168,14 +167,14 @@ public class MenuScreen implements Screen {
 
     // EXIT BUTTON
     exitButton.addListener(new ChangeListener() {
-      @Override
-      public void changed(ChangeEvent event, Actor actor) {
-        game.soundManager.playButton();
-        game.dispose();
-        dispose();
-        Gdx.app.exit();
-      }
-    }
+                             @Override
+                             public void changed(ChangeEvent event, Actor actor) {
+                               game.soundManager.playButton();
+                               game.dispose();
+                               dispose();
+                               Gdx.app.exit();
+                             }
+                           }
     );
 
     game.batch.setProjectionMatrix(camera.combined);
@@ -206,7 +205,7 @@ public class MenuScreen implements Screen {
   /**
    * Correctly resizes the menu screen.
    *
-   * @param width New width of window
+   * @param width  New width of window
    * @param height New width of window
    */
   @Override
@@ -229,8 +228,8 @@ public class MenuScreen implements Screen {
   }
 
   /**
-   * Correctly sizes the game when resuming it after a pause or switching screens.
-   * Fixes a small graphical bug.
+   * Correctly sizes the game when resuming it after a pause or switching screens. Fixes a small
+   * graphical bug.
    */
   @Override
   public void resume() {
@@ -282,7 +281,6 @@ public class MenuScreen implements Screen {
     scrollTable.add(continueButton).bottom().width(300).padTop(10);
 
     // Exit button
-
 
     tutWindow.pack();
 

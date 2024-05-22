@@ -187,7 +187,7 @@ public class GameOverScreen implements Screen {
   /**
    * Correctly resizes the onscreen elements when the window is resized.
    *
-   * @param width New width of window
+   * @param width  New width of window
    * @param height New height of window
    */
   @Override

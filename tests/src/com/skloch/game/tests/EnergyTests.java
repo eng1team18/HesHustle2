@@ -14,6 +14,7 @@ import org.junit.runner.RunWith;
  */
 @RunWith(GdxTestRunner.class)
 public class EnergyTests {
+
   Viewport viewport = mock(FitViewport.class);
   Energy energyBar = new Energy(viewport);
 

@@ -15,6 +15,7 @@ import org.junit.runner.RunWith;
 @FixMethodOrder
 @RunWith(GdxTestRunner.class)
 public class AchievementTests {
+
   Achievement achievements = Achievement.getInstance();
 
   @Test
