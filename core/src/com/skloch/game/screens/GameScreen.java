@@ -23,19 +23,18 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
-
-import com.skloch.game.utility.CustomInputAdapter;
+import com.skloch.game.HustleGame;
 import com.skloch.game.gamelogic.DialogueBox;
 import com.skloch.game.gamelogic.Energy;
 import com.skloch.game.gamelogic.EscapeMenu;
 import com.skloch.game.gamelogic.EventManager;
 import com.skloch.game.gamelogic.GameObject;
-import com.skloch.game.HustleGame;
-import com.skloch.game.scoring.Leaderboard;
 import com.skloch.game.gamelogic.NonPlayableCharacter;
 import com.skloch.game.gamelogic.Player;
-import com.skloch.game.scoring.Score;
 import com.skloch.game.gamelogic.Time;
+import com.skloch.game.scoring.Leaderboard;
+import com.skloch.game.scoring.Score;
+import com.skloch.game.utility.CustomInputAdapter;
 import java.util.Arrays;
 
 // Changes
@@ -77,6 +76,9 @@ public class GameScreen implements Screen {
   public float[] campusSpawn;
   public float[] townSpawn;
 
+  /**
+   * creates NPCs which will be displayed on the map.
+   */
   public NonPlayableCharacter[] npcs = new NonPlayableCharacter[0];
 
   private Leaderboard leaderboard;
@@ -91,6 +93,8 @@ public class GameScreen implements Screen {
 
 
   /**
+   * The main screen in which the game is shown through.
+   *
    * @param game         An instance of the class HustleGame containing variables that only need to
    *                     be loaded or initialised once.
    * @param avatarChoice Which avatar the player has picked, 0 for the more masculine avatar, 1 for
@@ -224,7 +228,8 @@ public class GameScreen implements Screen {
         MapProperties properties = objects.get(i).getProperties();
 
         // New code
-        // Check if object is NPC. If it is, expand size of NPC array and add NPC to it with defined properties
+        // Check if object is NPC.
+        // If it is, expand size of NPC array and add NPC to it with defined properties
         if (properties.get("npc") != null) {
           String avatar = (String) properties.get("avatar");
           int direction = (int) properties.get("direction");
@@ -443,6 +448,9 @@ public class GameScreen implements Screen {
     Gdx.input.setCursorPosition(Gdx.input.getX(), Gdx.input.getY());
   }
 
+  /**
+   * overrides the hide function.
+   */
   @Override
   public void hide() {
   }
@@ -459,6 +467,8 @@ public class GameScreen implements Screen {
   // Functions related to game score and requirements
 
   /**
+   * sets sleeping bool of player.
+   *
    * @param sleeping Sets the value of sleeping
    */
   public void setSleeping(boolean sleeping) {
@@ -466,6 +476,8 @@ public class GameScreen implements Screen {
   }
 
   /**
+   * gets the sleeping bool of player.
+   *
    * @return true if the player is sleeping
    */
   public boolean getSleeping() {
@@ -473,6 +485,8 @@ public class GameScreen implements Screen {
   }
 
   /**
+   * fades the screen out to black.
+   *
    * @param fadeout sets the value of fadeout
    */
   //NEW CODE
