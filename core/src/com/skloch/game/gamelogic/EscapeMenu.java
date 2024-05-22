@@ -25,6 +25,14 @@ public class EscapeMenu {
   private Viewport viewport;
   private Stage uiStage;
 
+  /**
+   * Constructor for escape menu. Defines size, button layout, button functions, and style.
+   *
+   * @param game the current game object
+   * @param viewport the game's camera size
+   * @param gameScreen the current screen
+   * @param uiStage the current stage object
+   */
   public EscapeMenu(HustleGame game, Viewport viewport, GameScreen gameScreen, Stage uiStage) {
     this.game = game;
     this.viewport = viewport;

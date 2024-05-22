@@ -47,7 +47,7 @@ public class Player {
   /**
    * A player character, contains methods to move the player and update animations, also includes
    * collision handling and can be used to trigger events of objects near the player. Includes a
-   * feet hitbox for collision and an event hitbox for triggering objects. Call move() then draw the
+   * foot hitbox for collision and an event hitbox for triggering objects. Call move() then draw the
    * result of getCurrentAnimation() to use
    *
    * @param avatar "avatar1" for the more masculine character, "avatar2" for the more feminine
@@ -344,6 +344,8 @@ public class Player {
   }
 
   /**
+   * Returns the current x coordinate of the player
+   *
    * @return The X coordinate of the player
    */
   public float getX() {
@@ -351,6 +353,8 @@ public class Player {
   }
 
   /**
+   * Returns the current y coordinate of the player
+   *
    * @return The Y coordinate of the player
    */
   public float getY() {
@@ -358,6 +362,8 @@ public class Player {
   }
 
   /**
+   * Returns the current X coordinate of the centre of the player's sprite rectangle
+   *
    * @return The X coordinate of the centre point of the player's sprite rectangle
    */
   public float getCentreX() {
@@ -365,6 +371,8 @@ public class Player {
   }
 
   /**
+   * Returns the current Y coordinate of the centre of the player's sprite rectangle
+   *
    * @return The Y coordinate of the centre point of the player's sprite rectangle
    */
   public float getCentreY() {
@@ -407,6 +415,8 @@ public class Player {
   }
 
   /**
+   * Returns the current X and Y position of the player as an array.
+   *
    * @param x The X coordinate to set the player to
    * @param y The Y coordinate to set the player to
    */
@@ -458,6 +468,8 @@ public class Player {
   }
 
   /**
+   * Returns if the player is currently in a frozen state or not
+   *
    * @return true if the player is frozen
    */
   public boolean isFrozen() {

@@ -61,60 +61,60 @@ public class AchievementTests {
   @Test
   public void testBookwormAchievementNotEnough() {
     achievements.resetAllAchievements();
-    assertFalse(achievements.BookwormAchievement(3));
+    assertFalse(achievements.bookwormAchievement(3));
   }
 
   @Test
   public void testGiveBookwormAchievement() {
     achievements.resetAllAchievements();
-    assertTrue(achievements.BookwormAchievement(4));
+    assertTrue(achievements.bookwormAchievement(4));
     assertTrue(achievements.checkAchievement(2));
   }
 
   @Test
   public void testBookwormAchievementAlreadyGiven() {
     achievements.resetAllAchievements();
-    achievements.BookwormAchievement(5);
-    assertFalse(achievements.BookwormAchievement(5));
+    achievements.bookwormAchievement(5);
+    assertFalse(achievements.bookwormAchievement(5));
   }
 
   @Test
   public void testDuckDuckGoAchievementNotEnough() {
     achievements.resetAllAchievements();
-    assertFalse(achievements.DuckDuckGoAchievement(5));
+    assertFalse(achievements.duckDuckGoAchievement(5));
   }
 
   @Test
   public void testGiveDuckDuckGoAchievement() {
     achievements.resetAllAchievements();
-    assertTrue(achievements.DuckDuckGoAchievement(6));
+    assertTrue(achievements.duckDuckGoAchievement(6));
     assertTrue(achievements.checkAchievement(3));
   }
 
   @Test
   public void testDuckDuckGoAchievementAlreadyGiven() {
     achievements.resetAllAchievements();
-    achievements.DuckDuckGoAchievement(7);
-    assertFalse(achievements.DuckDuckGoAchievement(7));
+    achievements.duckDuckGoAchievement(7);
+    assertFalse(achievements.duckDuckGoAchievement(7));
   }
 
   @Test
   public void testJoggerAchievementNotEnough() {
     achievements.resetAllAchievements();
-    assertFalse(achievements.JoggerAchievement(6));
+    assertFalse(achievements.joggerAchievement(6));
   }
 
   @Test
   public void testGiveJoggerAchievement() {
     achievements.resetAllAchievements();
-    assertTrue(achievements.JoggerAchievement(7));
+    assertTrue(achievements.joggerAchievement(7));
     assertTrue(achievements.checkAchievement(4));
   }
 
   @Test
   public void testJoggerAchievementAlreadyGiven() {
     achievements.resetAllAchievements();
-    achievements.JoggerAchievement(8);
-    assertFalse(achievements.JoggerAchievement(8));
+    achievements.joggerAchievement(8);
+    assertFalse(achievements.joggerAchievement(8));
   }
 }

@@ -32,7 +32,7 @@ import com.skloch.game.gamelogic.EventManager;
 import com.skloch.game.gamelogic.GameObject;
 import com.skloch.game.HustleGame;
 import com.skloch.game.scoring.Leaderboard;
-import com.skloch.game.gamelogic.NPC;
+import com.skloch.game.gamelogic.NonPlayableCharacter;
 import com.skloch.game.gamelogic.Player;
 import com.skloch.game.scoring.Score;
 import com.skloch.game.gamelogic.Time;
@@ -77,7 +77,7 @@ public class GameScreen implements Screen {
   public float[] campusSpawn;
   public float[] townSpawn;
 
-  public NPC[] npcs = new NPC[0];
+  public NonPlayableCharacter[] npcs = new NonPlayableCharacter[0];
 
   private Leaderboard leaderboard;
   private final Score score;
@@ -230,7 +230,7 @@ public class GameScreen implements Screen {
           int direction = (int) properties.get("direction");
 
           npcs = Arrays.copyOf(npcs, npcs.length + 1);
-          npcs[npcs.length - 1] = new NPC(avatar, direction);
+          npcs[npcs.length - 1] = new NonPlayableCharacter(avatar, direction);
           npcs[npcs.length - 1].setPos(((float) properties.get("x")) * unitScale,
               ((float) properties.get("y")) * unitScale);
         }
@@ -345,7 +345,7 @@ public class GameScreen implements Screen {
 
     // New code
     // Draw all NPCs
-    for (NPC npc : this.npcs) {
+    for (NonPlayableCharacter npc : this.npcs) {
       npc.updateAnimation();
       game.batch.draw(
           npc.getCurrentFrame(),

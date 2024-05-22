@@ -78,6 +78,8 @@ public class GameObject extends Rectangle {
   }
 
   /**
+   * Returns whether object has a property with a specified key or not.
+   *
    * @param key A key to be checked in the object's properties
    * @return True if the object has a property with this key
    */

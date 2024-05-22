@@ -31,7 +31,7 @@ public class EventManager {
   Score score = Score.getInstance();
   private Energy energyBar;
 
-  // New Stuff
+  // ASSESSMENT 2 CHANGES
   private boolean studiedToday = false;
   private boolean walkedToday = false;
   private boolean catchUpUsed = false;
@@ -42,6 +42,7 @@ public class EventManager {
   private int timeLastEat = 0;
   public boolean ronCookePrevious = false;
   public boolean ronCookeCurrent;
+  // END OF CHANGES
 
 
   /**
@@ -89,6 +90,12 @@ public class EventManager {
     talkTopics = new Array<String>(topics);
   }
 
+  /**
+   * When the player interacts with an activity, the event tag of the object is recognised
+   * and this function is called to perform the event.
+   *
+   * @param eventKey the type of event as defined in the map object attributes.
+   */
   public void event(String eventKey) {
     String[] args = eventKey.split("-");
 
@@ -166,6 +173,7 @@ public class EventManager {
   }
 
   /**
+   * A getter that returns whether an object has a custom specified interaction
    * @return True if the object has some custom text to display that isn't just "This is an x!".
    */
   public boolean hasCustomObjectInteraction(String key) {
@@ -196,7 +204,7 @@ public class EventManager {
    * Lets the player study at the Ron cooke hub for 3 hours, decreases the player's energy and
    * increments the game time.
    *
-   * @param args
+   * @param args array of arguments related to the event. Usually only 1 argument of eventKey.
    */
   public void friendsEvent(String[] args) {
     int energyCost = activityEnergies.get("meet_friends");
@@ -248,19 +256,21 @@ public class EventManager {
   }
 
   /**
+   * SIGNIFICANT CHANGES FOR ASSESSMENT 2
    * The event to be run when interacting with the Ron Cooke building. Gives the player the option
    * to study for 2, 3 or 4 hours.
    *
-   * @param args
+   * @param args array of arguments related to the event. Usually only 1 argument of eventKey.
    */
   public void ronCookeEvent(String[] args) {
-    //New
+    // ASSESSMENT 2 CHANGES
     if (dayLastStudied < time.day) {
       studiedToday = false;
     }
     if (time.day - dayLastStudied > 1) {
       missedDay = true;
     }
+    // END OF CHANGES
     int energyCost = activityEnergies.get("studying");
     // If the player is too tired for any studying:
     if (energyBar.getEnergy() < energyCost) {
@@ -272,7 +282,8 @@ public class EventManager {
       if (energyBar.getEnergy() < energyCost) {
         game.setDialogueBoxText("You don't have the energy to study for this long!");
       } else if (!studiedToday) {
-        // New stuff/changes made
+
+        // ASSESSMENT 2 CHANGES
         // If they do have the energy to study and haven't studied today
         studiedToday = true;
         dayLastStudied = time.day;
@@ -301,7 +312,7 @@ public class EventManager {
         }
 
         score.incrementNumStudying();
-        if (Achievement.getInstance().BookwormAchievement(score.getNumStudying())) {
+        if (Achievement.getInstance().bookwormAchievement(score.getNumStudying())) {
           score.incrementTotalScore(5, 100);
         }
         ;
@@ -317,10 +328,11 @@ public class EventManager {
             6 * 60); // in seconds   POSSIBLY make longer/ shorter as a catchup session?
         score.incrementTotalScore(2, 300); //slightly lower score for catch up
         score.incrementNumStudying();
-        if (Achievement.getInstance().BookwormAchievement(score.getNumStudying())) {
+        if (Achievement.getInstance().bookwormAchievement(score.getNumStudying())) {
           score.incrementTotalScore(5, 100);
         }
         ;
+        // END OF CHANGES
 
       } else {
         // This should catch the cases where a user tries to study but either already
@@ -335,7 +347,7 @@ public class EventManager {
    * The event to be run when the player interacts with the ron cooke hub. Gives the player the
    * choice to eat breakfast, lunch or dinner depending on the time of day.
    *
-   * @param args
+   * @param args array of arguments related to the event. Usually only 1 argument of eventKey.
    */
   public void piazzaEvent(String[] args) {
     int energyCost = activityEnergies.get("eating");
@@ -399,7 +411,12 @@ public class EventManager {
     fadeToBlack(setTextAction);
   }
 
-  //NEW CODE
+  /**
+   * NEW METHOD FOR ASSESSMENT 2
+   * Event for the walking trail recreational activity. If enough energy, will fadeout screen to black
+   * and change time/energy/score accordingly.
+   * @param args array of arguments related to the event. Usually only 1 argument of eventKey.
+   */
   public void walk(String[] args) {
     if (dayLastWalked < time.day) {
       walkedToday = false;
@@ -426,7 +443,7 @@ public class EventManager {
             walkedToday = true;
             dayLastWalked = time.day;
             score.incrementNumRecreationalWalk();
-            if (Achievement.getInstance().JoggerAchievement(score.getNumRecreationalWalk())) {
+            if (Achievement.getInstance().joggerAchievement(score.getNumRecreationalWalk())) {
               score.incrementTotalScore(5, 100);
             }
             ;
@@ -437,6 +454,13 @@ public class EventManager {
     }
   }
 
+  /**
+   * NEW METHOD FOR ASSESSMENT 2
+   * Event that takes player to town map. If they haven't used the bus yet on that day, fadeout
+   * to black, teleport player to town map, and increment time by 1 hour.
+   *
+   * @param args array of arguments related to the event. Usually only 1 argument of eventKey.
+   */
   public void busCampus(String[] args) {
     if (dayLastBus == time.day) {
       game.setDialogueBoxText("There are no more busses running today!");
@@ -460,6 +484,13 @@ public class EventManager {
     dayLastBus = time.day;
   }
 
+  /**
+   * NEW METHOD FOR ASSESSMENT 2
+   * Event that takes player to campus map. Fadeout to black, teleport player to campus map,
+   * and increment time by 1 hour.
+   *
+   * @param args array of arguments related to the event. Usually only 1 argument of eventKey.
+   */
   public void busTown(String[] args) {
     game.setFadeout(true);
     game.hideDialogueBox();
@@ -477,6 +508,13 @@ public class EventManager {
     fadeToBlack(setTextAction);
   }
 
+  /**
+   * NEW METHOD FOR ASSESSMENT 2
+   * Event for the feeding ducks recreational activity. If enough energy, will fadeout screen to
+   * black and change time/energy/score accordingly.
+   *
+   * @param args array of arguments related to the event. Usually only 1 argument of eventKey.
+   */
   public void ducks(String[] args) {
     int energyCost = activityEnergies.get("ducks");
     // If the player is too tired to meet friends
@@ -489,7 +527,7 @@ public class EventManager {
       energyBar.decreaseEnergy(energyCost);
       score.incrementTotalScore(3, score.activityScore(2, time.day));
       score.incrementNumRecreationalDuck();
-      if (Achievement.getInstance().DuckDuckGoAchievement(score.getNumRecreationalDuck())) {
+      if (Achievement.getInstance().duckDuckGoAchievement(score.getNumRecreationalDuck())) {
         score.incrementTotalScore(5, 100);
       }
       ;
@@ -497,6 +535,13 @@ public class EventManager {
     }
   }
 
+  /**
+   * NEW METHOD FOR ASSESSMENT 2
+   * Event for the bar recreational activity. If enough energy, will fadeout screen to
+   * black and change time/energy/score accordingly.
+   *
+   * @param args array of arguments related to the event. Usually only 1 argument of eventKey.
+   */
   public void bar(String[] args) {
     int energyCost = activityEnergies.get("bar");
     // If the player is too tired to meet friends

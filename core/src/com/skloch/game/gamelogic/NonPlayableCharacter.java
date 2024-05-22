@@ -1,7 +1,6 @@
 package com.skloch.game.gamelogic;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -9,7 +8,14 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Array;
 
-public class NPC {
+/**
+ * NEW CLASS FOR ASSESSMENT 2
+ * Class defining non-playable characters. These are sprites that are stationary and can be
+ * talked to give hints and suggestions. An NPC can be added by creating a map object with
+ * boolean tag 'npc', and string tags 'avatar' (to chose sprite) and 'text' (for dialogue),
+ * and int tag 'direction' for the direction they face.
+ */
+public class NonPlayableCharacter {
 
   // Hitboxes
   public Rectangle sprite;
@@ -24,7 +30,14 @@ public class NPC {
   public int scale = 4;
   public boolean moving = false;
 
-  public NPC(String avatar, int direction) {
+  /**
+   * Constructor for NPC class. Will create animations based on input sprite sheet.
+   *
+   * @param avatar the sprite sheet of the sprite chosen in the map object 'avatar1' or 'avatar2'.
+   * @param direction the direction the NPC faces as defined in the map object. 0 = up, 1 = right,
+   *                  2 = down and 3 = left, like a clock
+   */
+  public NonPlayableCharacter(String avatar, int direction) {
     walkingAnimation = new Array<Animation<TextureRegion>>();
     idleAnimation = new Array<Animation<TextureRegion>>();
 
@@ -106,6 +119,8 @@ public class NPC {
   }
 
   /**
+   * Returns current x coordinate of NPC
+   *
    * @return The X coordinate of the NPC
    */
   public float getX() {
@@ -113,6 +128,8 @@ public class NPC {
   }
 
   /**
+   * Returns current y coordinate of NPC
+   *
    * @return The Y coordinate of the NPC
    */
   public float getY() {
@@ -120,20 +137,8 @@ public class NPC {
   }
 
   /**
-   * @return The X coordinate of the centre point of the NPC's sprite rectangle
-   */
-  public float getCentreX() {
-    return centreX;
-  }
-
-  /**
-   * @return The Y coordinate of the centre point of the NPC's sprite rectangle
-   */
-  public float getCentreY() {
-    return centreY;
-  }
-
-  /**
+   * Returns NPC's current direction.
+   *
    * @return The direction the NPC is facing, 0 = up, 1 = right, 2 = down, 3 = left (like a clock)
    */
   public int getDirection() {
@@ -141,22 +146,13 @@ public class NPC {
   }
 
   /**
-   * @param direction the direction to set the NPC to, 0 = up, 1 = right, 2 = down, 3 = left (like a
-   *                  clock)
+   * Sets the NPC's facing direction.
+   *
+   * @param direction the direction to set the NPC to, 0 = up, 1 = right, 2 = down, 3 = left (like
+   *                  a clock)
    */
   public void setDirection(int direction) {
     this.direction = direction;
-  }
-
-  /**
-   * @return The Vector3 representation of the bottom left corner of the NPC's sprite hitbox
-   */
-  public Vector3 getPosAsVec3() {
-    return new Vector3(
-        sprite.getX(),
-        sprite.getY(),
-        0
-    );
   }
 
   /**
@@ -178,6 +174,9 @@ public class NPC {
   }
 
   /**
+   * Sets the x and y positions of the NPC as a single float input, instead of with
+   * separate methods.
+   *
    * @param x The X coordinate to set the NPC to
    * @param y The Y coordinate to set the NPC to
    */

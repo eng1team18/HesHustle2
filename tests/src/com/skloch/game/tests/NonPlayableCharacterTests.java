@@ -1,9 +1,6 @@
 package com.skloch.game.tests;
 
-import com.badlogic.gdx.utils.viewport.FitViewport;
-import com.badlogic.gdx.utils.viewport.Viewport;
-import com.skloch.game.screens.GameScreen;
-import com.skloch.game.gamelogic.NPC;
+import com.skloch.game.gamelogic.NonPlayableCharacter;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -11,9 +8,9 @@ import static org.junit.Assert.*;
 import static org.mockito.Mockito.mock;
 
 @RunWith(GdxTestRunner.class)
-public class NPCTests {
+public class NonPlayableCharacterTests {
 
-  private NPC npc = mock(NPC.class);
+  private NonPlayableCharacter npc = mock(NonPlayableCharacter.class);
 
   @Test
   public void testGetCurrentFrame() {
