@@ -3,12 +3,16 @@ package com.skloch.game.utility;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.scenes.scene2d.ui.Window;
+import com.skloch.game.HustleGame;
 import com.skloch.game.gamelogic.DialogueBox;
 import com.skloch.game.gamelogic.EventManager;
-import com.skloch.game.HustleGame;
 import com.skloch.game.gamelogic.Player;
 import com.skloch.game.screens.GameScreen;
 
+/**
+ * Takes input key and if it's belonging to an array of accepted keys,
+ * performs a corresponding action.
+ */
 public class CustomInputAdapter {
 
   private HustleGame game;
@@ -18,7 +22,16 @@ public class CustomInputAdapter {
   private Window escapeMenu;
   private GameScreen screen;
 
-
+  /**
+   * Constructs the input adapter.
+   *
+   * @param game Instance of game screen
+   * @param dialogueBox Instance of dialogue box
+   * @param eventManager Instance of event manager
+   * @param player Instance of player
+   * @param escapeMenu Instance of escape menu
+   * @param screen Instance of screen
+   */
   public CustomInputAdapter(HustleGame game, DialogueBox dialogueBox, EventManager eventManager,
       Player player, Window escapeMenu, GameScreen screen) {
     this.game = game;

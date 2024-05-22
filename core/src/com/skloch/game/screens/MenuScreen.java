@@ -126,17 +126,17 @@ public class MenuScreen implements Screen {
 
     // START GAME BUTTON - Displays the tutorial window
     startButton.addListener(new ChangeListener() {
-                              @Override
-                              public void changed(ChangeEvent event, Actor actor) {
-                                game.soundManager.playButton();
-                                buttonTable.setVisible(false);
-                                titleImage.setVisible(false);
-                                tutorialWindow.setVisible(true);
-                                // dispose();
-                                // game.setScreen(new GameScreen(game));
-                              }
-                            }
-    );
+
+      @Override
+      public void changed(ChangeEvent event, Actor actor) {
+        game.soundManager.playButton();
+        buttonTable.setVisible(false);
+        titleImage.setVisible(false);
+        tutorialWindow.setVisible(true);
+        // dispose();
+        // game.setScreen(new GameScreen(game));
+      }
+    });
 
     // SETTINGS BUTTON
     Screen thisScreen = this;
@@ -167,15 +167,15 @@ public class MenuScreen implements Screen {
 
     // EXIT BUTTON
     exitButton.addListener(new ChangeListener() {
-                             @Override
-                             public void changed(ChangeEvent event, Actor actor) {
-                               game.soundManager.playButton();
-                               game.dispose();
-                               dispose();
-                               Gdx.app.exit();
-                             }
-                           }
-    );
+
+      @Override
+      public void changed(ChangeEvent event, Actor actor) {
+        game.soundManager.playButton();
+        game.dispose();
+        dispose();
+        Gdx.app.exit();
+      }
+    });
 
     game.batch.setProjectionMatrix(camera.combined);
 
@@ -350,6 +350,12 @@ public class MenuScreen implements Screen {
     return table;
   }
 
+  /**
+   * Makes the table and UI for the name input section of main menu.
+   *
+   * @param nextTable information regarding dimensions of this table
+   * @return window used to enter character name
+   */
   public Window makeNameInputTable(Table nextTable) {
     Window nameWindow = new Window("", game.skin);
     Table tutTable = new Table();
