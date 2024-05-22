@@ -222,7 +222,7 @@ public class EventManager {
       String[] topics = randomTopics(3);
       game.setDialogueBoxText("What do you want to chat about?");
       game.setDialogueBoxOptions(topics,
-          new String[]{"friends-" + topics[0], "friends-" + topics[1], "friendsrea-" + topics[2]});
+          new String[]{"friends-" + topics[0], "friends-" + topics[1], "friends-" + topics[2]});
     } else {
       // Say that the player chatted about this topic for 1-4 hours
       // RNG factor adds a slight difficulty (may consume too much energy to study)
@@ -423,13 +423,13 @@ public class EventManager {
     if (dayLastWalked < time.day) {
       walkedToday = false;
     }
-    game.setFadeout(true);
-    game.hideDialogueBox();
     int energyCost = activityEnergies.get("walk");
     // If the player is too tired to meet friends
     if (energyBar.getEnergy() < energyCost) {
       game.setDialogueBoxText("You are too tired to go on a walk right now!");
     } else {
+      game.setFadeout(true);
+      game.hideDialogueBox();
       RunnableAction setTextAction = new RunnableAction();
       setTextAction.setRunnable(new Runnable() {
         @Override
