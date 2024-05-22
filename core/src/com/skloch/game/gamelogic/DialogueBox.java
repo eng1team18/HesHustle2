@@ -23,15 +23,24 @@ public class DialogueBox {
   private float textCounter = 0;
   private boolean scrollingText = false;
 
-  // New code
+  // ASSESSMENT 2 CHANGES
   private final Player player;
+  // END OF CHANGES
 
-
+  /**
+   * Constructor for dialogue box class. Will take input text and create a dialogue box,
+   * handles text overflow, options, user interactions and locks player inputs
+   *
+   * @param skin a class containing the style of the dialogue box and assets
+   * @param player the player character, needed to read inputs and lock movement inputs
+   */
   public DialogueBox(Skin skin, Player player) {
     // Define some key values
     this.skin = skin;
-    // New code
+
+    // ASSESSMENT 2 CHANGES
     this.player = player;
+    // END OF CHANGES
 
     // Create the window for the dialogue box
     dialogueWindow = new Window("", skin);
@@ -73,6 +82,9 @@ public class DialogueBox {
     private String[] events;
     private Array<Label> optionPointers = new Array<Label>();
 
+    /**
+     * The constructor for class SelectBox, defining the box style and width.
+     */
     public SelectBox() {
       selectWindow = new Window("", skin);
       selectTable = new Table();
@@ -264,6 +276,11 @@ public class DialogueBox {
 
   }
 
+  /**
+   * A method to scroll text for scrollable text boxes.
+   *
+   * @param speed the speed at which the text scrolls
+   */
   public void scrollText(float speed) {
     if (scrollingText) {
       textCounter += speed;

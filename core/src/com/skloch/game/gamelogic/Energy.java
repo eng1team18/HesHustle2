@@ -6,12 +6,22 @@ import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
+/**
+ * A class handling everything needed to display the energy bar on the game's HUD,
+ * and calculate / track energy use.
+ */
 public class Energy extends Group {
 
   private Image energyBar;
   private float maxEnergyWidth;
   private int energy = 100;
 
+  /**
+   * The constructor for energy bar, initialising the sprite, size and total amount
+   * of initial energy.
+   *
+   * @param viewport the camera size
+   */
   public Energy(Viewport viewport) {
 
     Group energyGroup = new Group();
@@ -31,7 +41,8 @@ public class Energy extends Group {
     energyBar = new Image(energyTexture);
     energyBarOutline = new Image(outlineTexture);
 
-    energyBarOutline.setPosition((viewport.getWorldWidth() - 550) - energyBarOutline.getWidth() - 15, 15);
+    energyBarOutline.setPosition((viewport.getWorldWidth() - 550)
+            - energyBarOutline.getWidth() - 15, 15);
     energyBar.setPosition(energyBarOutline.getX() + 16, energyBarOutline.getY() + 16);
 
     maxEnergyWidth = energyBar.getWidth();

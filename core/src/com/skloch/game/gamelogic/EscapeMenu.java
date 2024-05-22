@@ -1,4 +1,5 @@
 package com.skloch.game.gamelogic;
+
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -12,8 +13,11 @@ import com.skloch.game.screens.GameScreen;
 import com.skloch.game.screens.MenuScreen;
 import com.skloch.game.screens.SettingsScreen;
 
+/**
+ * The class that manages the escape menu window that displays when pressing 'escape'.
+ * It pauses the game, and displays options to access different screens.
+ */
 public class EscapeMenu {
-
     private GameScreen gameScreen;
     private HustleGame game;
     public static Window escapeMenu;
@@ -26,13 +30,12 @@ public class EscapeMenu {
         this.gameScreen = gameScreen;
         this.uiStage = uiStage;
         setupEscapeMenu(uiStage);
-
-    }
+}
 
     /**
      * Configures everything needed to display the escape menu window when the player
      * presses 'escape'. Doesn't return anything as the variable escapeMenu is used to store the
-     * window takes a table already added to the uiStage
+     * window takes a table already added to the uiStage.
      *
      * @param interfaceStage The stage that the escapeMenu should be added to
      */
