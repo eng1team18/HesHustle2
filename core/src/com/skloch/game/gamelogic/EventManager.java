@@ -346,6 +346,7 @@ public class EventManager {
           + "energy!", time.getMeal(), energyCost));
       energyBar.decreaseEnergy(energyCost);
       score.incrementTotalScore(1, score.hungerScore(Math.round(time.daySeconds), timeLastEat));
+      timeLastEat = (int) time.getSeconds();
       score.incrementNumEating();
       time.passTime(60); // in seconds
     }
@@ -373,6 +374,7 @@ public class EventManager {
       secondsSlept = (((60 * 8) + 1440) - time.getSeconds());
     }
     int hoursSlept = Math.round(secondsSlept / 60f);
+    timeLastEat = 0;
 
     RunnableAction setTextAction = new RunnableAction();
     setTextAction.setRunnable(new Runnable() {
