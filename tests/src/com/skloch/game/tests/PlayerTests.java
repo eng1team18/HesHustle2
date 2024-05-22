@@ -4,7 +4,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.mock;
 
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector3;
@@ -110,7 +109,7 @@ public class PlayerTests {
     player.setFrozen(false);
     player.setPos(200, 0);
     player.move(30f);
-    assertEquals(player.getX(), (player.bounds.getWidth() - player.feet.getWidth()) -
-        (4 * player.scale), 1e-15);
+    assertEquals(player.getX(), (player.bounds.getWidth() - player.feet.getWidth())
+        - (4 * player.scale), 1e-15);
   }
 }

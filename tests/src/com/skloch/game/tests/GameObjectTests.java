@@ -1,15 +1,14 @@
 package com.skloch.game.tests;
 
-import com.badlogic.gdx.utils.viewport.FitViewport;
-import com.badlogic.gdx.utils.viewport.Viewport;
+import static org.junit.Assert.assertTrue;
+
 import com.skloch.game.gamelogic.GameObject;
-import com.skloch.game.screens.GameScreen;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import static org.junit.Assert.*;
-import static org.mockito.Mockito.mock;
-
+/**
+ * Runs unit tests on the core GameObject class.
+ */
 @RunWith(GdxTestRunner.class)
 public class GameObjectTests {
 

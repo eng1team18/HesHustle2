@@ -18,12 +18,17 @@ public class EnergyTests {
   Viewport viewport = mock(FitViewport.class);
   Energy energyBar = new Energy(viewport);
 
-
+  /**
+   * Tests that the energy value can be retrieved appropriately.
+   */
   @Test
   public void testGetEnergy() {
     assertEquals(energyBar.getEnergy(), 100);
   }
 
+  /**
+   * Tests that the energy value can be changed appropriately.
+   */
   @Test
   public void testSetEnergy() {
     energyBar.setEnergy(16);
@@ -33,6 +38,9 @@ public class EnergyTests {
     assertEquals(energyBar.getEnergy(), 100);
   }
 
+  /**
+   * Tests that the energy value can be decreased appropriately.
+   */
   @Test
   public void testDecreaseEnergy() {
     energyBar.setEnergy(80);

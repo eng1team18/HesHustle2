@@ -1,12 +1,15 @@
 package com.skloch.game.tests;
 
+import static org.junit.Assert.assertTrue;
+import static org.mockito.Mockito.mock;
+
 import com.skloch.game.gamelogic.NonPlayableCharacter;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import static org.junit.Assert.*;
-import static org.mockito.Mockito.mock;
-
+/**
+ * Runs unit tests on the core NonPlayableCharacter class.
+ */
 @RunWith(GdxTestRunner.class)
 public class NonPlayableCharacterTests {
 

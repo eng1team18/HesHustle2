@@ -1,15 +1,13 @@
 package com.skloch.game.tests;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+import static org.mockito.Mockito.mock;
 
-import com.badlogic.gdx.utils.viewport.FitViewport;
-import com.badlogic.gdx.utils.viewport.Viewport;
-import com.skloch.game.screens.GameScreen;
 import com.skloch.game.gamelogic.Time;
+import com.skloch.game.screens.GameScreen;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-
-import static org.junit.Assert.*;
-import static org.mockito.Mockito.mock;
 
 /**
  * Runs unit tests on the core Time class.
