@@ -6,12 +6,14 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import com.skloch.game.scoring.Score;
+import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
 /**
  * Runs unit tests on the core Score class.
  */
+@FixMethodOrder
 @RunWith(GdxTestRunner.class)
 public class ScoreTests {
 

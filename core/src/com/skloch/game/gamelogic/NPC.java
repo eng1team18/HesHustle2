@@ -20,7 +20,6 @@ public class NPC {
     private final Array<Animation<TextureRegion>> walkingAnimation;
     private final Array<Animation<TextureRegion>> idleAnimation;
     // Stats
-    public float speed = 300f;
     public int scale = 4;
     public boolean moving = false;
 

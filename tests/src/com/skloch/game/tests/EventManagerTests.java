@@ -146,11 +146,102 @@ public class EventManagerTests {
 
   /**
    * Tests that accommodation event correctly activates and updates the score, time and energy
-   * values.
+   * values if sleeping before midnight
    */
   @Test
-  public void testAccomEvent() {
-    time.daySeconds = (8 * 60);
+  public void testsSleepBeforeMidnight() {
+    score.resetScores();
+    time.daySeconds = (15 * 60);
     eventManager.event("accomodation");
+    // Not sure how to test this one due to the fade to black
   }
+
+  /**
+   * Tests that accommodation event correctly activates and updates the score, time and energy
+   * values if sleeping after midnight
+   */
+  @Test
+  public void testsSleepAfterMidnight() {
+    score.resetScores();
+    time.daySeconds = (7 * 60);
+    eventManager.event("accomodation");
+    // Not sure how to test this one due to the fade to black
+  }
+
+  /**
+   * Tests that the walk event correctly activates and updates the score, time and energy values.
+   */
+  @Test
+  public void testWalkEvent() {
+    energy.setEnergy(100);
+    time.daySeconds = (8 * 60);
+    score.resetScores();
+    eventManager.event("walk");
+    // Not sure how to test this one due to the fade to black
+  }
+
+  /**
+   * Tests that the walk event will not activate when the player doesn't have enough energy.
+   * This is tested by checking if the time moves.
+   */
+  @Test
+  public void testWalkNoEnergy() {
+    energy.setEnergy(0);
+    time.daySeconds = (8 * 60);
+    eventManager.event("walk");
+    assertEquals(time.getSeconds(), 8*60, 1e-15);
+  }
+
+  /**
+   * Tests that the ducks event will not activate when the player doesn't have enough energy.
+   * This is tested by checking if the time moves.
+   */
+  @Test
+  public void testDucksNoEnergy() {
+    energy.setEnergy(0);
+    time.daySeconds = (8 * 60);
+    eventManager.event("ducks");
+    assertEquals(time.getSeconds(), 8*60, 1e-15);
+  }
+
+  /**
+   * Tests that ducks event correctly activates and updates the score, time and energy values.
+   */
+  @Test
+  public void testDucksEvent() {
+    energy.setEnergy(100);
+    time.daySeconds = (8 * 60);
+    score.resetScores();
+    eventManager.event("ducks");
+    assertTrue(time.getSeconds() > 8*60);
+    assertTrue(energy.getEnergy() < 100);
+    assertTrue(score.getTotalScore() > 0);
+  }
+
+  /**
+   * Tests that the bar event will not activate when the player doesn't have enough energy.
+   * This is tested by checking if the time moves.
+   */
+  @Test
+  public void testBarNoEnergy() {
+    energy.setEnergy(0);
+    time.daySeconds = (8 * 60);
+    eventManager.event("bar");
+    assertEquals(time.getSeconds(), 8*60, 1e-15);
+  }
+
+  /**
+   * Tests that bar event correctly activates and updates the score, time and energy values.
+   */
+  @Test
+  public void testBarEvent() {
+    energy.setEnergy(100);
+    time.daySeconds = (8 * 60);
+    score.resetScores();
+    eventManager.event("bar");
+    assertTrue(time.getSeconds() > 8*60);
+    assertTrue(energy.getEnergy() < 100);
+    assertTrue(score.getTotalScore() > 0);
+  }
+
 }
