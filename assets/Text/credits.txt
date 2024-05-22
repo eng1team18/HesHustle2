@@ -17,6 +17,8 @@ Male Player sprite - https://cuddle-bug.itch.io/apocalypse
 Female Player sprite - E.Giles
 Buttons - https://paperhatlizard.itch.io/cryos-mini-gui?download
 Map sprites - https://kerrielake.itch.io/star-realms-cozy-forest-pack
+City map - https://guttykreum.itch.io/free-japanese-city-game-assets
+Bus asset - https://dai420.itch.io/public-bus
 
 Fonts:
 https://www.dafont.com/w95fa.font
