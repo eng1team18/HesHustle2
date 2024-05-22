@@ -10,6 +10,7 @@ import com.skloch.game.gamelogic.Player;
 import com.skloch.game.screens.GameScreen;
 
 /**
+ * NEW CLASS FOR ASSESSMENT 2 - Refactored from GameScreen
  * Takes input key and if it's belonging to an array of accepted keys,
  * performs a corresponding action.
  */

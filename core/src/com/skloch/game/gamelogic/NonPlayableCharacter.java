@@ -119,7 +119,7 @@ public class NonPlayableCharacter {
   }
 
   /**
-   * Returns current x coordinate of NPC
+   * Returns current x coordinate of NPC.
    *
    * @return The X coordinate of the NPC
    */
@@ -128,7 +128,7 @@ public class NonPlayableCharacter {
   }
 
   /**
-   * Returns current y coordinate of NPC
+   * Returns current y coordinate of NPC.
    *
    * @return The Y coordinate of the NPC
    */

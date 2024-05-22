@@ -17,6 +17,10 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.skloch.game.HustleGame;
 
+/* ASSESSMENT 2 CHANGES
+- Updated credits to reflect new team members/assets
+ */
+
 /**
  * A scene2d window consisting of a title, a scrollable widget and an exit button. Used to display
  * the assets used in the game.

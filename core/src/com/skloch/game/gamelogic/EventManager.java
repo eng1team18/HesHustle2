@@ -9,13 +9,16 @@ import com.skloch.game.screens.GameScreen;
 import java.util.HashMap;
 import java.util.concurrent.ThreadLocalRandom;
 
-// Changes
-//
-// - Time check for piazzaEvent, compSciEvent, ronCookeEvent was remove to support the
-//   no time ticking change
-// - Energy now use the Energy class instead of GameScreen
-// - Added Achievement Systems currently to the tree, study and duck events
-//
+/* ASSESSMENT 2 CHANGES
+- Time check for piazzaEvent, friendsEvent, ronCookeEvent was remove to support the
+  no time ticking change
+- Energy now use the Energy class instead of GameScreen
+- Added Achievement Systems currently to the tree, study and duck events
+- Implemented score class for scoring each activity
+- Added walk, bar, ducks, library, restaurant, busCampus and busTown events
+- Renamed piazzaEvent to friendsEvent, compSciEvent to ronCookeEvent and ronCookeEvent to
+  piazzaEvent
+*/
 
 /**
  * A class that maps Object's event strings to actual Java functions.
@@ -31,7 +34,6 @@ public class EventManager {
   Score score = Score.getInstance();
   private Energy energyBar;
 
-  // ASSESSMENT 2 CHANGES
   private boolean studiedToday = false;
   private boolean walkedToday = false;
   private boolean catchUpUsed = false;
@@ -42,7 +44,6 @@ public class EventManager {
   private int timeLastEat = 0;
   public boolean ronCookePrevious = false;
   public boolean ronCookeCurrent;
-  // END OF CHANGES
 
 
   /**
@@ -76,6 +77,7 @@ public class EventManager {
         "Go to sleep for the night?\nYour alarm is set for 8am.");
     objectInteractions.put("piazza", null); // Changes, dynamically returned in getObjectInteraction
     objectInteractions.put("tree", "Speak to the tree?");
+
     objectInteractions.put("walk", "Go on a walk in the woods?");
     objectInteractions.put("ducks", "Feed the ducks?");
     objectInteractions.put("busCampus", "Get the bus to town?");
@@ -126,6 +128,7 @@ public class EventManager {
       case "accomodation":
         accomEvent(args);
         break;
+
       case "walk":
         walk(args);
         break;
@@ -148,6 +151,7 @@ public class EventManager {
       case "bar":
         bar(args);
         break;
+
       case "exit":
         // Should do nothing and just close the dialogue menu
         game.hideDialogueBox();
@@ -173,7 +177,8 @@ public class EventManager {
   }
 
   /**
-   * A getter that returns whether an object has a custom specified interaction
+   * A getter that returns whether an object has a custom specified interaction.
+   *
    * @return True if the object has some custom text to display that isn't just "This is an x!".
    */
   public boolean hasCustomObjectInteraction(String key) {
@@ -263,14 +268,12 @@ public class EventManager {
    * @param args array of arguments related to the event. Usually only 1 argument of eventKey.
    */
   public void ronCookeEvent(String[] args) {
-    // ASSESSMENT 2 CHANGES
     if (dayLastStudied < time.day) {
       studiedToday = false;
     }
     if (time.day - dayLastStudied > 1) {
       missedDay = true;
     }
-    // END OF CHANGES
     int energyCost = activityEnergies.get("studying");
     // If the player is too tired for any studying:
     if (energyBar.getEnergy() < energyCost) {
@@ -283,7 +286,6 @@ public class EventManager {
         game.setDialogueBoxText("You don't have the energy to study for this long!");
       } else if (!studiedToday) {
 
-        // ASSESSMENT 2 CHANGES
         // If they do have the energy to study and haven't studied today
         studiedToday = true;
         dayLastStudied = time.day;
@@ -332,7 +334,6 @@ public class EventManager {
           score.incrementTotalScore(5, 100);
         }
         ;
-        // END OF CHANGES
 
       } else {
         // This should catch the cases where a user tries to study but either already
@@ -413,8 +414,9 @@ public class EventManager {
 
   /**
    * NEW METHOD FOR ASSESSMENT 2
-   * Event for the walking trail recreational activity. If enough energy, will fadeout screen to black
-   * and change time/energy/score accordingly.
+   * Event for the walking trail recreational activity. If enough energy, will fadeout screen to
+   * black and change time/energy/score accordingly.
+   *
    * @param args array of arguments related to the event. Usually only 1 argument of eventKey.
    */
   public void walk(String[] args) {

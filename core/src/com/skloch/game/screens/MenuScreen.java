@@ -23,16 +23,15 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import com.skloch.game.HustleGame;
 import com.skloch.game.gamelogic.Time;
 
-// Changes
-//
-// - Added a new nameInputTable for a new Screen that ask for the username for the Leaderboard
-// - Leaderboard button added along with a listener component
-// - Line 316/326: GameScreen() also sends the playerName
-// - Line 74: tutorialWindow redirect to nameInputTable instead and avatarSelectTable are shown
-//   afterward
-// - Moved Continue button inside of tutorial into the scroll bar to force users to read
-// - Added Controls to tutorial
-//
+/* ASSESSMENT 2 CHANGES
+- Added a new nameInputTable for a new Screen that ask for the username for the Leaderboard
+- Leaderboard button added along with a listener component
+- GameScreen() also sends the playerName
+- tutorialWindow redirect to nameInputTable instead and avatarSelectTable are shown
+  afterward
+- Moved Continue button inside of tutorial into the scroll bar to force users to read
+- Added Controls to tutorial
+*/
 
 /**
  * A screen to display the game menu to the player has the buttons "Start", "Settings", "Credits",

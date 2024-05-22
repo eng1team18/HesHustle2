@@ -9,11 +9,11 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Array;
 
-// Changes
-//
-// - Added running by implementing, runningSpeed, runningAnimation, new keybind checks for Shift
-//   key, and the new isRunning() function
-//
+/* ASSESSMENT 2 CHANGES
+- Added running by implementing, runningSpeed, runningAnimation, new key-bind checks for Shift
+  key, and the new isRunning() function
+- Refactored movement function from GameScreen into this class
+*/
 
 /**
  * A class handling everything needed to control and draw a player, including animation, movement
@@ -344,7 +344,7 @@ public class Player {
   }
 
   /**
-   * Returns the current x coordinate of the player
+   * Returns the current x coordinate of the player.
    *
    * @return The X coordinate of the player
    */
@@ -353,7 +353,7 @@ public class Player {
   }
 
   /**
-   * Returns the current y coordinate of the player
+   * Returns the current y coordinate of the player.
    *
    * @return The Y coordinate of the player
    */
@@ -362,7 +362,7 @@ public class Player {
   }
 
   /**
-   * Returns the current X coordinate of the centre of the player's sprite rectangle
+   * Returns the current X coordinate of the centre of the player's sprite rectangle.
    *
    * @return The X coordinate of the centre point of the player's sprite rectangle
    */
@@ -371,7 +371,7 @@ public class Player {
   }
 
   /**
-   * Returns the current Y coordinate of the centre of the player's sprite rectangle
+   * Returns the current Y coordinate of the centre of the player's sprite rectangle.
    *
    * @return The Y coordinate of the centre point of the player's sprite rectangle
    */
@@ -380,6 +380,8 @@ public class Player {
   }
 
   /**
+   * Returns the Vector3 representation of the bottom left corner of the player's sprite hitbox.
+   *
    * @return The Vector3 representation of the bottom left corner of the player's sprite hitbox
    */
   public Vector3 getPosAsVec3() {
@@ -468,7 +470,7 @@ public class Player {
   }
 
   /**
-   * Returns if the player is currently in a frozen state or not
+   * Returns if the player is currently in a frozen state or not.
    *
    * @return true if the player is frozen
    */

@@ -15,11 +15,10 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.skloch.game.screens.MenuScreen;
 import com.skloch.game.utility.SoundManager;
 
-// Changes
-//
-// - Line 67: Added a new Skin for the Text Field component use for TextField when player select a
-//   name
-//
+/* ASSESSMENT 2 CHANGES
+- Line 67: Added a new Skin for the Text Field component use for TextField when player select a
+  name
+*/
 
 /**
  * A class that is initially created by DesktopLauncher, loads consistent files at the start of the

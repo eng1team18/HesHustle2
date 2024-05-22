@@ -5,6 +5,7 @@ import com.skloch.game.screens.GameOverScreen;
 import com.skloch.game.screens.LeaderboardScreen;
 
 /**
+ * NEW CLASS FOR ASSESSMENT 2
  * Creates the screen for leaderboard seen at the end of the game.
  */
 public class LeaderboardScreenGame extends LeaderboardScreen {

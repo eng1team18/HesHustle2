@@ -60,7 +60,7 @@ public class Achievement {
   }
 
   /**
-   * Reset all achievements to not achieved
+   * Reset all achievements to not achieved.
    */
   public void resetAllAchievements() {
     for (AchievementEntry achievement : achievements.values()) {
