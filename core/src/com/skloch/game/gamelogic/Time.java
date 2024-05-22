@@ -80,7 +80,9 @@ public class Time {
     }
 
     if (day >= 8) {
-      game.gameOver();
+      if (daySeconds >= 480) {
+        game.gameOver();
+      }
     }
   }
 
