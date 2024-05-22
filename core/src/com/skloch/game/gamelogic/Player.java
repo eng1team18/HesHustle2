@@ -9,7 +9,7 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Array;
 
-/* Changes
+/* ASSESSMENT 2 CHANGES
 - Added running by implementing, runningSpeed, runningAnimation, new key-bind checks for Shift
   key, and the new isRunning() function
 - Refactored movement function from GameScreen into this class

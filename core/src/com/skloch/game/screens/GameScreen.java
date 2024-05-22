@@ -37,7 +37,7 @@ import com.skloch.game.scoring.Score;
 import com.skloch.game.utility.CustomInputAdapter;
 import java.util.Arrays;
 
-/* Changes
+/* ASSESSMENT 2 CHANGES
 - GameScreen buttons height and padding has been modified to support the new
   Leaderboard button
 - GameScreen now also takes String userInput, which stores the player name for

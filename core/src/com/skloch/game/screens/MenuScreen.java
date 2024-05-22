@@ -23,7 +23,7 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import com.skloch.game.HustleGame;
 import com.skloch.game.gamelogic.Time;
 
-/* Changes
+/* ASSESSMENT 2 CHANGES
 - Added a new nameInputTable for a new Screen that ask for the username for the Leaderboard
 - Leaderboard button added along with a listener component
 - GameScreen() also sends the playerName

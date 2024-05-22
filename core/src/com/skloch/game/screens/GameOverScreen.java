@@ -18,7 +18,7 @@ import com.skloch.game.HustleGame;
 import com.skloch.game.scoring.Achievement;
 import com.skloch.game.scoring.Score;
 
-/* Changes
+/* ASSESSMENT 2 CHANGES
 - GameOverScreen no longer takes the hoursStudied, hoursRecreational, hoursSlept with Score
   as new replacement
 - GameOverScreen buttons height and padding has been modified to support the new
