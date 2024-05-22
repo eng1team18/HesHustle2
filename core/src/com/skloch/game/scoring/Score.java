@@ -57,7 +57,7 @@ public class Score {
   public int hungerScore(int timeOfDay, int timeLastEat) {
     double x = timeOfDay - timeLastEat;
     //Multiplier, change to shorten wait time
-    int multiplier = 800;
+    int multiplier = 3200;
     x = x / multiplier;
     x = (Math.exp(x) / (1 + Math.exp(x)) - 0.5);
     //Double max score awarded for a meal
