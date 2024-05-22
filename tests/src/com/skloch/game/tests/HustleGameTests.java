@@ -1,12 +1,6 @@
 package com.skloch.game.tests;
 
-import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-
-import static org.junit.Assert.assertThat;
-import static org.mockito.Mockito.mock;
 
 import com.skloch.game.HustleGame;
 import org.junit.Test;

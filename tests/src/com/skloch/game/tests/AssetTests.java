@@ -7,7 +7,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 /**
- * Runs tests to ensure no assets are missing.
+ * Runs tests to ensure no assets are missing in the build.
  */
 @RunWith(GdxTestRunner.class)
 public class AssetTests {

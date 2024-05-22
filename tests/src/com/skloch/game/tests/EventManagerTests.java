@@ -7,13 +7,13 @@ import static org.mockito.Mockito.mock;
 
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import com.skloch.game.scoring.Achievement;
 import com.skloch.game.gamelogic.Energy;
 import com.skloch.game.gamelogic.EventManager;
-import com.skloch.game.screens.GameScreen;
 import com.skloch.game.gamelogic.Player;
-import com.skloch.game.scoring.Score;
 import com.skloch.game.gamelogic.Time;
+import com.skloch.game.scoring.Achievement;
+import com.skloch.game.scoring.Score;
+import com.skloch.game.screens.GameScreen;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -146,42 +146,6 @@ public class EventManagerTests {
   }
 
   /**
-   * Tests that accommodation event correctly activates and updates the score, time and energy
-   * values if sleeping before midnight
-   */
-  @Test
-  public void testsSleepBeforeMidnight() {
-    score.resetScores();
-    time.daySeconds = (15 * 60);
-    eventManager.event("accomodation");
-    // Not sure how to test this one due to the fade to black
-  }
-
-  /**
-   * Tests that accommodation event correctly activates and updates the score, time and energy
-   * values if sleeping after midnight
-   */
-  @Test
-  public void testsSleepAfterMidnight() {
-    score.resetScores();
-    time.daySeconds = (7 * 60);
-    eventManager.event("accomodation");
-    // Not sure how to test this one due to the fade to black
-  }
-
-  /**
-   * Tests that the walk event correctly activates and updates the score, time and energy values.
-   */
-  @Test
-  public void testWalkEvent() {
-    energy.setEnergy(100);
-    time.daySeconds = (8 * 60);
-    score.resetScores();
-    eventManager.event("walk");
-    // Not sure how to test this one due to the fade to black
-  }
-
-  /**
    * Tests that the walk event will not activate when the player doesn't have enough energy. This is
    * tested by checking if the time moves.
    */
@@ -244,5 +208,4 @@ public class EventManagerTests {
     assertTrue(energy.getEnergy() < 100);
     assertTrue(score.getTotalScore() > 0);
   }
-
 }

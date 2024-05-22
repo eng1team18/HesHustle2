@@ -18,11 +18,17 @@ public class AchievementTests {
 
   Achievement achievements = Achievement.getInstance();
 
+  /**
+   * Tests that a non-existent achievement will be not given, without raising an error.
+   */
   @Test
   public void testCheckNonexistentAchievement() {
     assertFalse(achievements.checkAchievement(99979));
   }
 
+  /**
+   * Tests that valid achievements will be given correctly.
+   */
   @Test
   public void testGiveAchievement() {
     // First ensure that achievement 1 being unlocked is false by default.
@@ -38,6 +44,9 @@ public class AchievementTests {
     achievements.giveAchievement(99923);
   }
 
+  /**
+   * Tests that all achievements can be reset to false in one method.
+   */
   @Test
   public void testResetAllAchievements() {
     achievements.giveAchievement(1);
@@ -50,6 +59,9 @@ public class AchievementTests {
     }
   }
 
+  /**
+   * Tests that a string of all the user's achievements can be obtained correctly.
+   */
   @Test
   public void testGetUserAchievements() {
     achievements.resetAllAchievements();
@@ -58,12 +70,19 @@ public class AchievementTests {
         "- Tree? +100: Talk to the mysterious tree.\n");
   }
 
+  /**
+   * Tests that the bookworm achievement won't be given if the number of times is too low.
+   */
   @Test
   public void testBookwormAchievementNotEnough() {
     achievements.resetAllAchievements();
     assertFalse(achievements.bookwormAchievement(3));
   }
 
+  /**
+   * Tests that the bookworm achievement will be given correctly if there has been enough studying,
+   * and it hasn't been obtained before.
+   */
   @Test
   public void testGiveBookwormAchievement() {
     achievements.resetAllAchievements();
@@ -71,6 +90,9 @@ public class AchievementTests {
     assertTrue(achievements.checkAchievement(2));
   }
 
+  /**
+   * Tests that the bookworm achievement will stay given if already obtained.
+   */
   @Test
   public void testBookwormAchievementAlreadyGiven() {
     achievements.resetAllAchievements();
@@ -78,12 +100,19 @@ public class AchievementTests {
     assertFalse(achievements.bookwormAchievement(5));
   }
 
+  /**
+   * Tests that the duckduckgo achievement won't be given if the number of times is too low.
+   */
   @Test
   public void testDuckDuckGoAchievementNotEnough() {
     achievements.resetAllAchievements();
     assertFalse(achievements.duckDuckGoAchievement(5));
   }
 
+  /**
+   * Tests that the duckduckgo achievement will be given correctly if there has been enough
+   * studying, and it hasn't been obtained before.
+   */
   @Test
   public void testGiveDuckDuckGoAchievement() {
     achievements.resetAllAchievements();
@@ -91,6 +120,9 @@ public class AchievementTests {
     assertTrue(achievements.checkAchievement(3));
   }
 
+  /**
+   * Tests that the duckduckgo achievement will stay given if already obtained.
+   */
   @Test
   public void testDuckDuckGoAchievementAlreadyGiven() {
     achievements.resetAllAchievements();
@@ -98,12 +130,19 @@ public class AchievementTests {
     assertFalse(achievements.duckDuckGoAchievement(7));
   }
 
+  /**
+   * Tests that the jogger achievement won't be given if the number of times is too low.
+   */
   @Test
   public void testJoggerAchievementNotEnough() {
     achievements.resetAllAchievements();
     assertFalse(achievements.joggerAchievement(6));
   }
 
+  /**
+   * Tests that the jogger achievement will be given correctly if there has been enough
+   * studying, and it hasn't been obtained before.
+   */
   @Test
   public void testGiveJoggerAchievement() {
     achievements.resetAllAchievements();
@@ -111,6 +150,9 @@ public class AchievementTests {
     assertTrue(achievements.checkAchievement(4));
   }
 
+  /**
+   * Tests that the jogger achievement will stay given if already obtained.
+   */
   @Test
   public void testJoggerAchievementAlreadyGiven() {
     achievements.resetAllAchievements();
