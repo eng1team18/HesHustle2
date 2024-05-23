@@ -9,6 +9,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.Window;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.skloch.game.HustleGame;
+import com.skloch.game.scoring.Achievement;
+import com.skloch.game.screens.GameOverScreen;
 import com.skloch.game.screens.GameScreen;
 import com.skloch.game.screens.MenuScreen;
 import com.skloch.game.screens.SettingsScreen;
@@ -111,6 +113,8 @@ public class EscapeMenu {
           game.soundManager.playButton();
           game.soundManager.stopOverworldMusic();
           gameScreen.dispose();
+          gameScreen.score.resetScores();
+          Achievement.getInstance().resetAllAchievements();
           game.setScreen(new MenuScreen(game));
         }
       }

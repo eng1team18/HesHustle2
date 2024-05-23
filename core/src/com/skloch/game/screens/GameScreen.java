@@ -81,7 +81,7 @@ public class GameScreen implements Screen {
   public NonPlayableCharacter[] npcs = new NonPlayableCharacter[0];
 
   private Leaderboard leaderboard;
-  private final Score score;
+  public final Score score;
 
   private final Time time;
 
